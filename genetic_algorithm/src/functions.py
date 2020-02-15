@@ -3,6 +3,7 @@ import random
 import sys
 
 # TODO TEST: Change replacement rate with individual age and kill individuals older than x
+# TODO: Modify Selection behaviour
 # ADD UNIT TESTS
 
 ############# CONSTANTS #############
@@ -113,7 +114,7 @@ def initial_population(num_vars, set_vars, pop_size=1000, ptype="bits"):
 
 ############# FITNESS FUNCTIONS #############
 
-def maxsat_fitness(var_arr):
+def maxsat_fitness(clauses, var_arr):
 	# Since CNF formulas are of the shape (x1 OR x2 OR x3) AND (x3 OR -x2 OR -x1)
 	# As soon as we find any True value inside a clause that clause is satisfied
 	t_clauses = 0
@@ -129,7 +130,7 @@ def maxsat_fitness(var_arr):
 					break
 	return t_clauses
 
-def float_fitness(var_arr):
+def float_fitness(clauses, var_arr):
 	t_res = 1
 	for clause in clauses:
 		tmp_r = 0
@@ -145,7 +146,7 @@ def float_fitness(var_arr):
 		t_res *= tmp_r
 	return t_res
 
-def maxsat_solution_found(fitness):
+def maxsat_solution_found(clauses, fitness):
 	if fitness >= len(clauses): return True
 	return False
 
@@ -315,99 +316,3 @@ def flip_ga(population):
 					indiv = t_indiv
 		new_pop.append(indiv)
 	return new_pop	
-
-
-############# PARAMETERS #############
-max_iters = 1000
-pop_size = 500
-replacement_rate = 0.5
-mutation_rate = 0.1
-crossover_window_len = 0.4
-
-
-############# AUXILIARY VARIABLES #############
-cur_iters = 0
-sol_found = False
-
-
-############# PROGRAM #############
-
-num_vars, clauses = read_problem('./data/uf20-91/uf20-02.cnf')
-#num_vars, clauses = read_problem('./data/simple_3sat_problem_u.cnf')
-set_vars = [infinite]*num_vars
-
-print (clauses)
-print(len(clauses))
-
-# CNF Simplification
-sol_found, value = trivial_case(clauses)
-if sol_found:
-	print ("Solution found!")
-	print ("Assign {} to all variables".format(value))
-	sys.exit()
-
-clauses, set_vars = remove_pure_vars(clauses)
-clauses, set_vars = remove_unit_vars(clauses)
-
-# Genetic Algorithm Execution
-population = initial_population(num_vars, pop_size)
-
-
-solution = []
-while(not sol_found and cur_iters<max_iters):
-	pop_fitness = []
-	max_fitness = 0
-	for pop in population:
-		fitness = maxsat_fitness(pop)
-		if fitness >= max_fitness: max_fitness=fitness
-		pop_fitness.append([pop, fitness])
-		#print (pop, fitness)
-		if maxsat_solution_found(fitness): 
-			print(fitness, " Solution found! > ", pop)
-			sol_found=True
-			solution = pop
-			break
-
-	#print(len(pop_fitness))
-	# CHANGE when roulette_selection changes
-	parents = roulette_selection(pop_fitness, replacement_rate)
-	#print(len(pop_fitness))
-	children = [] 
-	while(len(parents)>=2):
-		p1 = np.random.randint(0, len(parents))
-		parent_1 = parents.pop(p1)
-		p2 = np.random.randint(0, len(parents))
-		parent_2 = parents.pop(p2)
-		children += single_point_crossover(parent_1, parent_2)
-		
-	sorted_pop = sorted(pop_fitness, key=lambda x: x[1], reverse=True)
-
-	#print(len(sorted_pop))
-
-	top_pop = [x for x,y in sorted_pop[:int(replacement_rate*len(sorted_pop))]]
-	new_pop = children + top_pop
-
-	#print (len(children), len(top_pop), len(new_pop))
-	#print (new_pop[:5])
-
-	#print(new_pop[:5])
-
-	population = single_bit_flip(new_pop, mutation_rate)
-
-	#print(population[:5])
-
-	if cur_iters % 1 == 0:
-		print ("Generation {}, Population {}, Max Fitness {}".format(cur_iters, len(population), max_fitness))
-	cur_iters += 1
-
-if len(solution)>0:
-	print("{} - Raw Solution: {}".format(float_fitness(solution), solution))
-	psol = []
-	for num in solution:
-		#if max(solution) - num > num - min(solution):
-		#	psol.append(0)
-		#else:
-		#	psol.append(1)
-		if num>0.5: psol.append(1)
-		else: psol.append(0)
-	print("{} - Solution: {}".format(maxsat_fitness(psol), psol))
