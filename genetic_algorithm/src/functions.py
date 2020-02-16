@@ -59,17 +59,20 @@ def remove_unit_vars(clauses, set_vars):
 		if len(clause)==1:
 			# Clause found
 			unit_clauses += 1
-			new_clauses = clauses[:i]+clauses[i+1:]
+			#new_clauses = clauses[:i]+clauses[i+1:]
+			new_clauses.pop(i)
 			# Set Variable
 			if clause[0]>=0: set_vars[clause[0]-1] = 1
 			else: set_vars[abs(clause[0])-1] = zero
 			for j, new_clause in enumerate(new_clauses):
-				if 0-clause[0] in new_clauses:
+				if 0-clause[0] in new_clause:
 					# Remove negative value from clauses since its False
 					new_clauses[j].remove(0-clause[0])
-				#elif clause[0] in new_clauses:
-					# Set value in clause to True
-				#	new_clauses[j][new_clauses[j].index(clause[0])] = True
+			for new_clause in clauses:
+				if clause[0] in new_clause:
+					if new_clause in new_clauses:
+						# Remove clause since its solved
+						new_clauses.remove(new_clause)
 			break
 	if unit_clauses==0:
 		return new_clauses, set_vars
@@ -92,9 +95,11 @@ def remove_pure_vars(clauses, set_vars):
 			# Any value will do, since the variable doesn't appear in the formulas
 			set_vars[i] = 0
 		if set_vars[i] != infinite:
-			for i, clause in enumerate(new_clauses):
-				if i+1 in clause: new_clauses[i].remove(i+1)
-				if -(i+1) in clause: new_clauses[i].remove(-(i+1))
+			for clause in clauses:
+				if i+1 in clause:
+					new_clauses.remove(clause)
+				elif -(i+1) in clause: 
+					new_clauses.remove(clause)
 	return new_clauses, set_vars
 
 ############# GENETIC ALGORITHM #############
