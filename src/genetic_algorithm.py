@@ -24,7 +24,6 @@ import numpy as np
 #	flip_ga(pop)
 
 ############# CONSTANTS #############
-zero = 0.000001
 infinite = 2**31
 
 ############# PARAMETERS #############

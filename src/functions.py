@@ -2,12 +2,10 @@ import numpy as np
 import random
 import sys
 
-# TODO TEST: Change replacement rate with individual age and kill individuals older than x
+# TODO MAYBE: Change replacement rate with individual age and kill individuals older than x
 # TODO: Modify Selection behaviour
-# ADD UNIT TESTS
-
+# TODO: Add Selection methods (rank, tournament, boltzmann)
 ############# CONSTANTS #############
-zero = 0.000001
 infinite = 2**31
 
 ############# FUNCTIONS #############
@@ -52,7 +50,12 @@ def trivial_case(clauses):
 	return (False, -1)
 
 def remove_unit_vars(clauses, set_vars):
-	# Find clauses with a single variable and set it
+	"""
+		remove_unit_vars
+		
+		Finds clauses with a single variable in them
+		and sets the variable so the clause equals True
+	"""
 	unit_clauses = 0
 	new_clauses = clauses[:]
 	for i, clause in enumerate(clauses):
@@ -63,7 +66,7 @@ def remove_unit_vars(clauses, set_vars):
 			new_clauses.pop(i)
 			# Set Variable
 			if clause[0]>=0: set_vars[clause[0]-1] = 1
-			else: set_vars[abs(clause[0])-1] = zero
+			else: set_vars[abs(clause[0])-1] = 0
 			for j, new_clause in enumerate(new_clauses):
 				if 0-clause[0] in new_clause:
 					# Remove negative value from clauses since its False
@@ -80,7 +83,14 @@ def remove_unit_vars(clauses, set_vars):
 		return remove_unit_vars(new_clauses, set_vars)
 
 def remove_pure_vars(clauses, set_vars):
-	# Remove pure variables, (all appearances are negated = False, all appearances positive = True)
+	"""
+		remove_pure_vars
+		
+		For every variable it searches through all the clauses,
+		if the variable only appears in negated form, it sets it to False
+		if the variable only appears in "positive" form, it sets it to True
+		if the variable doesn't appear in the clauses, any value will do
+	"""
 	new_clauses = clauses[:]
 	for i in range(len(set_vars)):
 		pos_var, neg_var = 0, 0
@@ -112,8 +122,6 @@ def initial_population(num_vars, set_vars, pop_size=1000, ptype="bits"):
 		for j, var in enumerate(set_vars):
 			if var != infinite:
 				rpop[j] = var
-		for i,x in enumerate(rpop):
-			if x == 0: rpop[i] = zero
 		population.append(rpop)
 	return population
 
@@ -130,7 +138,7 @@ def maxsat_fitness(clauses, var_arr):
 					t_clauses += 1
 					break
 			elif num <= 0:
-				if var_arr[abs(num)-1]==zero:
+				if var_arr[abs(num)-1]==0:
 					t_clauses += 1
 					break
 	return t_clauses
@@ -141,10 +149,10 @@ def float_fitness(clauses, var_arr):
 		tmp_r = 0
 		for num in clause:
 			if num<0:
-				if var_arr[abs(num)-1] == zero:
+				if var_arr[abs(num)-1] == 0:
 					tmp_r += 1
 				else:
-					tmp_r += zero
+					tmp_r += 0
 			else:
 				tmp_r += var_arr[num-1]
 		#if tmp_r >= 1: tmp_r = 1
@@ -196,7 +204,7 @@ def two_point_crossover(parent1, parent2):
 		]
 	return children
 
-def sliding_window_crossover(parent1, parent2, crossover_window_len):
+def sliding_window_crossover(clauses, parent1, parent2, crossover_window_len=0.4):
 	window_len = int(crossover_window_len*len(parent1))
 	max_fitness, max_i = (0,0), (0,0)
 	bad_children = [[],[]]
@@ -204,7 +212,7 @@ def sliding_window_crossover(parent1, parent2, crossover_window_len):
 		bad_children[0].append(np.concatenate((parent1[:i],parent2[i:i+window_len],parent1[i+window_len:])))
 		bad_children[1].append(np.concatenate((parent2[:i],parent1[i:i+window_len],parent2[i+window_len:])))
 		for t in range(2):
-			fitness = maxsat_fitness(bad_children[t][i])
+			fitness = maxsat_fitness(clauses, bad_children[t][i])
 			if fitness >=max_fitness[0]:
 				max_fitness[t] = fitness
 				max_i[t] = i
@@ -239,7 +247,7 @@ def single_bit_flip(population, mutation_rate):
 		rmut = random.random()
 		if rmut <= mutation_rate:
 			ind = np.random.randint(len(indiv))
-			if indiv[ind] == 1: indiv[ind] = zero
+			if indiv[ind] == 1: indiv[ind] = 0
 			else: indiv[ind] = 1
 		new_pop.append(indiv)
 	return new_pop
@@ -253,69 +261,74 @@ def multiple_bit_flip(population, mutation_rate):
 			num_bits = np.random.randint(len(indiv))
 			for x in range(num_bits):
 				ind = np.random.randint(len(indiv))
-				if indiv[ind] == 1: indiv[ind] = zero
+				if indiv[ind] == 1: indiv[ind] = 0
 				else: indiv[ind] = 1
 		new_pop.append(indiv)
 	return new_pop
 
-def single_bit_greedy(population):
+def single_bit_greedy(clauses, population):
 	new_pop = []
 	for i, pop in enumerate(population):
-		ind_fitness = maxsat_fitness(pop)
-		for j in range(len(indiv)):
+		ind_fitness = maxsat_fitness(clauses, pop)
+		for j in range(len(pop)):
 			t_indiv = pop
-			if pop[j]==1: t_indiv[j]=zero
-			elif pop[j]==zero: t_indiv[j]=1
-			if maxsat_fitness(t_indiv)>ind_fitness:
+			if t_indiv[j]==1: t_indiv[j]=0
+			elif t_indiv[j]==0: t_indiv[j]=1
+			if maxsat_fitness(clauses, t_indiv)>ind_fitness:
 				break
 		new_pop.append(t_indiv)
 	return new_pop
 
-def single_bit_max_greedy(population):
+def single_bit_max_greedy(clauses, population):
 	new_pop = []
 	for i, pop in enumerate(population):
-		ind_fitness = maxsat_fitness(pop)
+		ind_fitness = maxsat_fitness(clauses, pop)
 		max_ind, max_fit = 0, 0
-		for j in range(len(indiv)):
-			t_indiv = pop
-			if pop[j]==1: t_indiv[j]=zero
-			elif pop[j]==zero: t_indiv[j]=1
-			tfit = maxsat_fitness(t_indiv)
+		for j in range(len(pop)):
+			t_indiv = pop[:]
+			if t_indiv[j]==1: t_indiv[j]=0
+			elif t_indiv[j]==0: t_indiv[j]=1
+			tfit = maxsat_fitness(clauses, t_indiv)
 			if tfit>ind_fitness and tfit>=max_fit:
 				max_ind = t_indiv
 				max_fit = tfit
-		new_pop.append(max_ind)
+		if max_fit>0:
+			new_pop.append(max_ind)
+		else:
+			new_pop.append(pop)
 	return new_pop
 
-def multi_bit_greedy(population):
+def multiple_bit_greedy(clauses, population):
 	new_pop = []
 	for i, pop in enumerate(population):
-		ind_fitness = maxsat_fitness(pop)
-		indiv = pop
+		ind_fitness = maxsat_fitness(clauses, pop)
+		indiv = pop[:]
 		for j in range(len(indiv)):
+			t_indiv = indiv[:]
 			new_bit = 1
-			if indiv[j]==1: new_bit=zero
-			t_indiv = np.concatenate((indiv[:j],[new_bit],indiv[j+1:]))
-			t_fitness = maxsat_fitness(t_indiv)
+			if indiv[j]==1: new_bit=0
+			t_indiv[j] = new_bit
+			t_fitness = maxsat_fitness(clauses, t_indiv)
 			if t_fitness > ind_fitness:
 				ind_fitness = t_fitness
 				indiv = t_indiv
 		new_pop.append(indiv)
 	return new_pop	
 
-def flip_ga(population):
+def flip_ga(clauses, population):
 	new_pop = []
 	for i, pop in enumerate(population):
-		indiv = pop
-		ind_fitness = maxsat_fitness(indiv)
+		indiv = pop[:]
+		ind_fitness = maxsat_fitness(clauses, indiv)
 		prev_fitness = ind_fitness-1
 		while(prev_fitness<ind_fitness):
 			prev_fitness = ind_fitness
 			for j in range(len(indiv)):
+				t_indiv = indiv[:]
 				new_bit = 1
-				if indiv[j]==1: new_bit=zero
-				t_indiv = np.concatenate((indiv[:j],[new_bit],indiv[j+1:]))
-				t_fitness = maxsat_fitness(t_indiv)
+				if t_indiv[j]==1: new_bit=0
+				t_indiv[j] = new_bit
+				t_fitness = maxsat_fitness(clauses, t_indiv)
 				if t_fitness > ind_fitness:
 					ind_fitness = t_fitness
 					indiv = t_indiv
