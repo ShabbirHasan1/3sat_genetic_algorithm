@@ -23,6 +23,9 @@ import numpy as np
 #	multi_bit_greedy(pop)
 #	flip_ga(pop)
 
+# TODO: Define Genetic Algorithm class with logging and variable parameters
+# TODO: Add function to test all different combinations of hyperparameters (like tensorflow hparams)
+
 ############# CONSTANTS #############
 infinite = 2**31
 

@@ -5,6 +5,9 @@ import sys
 # TODO MAYBE: Change replacement rate with individual age and kill individuals older than x
 # TODO: Modify Selection behaviour
 # TODO: Add Selection methods (rank, tournament, boltzmann)
+# TODO: Change mutation and crossover functions to prevent set variables from changing
+# TODO: Modify everything to enable quality and computational costs measurements
+# TODO: Research and add speciation
 ############# CONSTANTS #############
 infinite = 2**31
 
@@ -165,13 +168,10 @@ def maxsat_solution_found(clauses, fitness):
 
 ############# SELECTION FUNCTIONS #############
 
-# Modify roulette so it only returns one parent
-def roulette_selection(population, replacement_rate):
-	# TODO: Change behaviour so that it doesn't remove parents from the selection pool
-	# maybe do in separate function and test both
+def roulette_selection_with_elimination(population, num_parents):
 	tmp_pop = population[:]
 	parents = []
-	for i in range(int(len(population)*replacement_rate)):
+	for _ in range(num_parents):
 		if len(tmp_pop)==0: tmp_pop = population
 		total_fitness = sum([y for x,y in tmp_pop])
 		probabilities = [y/total_fitness for x,y in tmp_pop]
@@ -184,6 +184,103 @@ def roulette_selection(population, replacement_rate):
 				break
 			sprob += prob
 	return parents 
+
+def roulette_selection(population, num_parents):
+	parents = []
+	total_fitness = sum([y for x,y in population])
+	probabilities = [y/total_fitness for x,y in population]	
+	for _ in range(num_parents):
+		rnum = random.random()
+		sprob = 0
+		for i, prob in enumerate(probabilities):
+			if rnum >= sprob and rnum <= sprob+prob:
+				parents.append(population[i][0])
+				break
+			sprob += prob
+	return parents 
+
+def rank_selection(population, num_parents):
+	parents = []
+	sorted_pop = sorted(population, key=lambda x: x[1])
+	pop_rank = [[x, i+1] for i,x,y in enumerate(sorted_pop)]
+	total_rank = int((pop_rank[-1][1]*(pop_rank[-1][1]-1))/2)
+	probabilities = [y/total_rank for x,y in pop_rank]
+	for _ in range(num_parents):
+		rnum = random.random()
+		sprob = 0
+		for i, prob in enumerate(probabilities):
+			if rnum >= sprob and rnum <= sprob+prob:
+				parents.append(pop_rank[i][0])
+				break
+			sprob += prob
+	return parents
+
+
+def tournament_selection(population, num_parents, tournament_size):
+	parents = []
+	for i in range(num_parents):
+		twinner, tfitness = 0, 0
+		for i in range(tournament_size):
+			rnum = np.random.randint(len(population))
+			if population[rnum][1] > tfitness:
+				twinner = population[rnum][0]
+				tfitness = population[rnum][1]
+		parents.append(twinner)
+	return parents
+
+
+def boltzmann_tournament_selection(population, num_parents, threshold, control_param):
+	parents=[]
+	alt_flag = 0
+	for i in range(num_parents):
+		if alt_flag: alt_flag = 0
+		else: alt_flag = 1
+		# Choose individual uniformly at random
+		indiv_one = population[int(np.random.uniform(0, len(population)))]
+		# Choose second individual
+		indiv_two = population[int(np.random.uniform(0, len(population)))]
+		while indiv_two[1]>=indiv_one[1]-threshold and indiv_two[1]<=indiv_one[1]+threshold:
+			indiv_two = population[int(np.random.uniform(0, len(population)))]
+		# Choose third individual
+		if alt_flag:
+			# Strict choice
+			big_one, small_one = 0, 0
+			if indiv_one[1] > indiv_two[1]:
+				big_one = indiv_one[1]
+				small_one = indiv_two[1]
+			else:
+				big_one = indiv_two[1]
+				small_one = indiv_one[1]
+			indiv_three = population[int(np.random.uniform(0, len(population)))]
+			while indiv_three[1]>=small_one-threshold and indiv_three[1]<=big_one+threshold:
+				indiv_three = population[int(np.random.uniform(0, len(population)))]
+		else:
+			# Relaxed choice
+			indiv_three = population[int(np.random.uniform(0, len(population)))]
+			while indiv_three[1]>=indiv_one[1]-threshold and indiv_three[1]<=indiv_one[1]+threshold:
+				indiv_three = population[int(np.random.uniform(0, len(population)))]
+
+		# Anti-acceptance tournament
+		chosen_indiv = 0
+		prob_2 = np.exp(-indiv_three[1]/control_param)/(np.exp(-indiv_two[1]/control_param)+np.exp(-indiv_three[1]/control_param))
+		rnum = random.random()
+		if rnum <= prob_2:
+			chosen_indiv = indiv_two
+		else:
+			chosen_indiv = indiv_three
+
+		# Acceptance tournament
+		acc_indiv = 0
+		prob_1 = np.exp(-indiv_one[1]/control_param)/(np.exp(-indiv_one[1]/control_param)+np.exp(-chosen_indiv[1]/control_param))
+		rnum = random.random()
+		if rnum <= prob_1:
+			acc_indiv = indiv_two
+		else:
+			acc_indiv = chosen_indiv
+
+		parents.append()
+	return parents
+
 
 ############# CROSSOVER FUNCTIONS #############
 
