@@ -1,17 +1,26 @@
 import numpy as np
 import random
 import sys
+from os import listdir
 
-# TODO MAYBE: Change replacement rate with individual age and kill individuals older than x
-# TODO: Modify Selection behaviour
-# TODO: Add Selection methods (rank, tournament, boltzmann)
+# TODO: Add tests for selection methods
 # TODO: Change mutation and crossover functions to prevent set variables from changing
-# TODO: Modify everything to enable quality and computational costs measurements
-# TODO: Research and add speciation
+# TODO: Add more functions to generate initial population, so they are better distributed across the solution space
+# TODO: Research and add speciation??
 ############# CONSTANTS #############
 infinite = 2**31
 
 ############# FUNCTIONS #############
+
+def get_random_int(bot, top):
+	return np.random.randint(bot, top)
+
+def read_folder(folder_path):
+	files = []
+	for file in listdir(folder_path):
+		if len(file)>4 and file[-4:]=='.cnf':
+			files.append(folder_path+'/'+file)
+	return files
 
 def read_problem(filepath):
 	with open(filepath, 'r') as fp:
@@ -47,10 +56,10 @@ def trivial_case(clauses):
 			if num > 0: num_pos += 1
 			else: num_neg += 1
 	if num_neg == 0:
-		return (True, 1)
+		return 1
 	if num_pos == 0:
-		return (True, 0)
-	return (False, -1)
+		return 0
+	return -1
 
 def remove_unit_vars(clauses, set_vars):
 	"""
@@ -115,9 +124,9 @@ def remove_pure_vars(clauses, set_vars):
 					new_clauses.remove(clause)
 	return new_clauses, set_vars
 
-############# GENETIC ALGORITHM #############
+############# GENERATE INITIAL POPULATION #############
 
-def initial_population(num_vars, set_vars, pop_size=1000, ptype="bits"):
+def random_population(num_vars, set_vars, pop_size=1000, ptype="bits"):
 	population = []
 	for p in range(pop_size):
 		if ptype=='bits': rpop = np.random.randint(2, size=num_vars)
@@ -172,14 +181,17 @@ def roulette_selection_with_elimination(population, num_parents):
 	tmp_pop = population[:]
 	parents = []
 	for _ in range(num_parents):
-		if len(tmp_pop)==0: tmp_pop = population
+		if len(tmp_pop)==0: tmp_pop = population[:]
 		total_fitness = sum([y for x,y in tmp_pop])
-		probabilities = [y/total_fitness for x,y in tmp_pop]
-		rnum = random.random()
+		probabilities = [y/total_fitness if total_fitness>0 else 0 for x,y in tmp_pop]
+		if total_fitness>0:
+			rnum = random.random()
+		else:
+			rnum = 0
 		sprob = 0
 		for i, prob in enumerate(probabilities):
 			if rnum >= sprob and rnum <= sprob+prob:
-				parents.append(tmp_pop[i][0])
+				parents.append(tmp_pop[i])
 				tmp_pop.pop(i)
 				break
 			sprob += prob
@@ -194,7 +206,7 @@ def roulette_selection(population, num_parents):
 		sprob = 0
 		for i, prob in enumerate(probabilities):
 			if rnum >= sprob and rnum <= sprob+prob:
-				parents.append(population[i][0])
+				parents.append(population[i])
 				break
 			sprob += prob
 	return parents 
@@ -202,7 +214,7 @@ def roulette_selection(population, num_parents):
 def rank_selection(population, num_parents):
 	parents = []
 	sorted_pop = sorted(population, key=lambda x: x[1])
-	pop_rank = [[x, i+1] for i,x,y in enumerate(sorted_pop)]
+	pop_rank = [[x, i+1] for i,x in enumerate(sorted_pop)]
 	total_rank = int((pop_rank[-1][1]*(pop_rank[-1][1]-1))/2)
 	probabilities = [y/total_rank for x,y in pop_rank]
 	for _ in range(num_parents):
@@ -225,7 +237,7 @@ def tournament_selection(population, num_parents, tournament_size):
 			if population[rnum][1] > tfitness:
 				twinner = population[rnum][0]
 				tfitness = population[rnum][1]
-		parents.append(twinner)
+		parents.append([twinner,tfitness])
 	return parents
 
 
@@ -284,24 +296,33 @@ def boltzmann_tournament_selection(population, num_parents, threshold, control_p
 
 ############# CROSSOVER FUNCTIONS #############
 
-def single_point_crossover(parent1, parent2):
+def single_point_crossover(parent1, parent2, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
 	cut_point = np.random.randint(len(parent1))
 	children = [
 		np.concatenate((parent1[:cut_point],parent2[cut_point:])),
 		np.concatenate((parent2[:cut_point],parent1[cut_point:]))
 		]
-	return children
+	if ret_cost:
+		return children, fitness_evals, bit_flips
+	else:
+		return children
 
-def two_point_crossover(parent1, parent2):
+def two_point_crossover(parent1, parent2, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
 	cut_point_1 = np.random.randint(len(parent1)-1)
 	cut_point_2 = np.random.randint(cut_point_1+1, len(parent1))
 	children = [
 		np.concatenate((parent1[:cut_point_1],parent2[cut_point_1:cut_point_2],parent1[cut_point_2:])),
 		np.concatenate((parent2[:cut_point_1],parent1[cut_point_1:cut_point_2],parent2[cut_point_2:]))
 		]
-	return children
+	if ret_cost:
+		return children, fitness_evals, bit_flips
+	else:
+		return children
 
-def sliding_window_crossover(clauses, parent1, parent2, crossover_window_len=0.4):
+def sliding_window_crossover(parent1, parent2, clauses, crossover_window_len=0.4, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
 	window_len = int(crossover_window_len*len(parent1))
 	max_fitness, max_i = (0,0), (0,0)
 	bad_children = [[],[]]
@@ -310,12 +331,17 @@ def sliding_window_crossover(clauses, parent1, parent2, crossover_window_len=0.4
 		bad_children[1].append(np.concatenate((parent2[:i],parent1[i:i+window_len],parent2[i+window_len:])))
 		for t in range(2):
 			fitness = maxsat_fitness(clauses, bad_children[t][i])
-			if fitness >=max_fitness[0]:
+			fitness_evals += 1
+			if fitness >= max_fitness[0]:
 				max_fitness[t] = fitness
 				max_i[t] = i
-	return [bad_children[0][max_i[0]], bad_children[1][max_i[1]]]
+	if ret_cost:
+		return [bad_children[0][max_i[0]], bad_children[1][max_i[1]]], fitness_evals, bit_flips
+	else:
+		return [bad_children[0][max_i[0]], bad_children[1][max_i[1]]]
 
-def random_map_crossover(parent1, parent2):
+def random_map_crossover(parent1, parent2, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
 	rand_map = np.random.randint(2, size=len(parent1))
 	child_1 = parent1[:]
 	child_2 = parent2[:]
@@ -323,21 +349,31 @@ def random_map_crossover(parent1, parent2):
 		if elem == 0:
 			child_1[i] = parent2[i]
 			child_2[i] = parent1[i]
-	return [child_1, child_2]
+			bit_flips += 2
+	if ret_cost:
+		return [child_1, child_2], fitness_evals, bit_flips
+	else:
+		return [child_1, child_2]
 
-def uniform_crossover(parent1, parent2):
+def uniform_crossover(parent1, parent2, ret_cost=False):
 	# Uses alternating bits, maybe change to a normal distribution
+	fitness_evals, bit_flips = 0, 0
 	child_1 = parent1[:]
 	child_2 = parent2[:]
 	for i in range(len(parent1)):
 		if i%2==0:
 			child_1[i] = parent2[i]
 			child_2[i] = parent1[i]
-	return [child_1, child_2]
+			bit_flips += 2
+	if ret_cost:
+		return [child_1, child_2], fitness_evals, bit_flips
+	else:
+		return [child_1, child_2]
 
 ############# MUTATION FUNCTIONS #############
 
-def single_bit_flip(population, mutation_rate):
+def single_bit_flip(population, mutation_rate, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
 	new_pop = []
 	for i, pop in enumerate(population):
 		indiv = pop
@@ -346,10 +382,15 @@ def single_bit_flip(population, mutation_rate):
 			ind = np.random.randint(len(indiv))
 			if indiv[ind] == 1: indiv[ind] = 0
 			else: indiv[ind] = 1
+			bit_flips += 1
 		new_pop.append(indiv)
-	return new_pop
+	if ret_cost:
+		return new_pop, fitness_evals, bit_flips
+	else:
+		return new_pop
 
-def multiple_bit_flip(population, mutation_rate):
+def multiple_bit_flip(population, mutation_rate, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
 	new_pop = []
 	for i, pop in enumerate(population):
 		indiv = pop
@@ -360,32 +401,46 @@ def multiple_bit_flip(population, mutation_rate):
 				ind = np.random.randint(len(indiv))
 				if indiv[ind] == 1: indiv[ind] = 0
 				else: indiv[ind] = 1
+				bit_flips += 1
 		new_pop.append(indiv)
-	return new_pop
+	if ret_cost:
+		return new_pop, fitness_evals, bit_flips
+	else:
+		return new_pop
 
-def single_bit_greedy(clauses, population):
+def single_bit_greedy(population, clauses, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
 	new_pop = []
 	for i, pop in enumerate(population):
 		ind_fitness = maxsat_fitness(clauses, pop)
+		fitness_evals += 1
 		for j in range(len(pop)):
 			t_indiv = pop
 			if t_indiv[j]==1: t_indiv[j]=0
 			elif t_indiv[j]==0: t_indiv[j]=1
+			bit_flips += 1
+			fitness_evals += 1
 			if maxsat_fitness(clauses, t_indiv)>ind_fitness:
 				break
 		new_pop.append(t_indiv)
-	return new_pop
+	if ret_cost:
+		return new_pop, fitness_evals, bit_flips
+	else:
+		return new_pop
 
-def single_bit_max_greedy(clauses, population):
+def single_bit_max_greedy(population, clauses, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
 	new_pop = []
 	for i, pop in enumerate(population):
 		ind_fitness = maxsat_fitness(clauses, pop)
+		fitness_evals += 1
 		max_ind, max_fit = 0, 0
 		for j in range(len(pop)):
 			t_indiv = pop[:]
 			if t_indiv[j]==1: t_indiv[j]=0
 			elif t_indiv[j]==0: t_indiv[j]=1
 			tfit = maxsat_fitness(clauses, t_indiv)
+			fitness_evals += 1
 			if tfit>ind_fitness and tfit>=max_fit:
 				max_ind = t_indiv
 				max_fit = tfit
@@ -393,9 +448,13 @@ def single_bit_max_greedy(clauses, population):
 			new_pop.append(max_ind)
 		else:
 			new_pop.append(pop)
-	return new_pop
+	if ret_cost:
+		return new_pop, fitness_evals, bit_flips
+	else:
+		return new_pop
 
-def multiple_bit_greedy(clauses, population):
+def multiple_bit_greedy(population, clauses, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
 	new_pop = []
 	for i, pop in enumerate(population):
 		ind_fitness = maxsat_fitness(clauses, pop)
@@ -410,9 +469,13 @@ def multiple_bit_greedy(clauses, population):
 				ind_fitness = t_fitness
 				indiv = t_indiv
 		new_pop.append(indiv)
-	return new_pop	
+	if ret_cost:
+		return new_pop, fitness_evals, bit_flips
+	else:
+		return new_pop
 
-def flip_ga(clauses, population):
+def flip_ga(population, clauses, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
 	new_pop = []
 	for i, pop in enumerate(population):
 		indiv = pop[:]
@@ -430,4 +493,7 @@ def flip_ga(clauses, population):
 					ind_fitness = t_fitness
 					indiv = t_indiv
 		new_pop.append(indiv)
-	return new_pop	
+	if ret_cost:
+		return new_pop, fitness_evals, bit_flips
+	else:
+		return new_pop

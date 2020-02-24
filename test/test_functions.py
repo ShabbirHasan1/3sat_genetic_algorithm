@@ -4,7 +4,9 @@ import src.functions as fn
 
 # TODO: Write test functions for:
 # 	sliding_window_crossover
-#	roulette_selection ??
+#	boltzmann tournament selection
+
+# Add more tests for crossover methods
 
 class TestTrivialCase(unittest.TestCase):
 	def test_all_clauses_positive(self):
@@ -111,6 +113,71 @@ class TestMaxsatFitness(unittest.TestCase):
 			self.assertEqual(fitness, i)
 
 
+class TestRouletteSelection(unittest.TestCase):
+
+	def test_one_max_prob_roulette(self):
+		population = [[[1,1], 1], [[2,2], 0], [[3,3], 0]]
+		for i in range(1,6):
+			pparents = [[[1,1],1]]*i
+			parents = fn.roulette_selection(population, i)
+			self.assertEqual(parents, pparents)
+
+	def test_split_prob_roulette(self):
+		population = [[[1,1], 1], [[2,2], 1], [[3,3], 0]]
+		pparents = [ [[[1,1],1],[[2,2],1]], [[[2,2],1],[[1,1],1]], [[[2,2],1],[[2,2],1]], [[[1,1],1],[[1,1],1]] ]
+		parents = fn.roulette_selection(population, 2)
+		self.assertIn(parents, pparents)
+
+
+class TestRouletteEliminationSelection(unittest.TestCase):
+
+	def test_one_max_prob_roulette_elimination(self):
+		population = [[[1,1], 1], [[2,2], 0], [[3,3], 0]]
+		pparents_1 = [[ [[1,1], 1] ]]
+		pparents_2 = [ [[[1,1], 1],[[2,2], 0]], [[[1,1], 1],[[3,3], 0]]] 
+		pparents_3 = [ [[[1,1], 1],[[2,2], 0],[[3,3], 0] ], [[[1,1], 1],[[3,3], 0],[[2,2], 0]]] 
+		pparents = [pparents_1, pparents_2, pparents_3]
+		for i in range(3):
+			parents = fn.roulette_selection_with_elimination(population, i+1)
+			self.assertIn(parents, pparents[i])
+
+	def test_split_prob_roulette_elimination(self):
+		population = [[[1,1], 1], [[2,2], 1], [[3,3], 0]]
+		pparents = [ [[[1,1],1],[[2,2],1]], [[[2,2],1],[[1,1],1]] ]
+		parents = fn.roulette_selection_with_elimination(population, 2)
+		self.assertIn(parents, pparents)
+
+
+class TestRankSelection(unittest.TestCase):
+
+	def test_one_max_prob_rank(self):
+		population = [[[1,1],1], [[2,2],0]]
+		pparents = [ [[[1,1],1],[[2,2],0]], [[[1,1],1],[[1,1],1]], [[[2,2],0],[[2,2],0]], [[[2,2],0],[[1,1],1]] ]
+		parents = fn.rank_selection(population, 2)
+		self.assertIn(parents, pparents)
+
+	def test_split_prob_rank(self):
+		population = [[[1,1],1], [[2,2],1]]
+		pparents = [ [[[1,1],1],[[2,2],1]], [[[1,1],1],[[1,1],1]], [[[2,2],1],[[2,2],1]], [[[2,2],1],[[1,1],1]] ]
+		parents = fn.rank_selection(population, 2)
+		self.assertIn(parents, pparents)
+
+
+class TestTournamentSelection(unittest.TestCase):
+
+	def test_one_max_prob_tournament(self):
+		population = [[[1,1],1], [[2,2],0] ]
+		pparents = [ [[[1,1],1],[[2,2],0]], [[[1,1],1],[[1,1],1]], [[[2,2],0],[[2,2],0]], [[[2,2],0],[[1,1],1]] ]
+		parents = fn.rank_selection(population, 2)
+		self.assertIn(parents, pparents)
+
+	def test_split_prob_tournament(self):
+		population = [[[1,1],1], [[2,2],1]]
+		pparents = [ [[[1,1],1],[[2,2],1]], [[[1,1],1],[[1,1],1]], [[[2,2],1],[[2,2],1]], [[[2,2],1],[[1,1],1]] ]
+		parents = fn.rank_selection(population, 2)
+		self.assertIn(parents, pparents)
+
+
 class TestSinglePointCrossover(unittest.TestCase):
 
 	def test_single_point_crossover(self):
@@ -131,6 +198,17 @@ class TestTwoPointCrossover(unittest.TestCase):
 		children = fn.two_point_crossover(p1,p2)
 		self.assertIn(children[0].astype(int).tolist(), pchildren)
 		self.assertIn(children[1].astype(int).tolist(), pchildren)
+
+
+class TestRandomMapCrossover(unittest.TestCase):
+
+	def test_random_map_crossover(self):
+		p1 = [0,0]
+		p2 = [1,1]
+		pchildren = [[0,0],[1,1],[0,1],[1,0]]
+		children = fn.random_map_crossover(p1, p2)
+		for child in children:
+			self.assertIn(child, pchildren)
 
 
 class TestUniformCrossover(unittest.TestCase):
@@ -181,14 +259,14 @@ class TestSingleBitGreedy(unittest.TestCase):
 	def test_single_bit_greedy_none_better(self):
 		pop = [[0,0,0,0]]
 		clauses = [[-1,-2,-3],[-2,-3,-4],[-1,-4,-3]]
-		new_pop = fn.single_bit_greedy(clauses, pop)
+		new_pop = fn.single_bit_greedy(pop, clauses)
 		self.assertEqual(pop[0], new_pop[0])
 
 	def test_single_bit_greedy_one_better(self):
 		pop = [[0,0,0,0]]
 		clauses = [[-1,-2,-3],[-2,-3,-4],[1,4],[4]]
 		flipped_pop = [[1,0,0,0]]
-		new_pop = fn.single_bit_greedy(clauses, pop)
+		new_pop = fn.single_bit_greedy(pop, clauses)
 		self.assertEqual(flipped_pop[0], new_pop[0])
 
 
@@ -197,21 +275,21 @@ class TestSingleBitMaxGreedy(unittest.TestCase):
 	def test_single_bit_max_greedy_none_better(self):
 		pop = [[0,0,0,0]]
 		clauses = [[-1,-2,-3],[-2,-3,-4],[-1,-4,-3]]
-		new_pop = fn.single_bit_max_greedy(clauses, pop)
+		new_pop = fn.single_bit_max_greedy(pop, clauses)
 		self.assertEqual(pop[0], new_pop[0])
 
 	def test_single_bit_max_greedy_two_better(self):
 		pop = [[0,0,0,0]]
 		clauses = [[-1,-2,-3],[-2,-3,-4],[1,4]]
 		flipped_pop = [[1,0,0,0],[0,0,0,1]]
-		new_pop = fn.single_bit_max_greedy(clauses, pop)
+		new_pop = fn.single_bit_max_greedy(pop, clauses)
 		self.assertIn(new_pop[0], flipped_pop)
 
 	def test_single_bit_max_greedy_one_best(self):
 		pop = [[0,0,0,0]]
 		clauses = [[-1,-2,-3],[-2,-3,-4],[1,4],[4]]
 		flipped_pop = [[0,0,0,1]]
-		new_pop = fn.single_bit_max_greedy(clauses, pop)
+		new_pop = fn.single_bit_max_greedy(pop, clauses)
 		self.assertEqual(new_pop[0], flipped_pop[0])	
 
 
@@ -220,21 +298,21 @@ class TestMultipleBitGreedy(unittest.TestCase):
 	def test_multiple_bit_greedy_none_better(self):
 		pop = [[0,0,0,0]]
 		clauses = [[-1,-2,-3],[-2,-3,-4],[-1,-4,-3]]
-		new_pop = fn.multiple_bit_greedy(clauses, pop)
+		new_pop = fn.multiple_bit_greedy(pop, clauses)
 		self.assertEqual(pop[0], new_pop[0])
 
 	def test_multiple_bit_greedy_one_better(self):
 		pop = [[0,0,0,0]]
 		clauses = [[-1,-2,-3],[-2,-3,-4],[1,4]]
 		flipped_pop = [[1,0,0,0]]
-		new_pop = fn.multiple_bit_greedy(clauses, pop)
+		new_pop = fn.multiple_bit_greedy(pop, clauses)
 		self.assertIn(new_pop[0], flipped_pop)
 
 	def test_multiple_bit_greedy_two_better(self):
 		pop = [[0,0,0,0]]
 		clauses = [[-1,-2,-3],[-2,-3,-4],[1,4],[4]]
 		flipped_pop = [[1,0,0,1]]
-		new_pop = fn.multiple_bit_greedy(clauses, pop)
+		new_pop = fn.multiple_bit_greedy(pop, clauses)
 		self.assertEqual(new_pop[0], flipped_pop[0])	
 
 
@@ -243,28 +321,28 @@ class TestFlipGa(unittest.TestCase):
 	def test_flip_ga_none_better(self):
 		pop = [[0,0,0,0]]
 		clauses = [[-1,-2,-3],[-2,-3,-4],[-1,-4,-3]]
-		new_pop = fn.flip_ga(clauses, pop)
+		new_pop = fn.flip_ga(pop, clauses)
 		self.assertEqual(pop[0], new_pop[0])
 
 	def test_flip_ga_one_flips(self):
 		pop = [[0,0,0,0]]
 		clauses = [[-1,-2,-3],[-2,-3,-4],[1,4]]
 		flipped_pop = [[1,0,0,0]]
-		new_pop = fn.flip_ga(clauses, pop)
+		new_pop = fn.flip_ga(pop, clauses)
 		self.assertIn(new_pop[0], flipped_pop)
 
 	def test_flip_ga_two_flips(self):
 		pop = [[0,0,0,0]]
 		clauses = [[-1,-2,-3],[-2,-3,-4],[1,4],[4]]
 		flipped_pop = [[1,0,0,1]]
-		new_pop = fn.flip_ga(clauses, pop)
+		new_pop = fn.flip_ga(pop, clauses)
 		self.assertEqual(new_pop[0], flipped_pop[0])	
 
 	def test_flip_ga_three_flips(self):
 		pop = [[0,0,0,0]]
 		clauses = [[-1,-2,-3],[-2,-3,-4],[1,4],[4],[-1]]
 		flipped_pop = [[0,0,0,1]]
-		new_pop = fn.flip_ga(clauses, pop)
+		new_pop = fn.flip_ga(pop, clauses)
 		self.assertEqual(new_pop[0], flipped_pop[0])	
 
 
