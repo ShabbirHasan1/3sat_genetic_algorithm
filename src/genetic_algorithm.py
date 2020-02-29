@@ -12,16 +12,34 @@ infinite = 2**31
 
 class GeneticAlgorithm:
 
-	def __init__(self, filename, fitness_func="maxsat", selection_func="roulette", 
-				crossover_func="single point", mutation_func="single bit", max_iters=1000, pop_size=100, 
-				elitism=2, tournament_size=5, mutation_rate=0.1, crossover_window_len=0.4):
+	def __init__(self, filename, max_iters=1000, pop_size=100, 
+				elitism=2):
 		self.num_vars, self.clauses = fn.read_problem(filename)
 		self.set_vars = [infinite]*self.num_vars
 		self.sol_value = fn.trivial_case(self.clauses)
 		self.clauses, self.set_vars = fn.remove_pure_vars(self.clauses, self.set_vars)
 		self.clauses, self.set_vars = fn.remove_unit_vars(self.clauses, self.set_vars)
 
+		self.fitness_func = fn.maxsat_fitness
+		self.selection_func = fn.roulette_selection
+		self.selection_params = ()
+		self.crossover_func = fn.single_point_crossover
+		self.crossover_params = ()
+		self.mutation_func = fn.single_bit_flip
+		self.mutation_params = (0.1,)
 
+		self.max_iters = max_iters
+		self.pop_size = pop_size
+		self.elitism = elitism
+		self.log_level = None
+		self.ret_cost = True
+
+	def set_log_level(self, log_level=None):
+		self.log_level = log_level
+
+	def set_params(self,fitness_func="maxsat", selection_func="roulette", 
+				crossover_func="single point", mutation_func="single bit",
+				mutation_rate=0.1, tournament_size=5, crossover_window_len=0.4):
 		if fitness_func == "maxsat":
 			self.fitness_func = fn.maxsat_fitness
 
@@ -85,15 +103,6 @@ class GeneticAlgorithm:
 
 		self.mutation_func = mutation_funcs[mutation_func]
 		self.mut_params = mutation_params[mutation_func]
-
-		self.max_iters = max_iters
-		self.pop_size = pop_size
-		self.elitism = elitism
-		self.log_level = None
-		self.ret_cost = True
-
-	def set_log_level(log_level=None):
-		self.log_level = log_level
 		
 
 	def start_ga(self):
@@ -180,8 +189,12 @@ tournament_size = 5
 boltzmann_threshold = "Ni idea"
 boltzmann_control_param = "Ni idea"
 
-gen_alg = GeneticAlgorithm(filename, fitness_funcs[0], selection_funcs[3], crossover_funcs[1], mutation_funcs[1],
-						max_iters, pop_size, elitism, tournament_size, mutation_rate, crossover_window_len)
+
+
+gen_alg = GeneticAlgorithm(filename=filename, max_iters=max_iters, pop_size=pop_size, elitism=elitism)
+gen_alg.set_params(fitness_func=fitness_funcs[0], selection_func=selection_funcs[3], crossover_func=crossover_funcs[1], 
+				  mutation_func=mutation_funcs[1],mutation_rate=mutation_rate, tournament_size=tournament_size, 
+				  crossover_window_len=crossover_window_len)
 
 sol_found, sol, iteration, fitness, num_fitness_evals, num_flips = gen_alg.start_ga()
 

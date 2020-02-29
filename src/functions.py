@@ -5,7 +5,7 @@ from os import listdir
 
 # TODO: Add tests for selection methods
 # TODO: Change mutation and crossover functions to prevent set variables from changing
-# TODO: Add more functions to generate initial population, so they are better distributed across the solution space
+# TODO: Add more functions to generate initial population, so the individuals are better distributed across the solution space
 # TODO: Research and add speciation??
 ############# CONSTANTS #############
 infinite = 2**31
