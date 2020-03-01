@@ -126,15 +126,40 @@ def remove_pure_vars(clauses, set_vars):
 
 ############# GENERATE INITIAL POPULATION #############
 
-def random_population(num_vars, set_vars, pop_size=1000, ptype="bits"):
+def random_population(num_vars, set_vars, pop_size):
 	population = []
 	for p in range(pop_size):
-		if ptype=='bits': rpop = np.random.randint(2, size=num_vars)
-		elif ptype=='floats': rpop = np.array([random.random() for i in range(num_vars)])
+		rpop = np.random.randint(2, size=num_vars)
 		for j, var in enumerate(set_vars):
 			if var != infinite:
 				rpop[j] = var
 		population.append(rpop)
+	return population
+
+def binary_range_population(num_vars, set_vars, pop_size):
+	population = []
+	total_num = 2**num_vars
+	ctr = 0
+	while ctr < int(total_num/pop_size)*pop_size:
+		bin_i = f'{ctr:0b}'
+		padded_bin_i = '0'*(num_vars-len(bin_i))+bin_i
+		indiv = [int(l) for l in padded_bin_i]
+		for j, var in enumerate(set_vars):
+			if var != infinite:
+				indiv[j] = var
+		population.append(indiv)
+		ctr+=int(total_num/pop_size)
+	return population
+
+def satisfy_clauses_population(num_vars, set_vars, pop_size, clauses):
+	population = []
+	for p in range(pop_size):
+		indiv = [0]*num_vars
+		for clause in clauses:
+			rind = np.random.randint(len(clause))
+			if clause[rind]>=0: indiv[clause[rind]-1] = 1
+			else: indiv[abs(clause[rind])-1] = 0
+		population.append(indiv)
 	return population
 
 ############# FITNESS FUNCTIONS #############
@@ -324,7 +349,7 @@ def two_point_crossover(parent1, parent2, ret_cost=False):
 def sliding_window_crossover(parent1, parent2, clauses, crossover_window_len=0.4, ret_cost=False):
 	fitness_evals, bit_flips = 0, 0
 	window_len = int(crossover_window_len*len(parent1))
-	max_fitness, max_i = (0,0), (0,0)
+	max_fitness, max_i = [0,0], [0,0]
 	bad_children = [[],[]]
 	for i in range(len(parent1)-window_len):
 		bad_children[0].append(np.concatenate((parent1[:i],parent2[i:i+window_len],parent1[i+window_len:])))

@@ -19,7 +19,6 @@ class GeneticAlgorithm:
 		self.sol_value = fn.trivial_case(self.clauses)
 		self.clauses, self.set_vars = fn.remove_pure_vars(self.clauses, self.set_vars)
 		self.clauses, self.set_vars = fn.remove_unit_vars(self.clauses, self.set_vars)
-
 		self.fitness_func = fn.maxsat_fitness
 		self.selection_func = fn.roulette_selection
 		self.selection_params = ()
@@ -111,6 +110,8 @@ class GeneticAlgorithm:
 		num_fitness_evals, num_flips = 0, 0
 		max_fitness = 0
 		population = fn.random_population(self.num_vars, self.set_vars, self.pop_size)
+		#population = fn.binary_range_population(self.num_vars, self.set_vars, self.pop_size)
+		#population = fn.satisfy_clauses_population(self.num_vars, self.set_vars, self.pop_size, self.clauses)
 		while (self.sol_value==-1 and cur_iter < self.max_iters):
 			# Evaluate population
 			pop_fitness = []
@@ -152,8 +153,8 @@ class GeneticAlgorithm:
 
 			cur_iter += 1
 
-			#if cur_iter % 1 == 0:
-			#	print ("Generation {}, Population {}, Max Fitness {}".format(cur_iter, len(population), max_fitness))
+			if cur_iter % 1 == 0:
+				print ("Generation {}, Population {}, Max Fitness {}".format(cur_iter, len(population), max_fitness))
 		return (False, [], cur_iter, max_fitness, num_fitness_evals, num_flips)
 
 	def get_run_average(self, num_runs=10):
@@ -180,8 +181,8 @@ fitness_funcs = ['maxsat']
 selection_funcs = ['roulette', 'roulette elimination', 'rank', 'tournament', 'boltzmann']
 crossover_funcs = ['single point', 'two points', 'sliding window', 'random map', 'uniform']
 mutation_funcs = ['single bit', 'multiple bit', 'single bit greedy', 'single bit max greedy', 'multiple bit greedy', 'flip ga']
-max_iters = 1000
-pop_size = 100
+max_iters = 10000
+pop_size = 200
 elitism = 2
 mutation_rate = 0.1
 crossover_window_len = 0.4
@@ -193,7 +194,7 @@ boltzmann_control_param = "Ni idea"
 
 gen_alg = GeneticAlgorithm(filename=filename, max_iters=max_iters, pop_size=pop_size, elitism=elitism)
 gen_alg.set_params(fitness_func=fitness_funcs[0], selection_func=selection_funcs[3], crossover_func=crossover_funcs[1], 
-				  mutation_func=mutation_funcs[1],mutation_rate=mutation_rate, tournament_size=tournament_size, 
+				  mutation_func=mutation_funcs[0],mutation_rate=mutation_rate, tournament_size=tournament_size, 
 				  crossover_window_len=crossover_window_len)
 
 sol_found, sol, iteration, fitness, num_fitness_evals, num_flips = gen_alg.start_ga()
@@ -203,7 +204,7 @@ if sol_found:
 	print ("Num fitness evals: {}, Num bit flips: {}".format(num_fitness_evals, num_flips))
 else:
 	print ("Solution not found in {} iterations".format(iteration))
-	print ("Max fitness found: ", fitness)
+	print ("Max fitness found: {}/{}".format(fitness, len(gen_alg.clauses)))
 
 #gen_alg.get_run_average(10)
 
