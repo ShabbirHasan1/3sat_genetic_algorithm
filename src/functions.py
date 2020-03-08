@@ -1,12 +1,15 @@
 import numpy as np
 import random
 import sys
+import psycopg2
+from datetime import datetime as dt
 from os import listdir
 
-# TODO: Add tests for selection methods
-# TODO: Change mutation and crossover functions to prevent set variables from changing
 # TODO: Add more functions to generate initial population, so the individuals are better distributed across the solution space
 # TODO: Research and add speciation??
+# TODO: Fix float fitness
+# TODO: Add tests for db methods
+# TODO: Modify individuals so they are no longer numpy ndarrays
 ############# CONSTANTS #############
 infinite = 2**31
 
@@ -45,6 +48,73 @@ def read_problem(filepath):
 				clauses[clause].append(int(num))
 
 	return num_vars, clauses
+
+def get_pop_set_len(population):
+	unique_pop = set()
+	for indiv in population:
+		unique_pop.add(str(indiv))
+	return len(unique_pop)
+
+############# DATABASE HELPER FUNCTIONS #############
+
+def get_db_connection(dbname='genetic_algorithm', user='pyuser', password='123456'):
+	conn, cursor = None, None
+	try:
+		conn = psycopg2.connect(host='localhost',database=dbname, user=user, password=password)
+		cursor = conn.cursor()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print(error)
+
+	return conn, cursor
+
+def close_db_connection(conn, cursor):
+	try:
+		cursor.close()
+		if conn is not None:
+			conn.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print(error)
+
+def add_ga_run(conn, cursor, problem, max_iterations, pop_size, elitism, fitness_function,
+	initial_population_function, selection_function, crossover_function, mutation_function,
+	mutation_rate, tournament_size, crossover_window_len):
+	new_id = -1
+	try:	
+		sql_string = "INSERT INTO ga_run (created_timestamp, problem, max_iterations, pop_size, elitism, \
+				 fitness_function, initial_population_function, selection_function, crossover_function, \
+				 mutation_function, mutation_rate, tournament_size, crossover_window_len) VALUES \
+				 (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"
+		cursor.execute(sql_string, (dt.now(), problem, max_iterations, pop_size, elitism, fitness_function,
+				  initial_population_function, selection_function, crossover_function, mutation_function,
+				  mutation_rate, tournament_size, crossover_window_len))
+		new_id = cursor.fetchone()[0]
+		conn.commit()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print (error)
+
+	return new_id
+
+def add_ga_run_result(conn, cursor, ga_run_id, sol_found, solution, num_iterations, max_fitness, num_fitness_evals, num_bit_flips):
+	try:
+		sql_string = "UPDATE ga_run SET updated_timestamp = %s, sol_found = %s, solution = %s, \
+			num_iterations = %s, max_fitness = %s, num_fitness_evals = %s, num_bit_flips = %s WHERE id = %s"
+		cursor.execute(sql_string, (dt.now(), sol_found, solution, num_iterations, max_fitness, num_fitness_evals, num_bit_flips))
+		conn.commit()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print (error)
+
+def add_ga_run_generation(conn, cursor, ga_run_id, generation_num, max_fitness, population_length,
+	population_set_length, num_fitness_evals, num_bit_flips):
+	try:
+		sql_string = "INSERT INTO ga_run_generations (time_stamp, ga_run_id, generation_num, max_fitness, \
+					 population_length, population_set_length, num_fitness_evals, num_bit_flips) VALUES \
+					 (%s, %s, %s, %s, %s, %s, %s, %s)"
+		cursor.execute(sql_string, (dt.now(), ga_run_id, generation_num, max_fitness, population_length,
+					  population_set_length, num_fitness_evals, num_bit_flips))
+		conn.commit()
+	except (Exception, psycopg2.DatabaseError) as error:
+		print (error)
+
 
 ############# CNF SIMPLIFICATION #############
 

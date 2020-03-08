@@ -1,0 +1,35 @@
+version: '3.5'
+services:
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      PGDATA: /data/postgres
+    volumes:
+       - ./scripts/CreateDBs.sql:/docker-entrypoint-initdb.d/init-1.sql
+       - postgres_ga_data:/data/postgres
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+
+  pgadmin:
+    depends_on:
+      - postgres
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      SERVER_NAME: ${SERVER_NAME:-local.docker}
+    volumes:
+       - pgadmin_ga_data:/var/lib/pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    restart: unless-stopped
+
+volumes:
+    postgres_ga_data: 
+    pgadmin_ga_data:
