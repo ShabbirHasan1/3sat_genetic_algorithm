@@ -10,7 +10,8 @@ ALTER USER pyuser CREATEDB;
 
 CREATE TABLE ga_run (
 	id SERIAL PRIMARY KEY,
-	datetime TIMESTAMP NOT NULL,
+	created_timestamp TIMESTAMP NOT NULL,
+	updated_timestamp TIMESTAMP,
 	problem VARCHAR NOT NULL,
 	sol_found Boolean,
 	solution VARCHAR,
