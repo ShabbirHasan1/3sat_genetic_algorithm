@@ -1,13 +1,13 @@
 import functions as fn
+import time
 
 # TODO: Add function to test all different combinations of hyperparameters (like tensorflow hparams)
 # TODO: Add logging
 # TODO: Add code to run all problems in folder and take measurements
-# TODO: Add tests for GA Class
-# TODO: Add multithreaded processing
-# TODO: Add code to measure time??
+# TODO: Add tests for GA Class??
 # TODO: Change elitism and tournament_size to work as a percentages of the total population?
-# TODO: Modify how num flips and fitness evals are counted, so the insert into the db is not cumulative
+# TODO: Add scripts/tool to visualize the data
+# TODO: Time the different parts of the program to see where it looses the most amount and multithread that shit
 ############# CONSTANTS #############
 infinite = 2**31
 
@@ -37,9 +37,9 @@ class GeneticAlgorithm:
 		self.log_level = None
 		self.ret_cost = True
 		self.save_to_db = save_to_db
-		self.db_conn, self.db_cursor = None, None
+		self.db_conn = None
 		if self.save_to_db:
-			self.db_conn, self.db_cursor = fn.get_db_connection(dbname='genetic_algorithm', user='pyuser', password='123456')
+			self.db_conn = fn.get_db_connection(dbname='genetic_algorithm', user='postgres', password='changeme')
 
 
 	def set_log_level(self, log_level=None):
@@ -139,75 +139,124 @@ class GeneticAlgorithm:
 	def start_ga(self):
 		# Generate initial population
 		cur_iter = 0
-		num_fitness_evals, num_flips = 0, 0
+		t_fitness_evals, t_num_flips = 0,0 
 		max_fitness = 0
 
+		if self.log_level=="time":
+			t0 = time.time()
+		
 		population = self.initial_pop_func(*self.initial_pop_params)
 
+		if self.log_level=="time":
+			t1 = time.time()
+			print ("Initial population function: ", t1-t0)
+
 		if self.save_to_db:
-			ga_run_id = fn.add_ga_run(conn=self.db_conn,cursor=self.db_cursor, problem=self.filename.split('/')[-1],
+			ga_run_id = fn.add_ga_run(conn=self.db_conn, problem=self.filename.split('/')[-1],
 				max_iterations=self.max_iters, pop_size=len(population), elitism=self.elitism, 
 				fitness_function=self.fitness_func_str, initial_population_function=self.initial_pop_func_str,
 				selection_function=self.selection_func_str, crossover_function=self.crossover_func_str, mutation_function=self.mutation_func_str,
 				mutation_rate=self.mutation_rate, tournament_size=self.tournament_size, crossover_window_len=self.crossover_window_len)
+			fn.add_ga_run_population(conn=self.db_conn, ga_run_id=ga_run_id, population=population, observation="Initial population")
 		
 		while (self.sol_value==-1 and cur_iter < self.max_iters):
-			# Evaluate population
-			pop_fitness = []
-			max_fitness = 0
-			for pop in population:
-				fitness = self.fitness_func(self.clauses, pop)
-				num_fitness_evals += 1
-				if fitness >= max_fitness:
-					max_fitness = fitness
-				pop_fitness.append([pop, fitness])
-				if fn.maxsat_solution_found(self.clauses, fitness):
-					if self.save_to_db:
-						fn.add_ga_run_result(self.db_conn, self.db_cursor, ga_run_id, True, pop, cur_iter, fitness, num_fitness_evals, num_flips)
-						fn.close_db_connection(self.db_conn, self.db_cursor)
-					return (True, pop, cur_iter, fitness, num_fitness_evals, num_flips)
 
+			num_fitness_evals, num_flips = 0, 0
+
+			if self.log_level=="time":
+				t0 = time.time()
+			pop_fitness, max_fitness, max_fit_indiv = fn.evaluate_population(population, self.clauses, self.fitness_func)
+			num_fitness_evals += len(population) # Since we evaluated the whole population
+			if fn.maxsat_solution_found(self.clauses, max_fitness):
+				if self.save_to_db:
+					fn.add_ga_run_result(self.db_conn, ga_run_id, True, max_fit_indiv, cur_iter, max_fitness, t_fitness_evals, t_num_flips)
+					fn.close_db_connection(self.db_conn)
+				return (True, max_fit_indiv, cur_iter, max_fitness, t_fitness_evals, t_num_flips)
+			if self.log_level=="time":
+				t1 = time.time()
+				print ("Calculate population fitness: ", t1-t0)
+			
 			# Select parents
+			if self.log_level=="time":
+				t0 = time.time()
+
 			parents = self.selection_func(pop_fitness, len(pop_fitness)-self.elitism, *self.sel_params)
 
-			# Generate children through crossover and mutation
-			children = []
+			if self.log_level=="time":
+				t1 = time.time()
+				print ("Selection function: ", t1-t0)
+
+			
+			#Generate parent pairs
+			if self.log_level=="time":
+				t0 = time.time()
+
+			parent_pairs = []
 			while len(parents)>=2:
 				p1 = fn.get_random_int(0, len(parents))
 				parent_1 = parents.pop(p1)[0]
 				p2 = fn.get_random_int(0, len(parents))
 				parent_2 = parents.pop(p2)[0]
-				prechildren = self.crossover_func(parent_1, parent_2, *self.cross_params)
-				if self.ret_cost:
-					num_fitness_evals += prechildren[1]
-					num_flips += prechildren[2]
-					prechildren = prechildren[0]
-				prechildren = self.mutation_func(prechildren, *self.mut_params)
-				if self.ret_cost:
-					num_fitness_evals += prechildren[1]
-					num_flips += prechildren[2]
-					prechildren = prechildren[0]
-				children += prechildren
+				parent_pairs.append([parent_1, parent_2])
 
+			if self.log_level=="time":
+				t1 = time.time()
+				print ("Generate parent pairs: ", t1-t0)
+
+			if self.log_level=="time":
+				t0 = time.time()
+			# Generate children through crossover
+			children = []
+			for parent_pair in parent_pairs:
+				prechildren = self.crossover_func(parent_pair, *self.cross_params)
+				if self.ret_cost:
+					num_fitness_evals += prechildren[1]
+					num_flips += prechildren[2]
+					prechildren = prechildren[0]
+				children+=prechildren
+
+			if self.log_level=="time":
+				t1 = time.time()
+				print ("Generate children: ", t1-t0)
+
+			if self.log_level=="time":
+				t0 = time.time()
+			# Mutate children
+			children = self.mutation_func(children, *self.mut_params)
+			if self.ret_cost:
+				num_fitness_evals += children[1]
+				num_flips += children[2]
+				children = children[0]
+			if self.log_level=="time":
+				t1 = time.time()
+				print ("Mutate population: ", t1-t0)
+
+			if self.log_level=="time":
+				t0 = time.time()
 			# Replace population
 			sorted_pop = sorted(pop_fitness, key=lambda x: x[1], reverse=True)
 			population = children + [x for x,y in sorted_pop[:self.elitism]]
+			if self.log_level=="time":
+				t1 = time.time()
+				print ("Replace population: ", t1-t0)
 
 			cur_iter += 1
+			t_fitness_evals += num_fitness_evals
+			t_num_flips += num_flips
 
 			if cur_iter % 1 == 0:
 				if self.log_level=='all':
 					print ("Generation {}, Max Fitness {}".format(cur_iter, max_fitness))
 					print ("Pop Len {}, Pop Set Len {}".format(len(population), fn.get_pop_set_len(population)))
 				if self.save_to_db:
-					fn.add_ga_run_generation(conn=self.db_conn, cursor=self.db_cursor, ga_run_id=ga_run_id, generation_num=cur_iter,
+					fn.add_ga_run_generation(conn=self.db_conn, ga_run_id=ga_run_id, generation_num=cur_iter,
 						max_fitness=max_fitness, population_length=len(population), population_set_length=fn.get_pop_set_len(population),
 						num_fitness_evals=num_fitness_evals, num_bit_flips=num_flips)
 
 		if self.save_to_db:
-			fn.add_ga_run_result(self.db_conn, self.db_cursor, ga_run_id, False, None, cur_iter, max_fitness, num_fitness_evals, num_flips)
-			fn.close_db_connection(self.db_conn, self.db_cursor)
-		return (False, [], cur_iter, max_fitness, num_fitness_evals, num_flips)
+			fn.add_ga_run_result(self.db_conn, ga_run_id, False, None, cur_iter, max_fitness, t_fitness_evals, t_num_flips)
+			fn.close_db_connection(self.db_conn)
+		return (False, [], cur_iter, max_fitness, t_fitness_evals, t_num_flips)
 
 	def get_run_average(self, num_runs=10):
 		succ_runs, fail_runs = 0,0
@@ -250,7 +299,7 @@ class GeneticAlgorithm:
 
 
 ############# PROGRAM #############
-filename = './data/uf20-91/uf20-01.cnf'
+filename = 'uf200-01.cnf'
 foldername = './data/uf20-91'
 log_levels = ['all']
 initial_pop_funcs = ['random', 'binary range', 'satisfy clauses']
@@ -269,11 +318,11 @@ boltzmann_control_param = "Ni idea"
 
 
 
-gen_alg = GeneticAlgorithm(filename=filename, max_iters=max_iters, pop_size=pop_size, elitism=elitism)
+gen_alg = GeneticAlgorithm(filename=foldername+'/'+filename, max_iters=max_iters, pop_size=pop_size, elitism=elitism, save_to_db=False)
 gen_alg.set_params(initial_pop_func=initial_pop_funcs[2], fitness_func=fitness_funcs[0], selection_func=selection_funcs[3], crossover_func=crossover_funcs[1], 
 				  mutation_func=mutation_funcs[2],mutation_rate=mutation_rate, tournament_size=tournament_size, 
 				  crossover_window_len=crossover_window_len)
-gen_alg.set_log_level('all')
+gen_alg.set_log_level('time')
 
 sol_found, sol, iteration, fitness, num_fitness_evals, num_flips = gen_alg.start_ga()
 
@@ -286,5 +335,5 @@ else:
 
 #gen_alg.get_run_average(10)
 
-files = fn.read_folder(foldername)
+#files = fn.read_folder(foldername)
 #print (len(files))

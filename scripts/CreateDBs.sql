@@ -20,7 +20,7 @@ CREATE TABLE ga_run (
 	elitism INT NOT NULL,
 	max_fitness INT,
 	num_iterations INT,
-	num_fitness_evaluations INT,
+	num_fitness_evals INT,
 	num_bit_flips INT,
 	fitness_function VARCHAR NOT NULL,
 	initial_population_function VARCHAR NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE ga_run (
 
 CREATE TABLE ga_run_generations (
 	id SERIAL PRIMARY KEY,
-	datetime TIMESTAMP NOT NULL,
+	time_stamp TIMESTAMP NOT NULL,
 	ga_run_id INT NOT NULL,
 	generation_num INT NOT NULL,
 	max_fitness INT NOT NULL,
@@ -43,4 +43,14 @@ CREATE TABLE ga_run_generations (
 	num_fitness_evals INT NOT NULL,
 	num_bit_flips INT NOT NULL,
 	FOREIGN KEY (ga_run_id) REFERENCES ga_run(id)
+);
+
+CREATE TABLE ga_run_population (
+	id SERIAL PRIMARY KEY,
+	ga_run_id INT NOT NULL,
+	ga_run_generation_id INT,
+	individual VARCHAR NOT NULL,
+	observations VARCHAR,
+	FOREIGN KEY (ga_run_id) REFERENCES ga_run(id),
+	FOREIGN KEY (ga_run_generation_id) REFERENCES ga_run_generations(id)
 );

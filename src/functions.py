@@ -4,12 +4,13 @@ import sys
 import psycopg2
 from datetime import datetime as dt
 from os import listdir
+from concurrent import futures
+import itertools
 
-# TODO: Add more functions to generate initial population, so the individuals are better distributed across the solution space
-# TODO: Research and add speciation??
-# TODO: Fix float fitness
-# TODO: Add tests for db methods
-# TODO: Modify individuals so they are no longer numpy ndarrays
+# TODO: Add more functions to generate initial population, so the individuals are better distributed across the solution space ??
+# TODO: Finish implementing float fitness
+# TODO: Add tests for db methods??
+# TODO: Finish implementing boltzmann selection (threshold and control_param behaviour)
 ############# CONSTANTS #############
 infinite = 2**31
 
@@ -60,58 +61,71 @@ def get_pop_set_len(population):
 def get_db_connection(dbname='genetic_algorithm', user='pyuser', password='123456'):
 	conn, cursor = None, None
 	try:
-		conn = psycopg2.connect(host='localhost',database=dbname, user=user, password=password)
-		cursor = conn.cursor()
+		conn = psycopg2.connect(host='postgres_tfg',database=dbname, user=user, password=password)
 	except (Exception, psycopg2.DatabaseError) as error:
 		print(error)
 
-	return conn, cursor
+	return conn
 
-def close_db_connection(conn, cursor):
+def close_db_connection(conn):
 	try:
-		cursor.close()
 		if conn is not None:
 			conn.close()
 	except (Exception, psycopg2.DatabaseError) as error:
 		print(error)
 
-def add_ga_run(conn, cursor, problem, max_iterations, pop_size, elitism, fitness_function,
+def add_ga_run(conn, problem, max_iterations, pop_size, elitism, fitness_function,
 	initial_population_function, selection_function, crossover_function, mutation_function,
 	mutation_rate, tournament_size, crossover_window_len):
 	new_id = -1
 	try:	
-		sql_string = "INSERT INTO ga_run (created_timestamp, problem, max_iterations, pop_size, elitism, \
-				 fitness_function, initial_population_function, selection_function, crossover_function, \
-				 mutation_function, mutation_rate, tournament_size, crossover_window_len) VALUES \
-				 (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"
-		cursor.execute(sql_string, (dt.now(), problem, max_iterations, pop_size, elitism, fitness_function,
-				  initial_population_function, selection_function, crossover_function, mutation_function,
-				  mutation_rate, tournament_size, crossover_window_len))
-		new_id = cursor.fetchone()[0]
-		conn.commit()
+		with conn:
+			cursor = conn.cursor()
+			sql_string = "INSERT INTO ga_run (created_timestamp, problem, max_iterations, pop_size, elitism, \
+					 fitness_function, initial_population_function, selection_function, crossover_function, \
+					 mutation_function, mutation_rate, tournament_size, crossover_window_len) VALUES \
+					 (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"
+			cursor.execute(sql_string, (dt.now(), problem, max_iterations, pop_size, elitism, fitness_function,
+					  initial_population_function, selection_function, crossover_function, mutation_function,
+					  mutation_rate, tournament_size, crossover_window_len))
+			new_id = cursor.fetchone()[0]
+
 	except (Exception, psycopg2.DatabaseError) as error:
 		print (error)
 
 	return new_id
 
-def add_ga_run_result(conn, cursor, ga_run_id, sol_found, solution, num_iterations, max_fitness, num_fitness_evals, num_bit_flips):
+def add_ga_run_result(conn, ga_run_id, sol_found, solution, num_iterations, max_fitness, num_fitness_evals, num_bit_flips):
 	try:
-		sql_string = "UPDATE ga_run SET updated_timestamp = %s, sol_found = %s, solution = %s, \
-			num_iterations = %s, max_fitness = %s, num_fitness_evals = %s, num_bit_flips = %s WHERE id = %s"
-		cursor.execute(sql_string, (dt.now(), sol_found, solution, num_iterations, max_fitness, num_fitness_evals, num_bit_flips))
-		conn.commit()
+		with conn:
+			cursor = conn.cursor()
+			sql_string = "UPDATE ga_run SET updated_timestamp = %s, sol_found = %s, solution = %s, \
+				num_iterations = %s, max_fitness = %s, num_fitness_evals = %s, num_bit_flips = %s WHERE id = %s"
+			cursor.execute(sql_string, (dt.now(), sol_found, ''.join([str(int(x)) for x in solution]), num_iterations, 
+				max_fitness, num_fitness_evals, num_bit_flips, ga_run_id))
 	except (Exception, psycopg2.DatabaseError) as error:
 		print (error)
 
-def add_ga_run_generation(conn, cursor, ga_run_id, generation_num, max_fitness, population_length,
+def add_ga_run_generation(conn, ga_run_id, generation_num, max_fitness, population_length,
 	population_set_length, num_fitness_evals, num_bit_flips):
 	try:
-		sql_string = "INSERT INTO ga_run_generations (time_stamp, ga_run_id, generation_num, max_fitness, \
-					 population_length, population_set_length, num_fitness_evals, num_bit_flips) VALUES \
-					 (%s, %s, %s, %s, %s, %s, %s, %s)"
-		cursor.execute(sql_string, (dt.now(), ga_run_id, generation_num, max_fitness, population_length,
-					  population_set_length, num_fitness_evals, num_bit_flips))
-		conn.commit()
+		with conn:
+			cursor = conn.cursor()
+			sql_string = "INSERT INTO ga_run_generations (time_stamp, ga_run_id, generation_num, max_fitness, \
+						 population_length, population_set_length, num_fitness_evals, num_bit_flips) VALUES \
+						 (%s, %s, %s, %s, %s, %s, %s, %s)"
+			cursor.execute(sql_string, (dt.now(), ga_run_id, generation_num, max_fitness, population_length,
+						  population_set_length, num_fitness_evals, num_bit_flips))
+	except (Exception, psycopg2.DatabaseError) as error:
+		print (error)
+
+def add_ga_run_population(conn, ga_run_id, population, ga_run_generation_id=None, observation=None):
+	try:
+		with conn:
+			cursor = conn.cursor()
+			for individual in population:
+				sql_string = "INSERT INTO ga_run_population (ga_run_id, ga_run_generation_id, individual, observations) VALUES (%s, %s, %s, %s)"
+				cursor.execute(sql_string, (ga_run_id, ga_run_generation_id, ''.join([str(int(x)) for x in individual]), observation))
 	except (Exception, psycopg2.DatabaseError) as error:
 		print (error)
 
@@ -231,6 +245,31 @@ def satisfy_clauses_population(num_vars, set_vars, pop_size, clauses):
 			else: indiv[abs(clause[rind])-1] = 0
 		population.append(indiv)
 	return population
+
+############# EVALUATE POPULATION #############
+def evaluate_population(population, clauses, fitness_function, max_workers=3):
+	
+	pop_fitness = []
+	max_fitness = 0
+	max_fit_indiv = None
+	if max_workers == 1:
+		for pop in population:
+			fitness = fitness_function(clauses, pop)
+			if fitness >= max_fitness:
+				max_fitness = fitness
+				max_fit_indiv = pop
+			pop_fitness.append([pop, fitness])
+	else:
+		ex = futures.ProcessPoolExecutor(max_workers=max_workers)
+		results = ex.map(fitness_function, itertools.repeat(clauses, len(population)), population)
+		for i, fitness in enumerate(results):
+			pop_fitness.append([population[i], fitness])
+			if fitness >= max_fitness:
+				max_fitness = fitness
+				max_fit_indiv = population[i]
+	
+	return pop_fitness, max_fitness, max_fit_indiv
+
 
 ############# FITNESS FUNCTIONS #############
 
@@ -391,39 +430,42 @@ def boltzmann_tournament_selection(population, num_parents, threshold, control_p
 
 ############# CROSSOVER FUNCTIONS #############
 
-def single_point_crossover(parent1, parent2, ret_cost=False):
+def single_point_crossover(parent_pair, ret_cost=False):
+	parent1, parent2 = parent_pair
 	fitness_evals, bit_flips = 0, 0
 	cut_point = np.random.randint(len(parent1))
 	children = [
-		np.concatenate((parent1[:cut_point],parent2[cut_point:])),
-		np.concatenate((parent2[:cut_point],parent1[cut_point:]))
+		np.concatenate((parent1[:cut_point],parent2[cut_point:])).tolist(),
+		np.concatenate((parent2[:cut_point],parent1[cut_point:])).tolist()
 		]
 	if ret_cost:
 		return children, fitness_evals, bit_flips
 	else:
 		return children
 
-def two_point_crossover(parent1, parent2, ret_cost=False):
+def two_point_crossover(parent_pair, ret_cost=False):
+	parent1, parent2 = parent_pair
 	fitness_evals, bit_flips = 0, 0
 	cut_point_1 = np.random.randint(len(parent1)-1)
 	cut_point_2 = np.random.randint(cut_point_1+1, len(parent1))
 	children = [
-		np.concatenate((parent1[:cut_point_1],parent2[cut_point_1:cut_point_2],parent1[cut_point_2:])),
-		np.concatenate((parent2[:cut_point_1],parent1[cut_point_1:cut_point_2],parent2[cut_point_2:]))
+		np.concatenate((parent1[:cut_point_1],parent2[cut_point_1:cut_point_2],parent1[cut_point_2:])).tolist(),
+		np.concatenate((parent2[:cut_point_1],parent1[cut_point_1:cut_point_2],parent2[cut_point_2:])).tolist()
 		]
 	if ret_cost:
 		return children, fitness_evals, bit_flips
 	else:
 		return children
 
-def sliding_window_crossover(parent1, parent2, clauses, crossover_window_len=0.4, ret_cost=False):
+def sliding_window_crossover(parent_pair, clauses, crossover_window_len=0.4, ret_cost=False):
+	parent1, parent2 = parent_pair
 	fitness_evals, bit_flips = 0, 0
 	window_len = int(crossover_window_len*len(parent1))
 	max_fitness, max_i = [0,0], [0,0]
 	bad_children = [[],[]]
 	for i in range(len(parent1)-window_len):
-		bad_children[0].append(np.concatenate((parent1[:i],parent2[i:i+window_len],parent1[i+window_len:])))
-		bad_children[1].append(np.concatenate((parent2[:i],parent1[i:i+window_len],parent2[i+window_len:])))
+		bad_children[0].append(np.concatenate((parent1[:i],parent2[i:i+window_len],parent1[i+window_len:]))).tolist()
+		bad_children[1].append(np.concatenate((parent2[:i],parent1[i:i+window_len],parent2[i+window_len:]))).tolist()
 		for t in range(2):
 			fitness = maxsat_fitness(clauses, bad_children[t][i])
 			fitness_evals += 1
@@ -435,7 +477,8 @@ def sliding_window_crossover(parent1, parent2, clauses, crossover_window_len=0.4
 	else:
 		return [bad_children[0][max_i[0]], bad_children[1][max_i[1]]]
 
-def random_map_crossover(parent1, parent2, ret_cost=False):
+def random_map_crossover(parent_pair, ret_cost=False):
+	parent1, parent2 = parent_pair
 	fitness_evals, bit_flips = 0, 0
 	rand_map = np.random.randint(2, size=len(parent1))
 	child_1 = parent1[:]
@@ -450,7 +493,8 @@ def random_map_crossover(parent1, parent2, ret_cost=False):
 	else:
 		return [child_1, child_2]
 
-def uniform_crossover(parent1, parent2, ret_cost=False):
+def uniform_crossover(parent_pair, ret_cost=False):
+	parent1, parent2 = parent_pair
 	# Uses alternating bits, maybe change to a normal distribution
 	fitness_evals, bit_flips = 0, 0
 	child_1 = parent1[:]
@@ -467,128 +511,128 @@ def uniform_crossover(parent1, parent2, ret_cost=False):
 
 ############# MUTATION FUNCTIONS #############
 
-def single_bit_flip(population, mutation_rate, ret_cost=False):
+def mutate_population(population, mutation_function, mutation_params, ret_cost=False, max_workers=1):
 	fitness_evals, bit_flips = 0, 0
 	new_pop = []
-	for i, pop in enumerate(population):
-		indiv = pop
-		rmut = random.random()
-		if rmut <= mutation_rate:
+	if max_workers == 1:
+		for i, pop in enumerate(population):
+			newindiv = mutation_function(pop, *mutation_params)
+			if ret_cost:
+				fitness_evals += newindiv[1]
+				bit_flips += newindiv[2]
+				newindiv = newindiv[0]
+			new_pop.append(newindiv)
+
+
+	if ret_cost:
+		return new_pop, fitness_evals, bit_flips
+	else:
+		return new_pop
+
+
+def single_bit_flip(individual, mutation_rate, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
+	indiv = individual
+	rmut = random.random()
+	if rmut <= mutation_rate:
+		ind = np.random.randint(len(indiv))
+		if indiv[ind] == 1: indiv[ind] = 0
+		else: indiv[ind] = 1
+		bit_flips += 1
+	if ret_cost:
+		return indiv, fitness_evals, bit_flips
+	else:
+		return indiv
+
+def multiple_bit_flip(individual, mutation_rate, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
+	indiv = individual
+	rmut = random.random()
+	if rmut <= mutation_rate:
+		num_bits = np.random.randint(len(indiv))
+		for x in range(num_bits):
 			ind = np.random.randint(len(indiv))
 			if indiv[ind] == 1: indiv[ind] = 0
 			else: indiv[ind] = 1
 			bit_flips += 1
-		new_pop.append(indiv)
 	if ret_cost:
-		return new_pop, fitness_evals, bit_flips
+		return indiv, fitness_evals, bit_flips
 	else:
-		return new_pop
+		return indiv
 
-def multiple_bit_flip(population, mutation_rate, ret_cost=False):
+def single_bit_greedy(individual, clauses, ret_cost=False):
 	fitness_evals, bit_flips = 0, 0
-	new_pop = []
-	for i, pop in enumerate(population):
-		indiv = pop
-		rmut = random.random()
-		if rmut <= mutation_rate:
-			num_bits = np.random.randint(len(indiv))
-			for x in range(num_bits):
-				ind = np.random.randint(len(indiv))
-				if indiv[ind] == 1: indiv[ind] = 0
-				else: indiv[ind] = 1
-				bit_flips += 1
-		new_pop.append(indiv)
-	if ret_cost:
-		return new_pop, fitness_evals, bit_flips
-	else:
-		return new_pop
-
-def single_bit_greedy(population, clauses, ret_cost=False):
-	fitness_evals, bit_flips = 0, 0
-	new_pop = []
-	for i, pop in enumerate(population):
-		ind_fitness = maxsat_fitness(clauses, pop)
+	ind_fitness = maxsat_fitness(clauses, individual)
+	fitness_evals += 1
+	max_ind = individual
+	for j in range(len(individual)):
+		indiv = individual[:]
+		if indiv[j]==1: indiv[j]=0
+		elif indiv[j]==0: indiv[j]=1
+		bit_flips += 1
 		fitness_evals += 1
-		for j in range(len(pop)):
-			t_indiv = pop
-			if t_indiv[j]==1: t_indiv[j]=0
-			elif t_indiv[j]==0: t_indiv[j]=1
-			bit_flips += 1
-			fitness_evals += 1
-			if maxsat_fitness(clauses, t_indiv)>ind_fitness:
-				break
-		new_pop.append(t_indiv)
+		if maxsat_fitness(clauses, indiv)>ind_fitness:
+			max_ind = indiv
+			break
 	if ret_cost:
-		return new_pop, fitness_evals, bit_flips
+		return max_ind, fitness_evals, bit_flips
 	else:
-		return new_pop
+		return max_ind
 
-def single_bit_max_greedy(population, clauses, ret_cost=False):
+def single_bit_max_greedy(individual, clauses, ret_cost=False):
 	fitness_evals, bit_flips = 0, 0
-	new_pop = []
-	for i, pop in enumerate(population):
-		ind_fitness = maxsat_fitness(clauses, pop)
+	ind_fitness = maxsat_fitness(clauses, individual)
+	fitness_evals += 1
+	max_ind, max_fit = individual, ind_fitness
+	for j in range(len(individual)):
+		t_indiv = individual[:]
+		if t_indiv[j]==1: t_indiv[j]=0
+		elif t_indiv[j]==0: t_indiv[j]=1
+		tfit = maxsat_fitness(clauses, t_indiv)
 		fitness_evals += 1
-		max_ind, max_fit = 0, 0
-		for j in range(len(pop)):
-			t_indiv = pop[:]
-			if t_indiv[j]==1: t_indiv[j]=0
-			elif t_indiv[j]==0: t_indiv[j]=1
-			tfit = maxsat_fitness(clauses, t_indiv)
-			fitness_evals += 1
-			if tfit>ind_fitness and tfit>=max_fit:
-				max_ind = t_indiv
-				max_fit = tfit
-		if max_fit>0:
-			new_pop.append(max_ind)
-		else:
-			new_pop.append(pop)
+		if tfit>max_fit:
+			max_ind = t_indiv
+			max_fit = tfit
 	if ret_cost:
-		return new_pop, fitness_evals, bit_flips
+		return max_ind, fitness_evals, bit_flips
 	else:
-		return new_pop
+		return max_ind
 
-def multiple_bit_greedy(population, clauses, ret_cost=False):
+def multiple_bit_greedy(individual, clauses, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0	
+	ind_fitness = maxsat_fitness(clauses, individual)
+	indiv = individual[:]
+	for j in range(len(indiv)):
+		t_indiv = indiv[:]
+		new_bit = 1
+		if indiv[j]==1: new_bit=0
+		t_indiv[j] = new_bit
+		t_fitness = maxsat_fitness(clauses, t_indiv)
+		if t_fitness > ind_fitness:
+			ind_fitness = t_fitness
+			indiv = t_indiv
+	if ret_cost:
+		return indiv, fitness_evals, bit_flips
+	else:
+		return indiv
+
+def flip_ga(individual, clauses, ret_cost=False):
 	fitness_evals, bit_flips = 0, 0
-	new_pop = []
-	for i, pop in enumerate(population):
-		ind_fitness = maxsat_fitness(clauses, pop)
-		indiv = pop[:]
+	indiv = individual[:]
+	ind_fitness = maxsat_fitness(clauses, indiv)
+	prev_fitness = ind_fitness-1
+	while(prev_fitness<ind_fitness):
+		prev_fitness = ind_fitness
 		for j in range(len(indiv)):
 			t_indiv = indiv[:]
 			new_bit = 1
-			if indiv[j]==1: new_bit=0
+			if t_indiv[j]==1: new_bit=0
 			t_indiv[j] = new_bit
 			t_fitness = maxsat_fitness(clauses, t_indiv)
 			if t_fitness > ind_fitness:
 				ind_fitness = t_fitness
 				indiv = t_indiv
-		new_pop.append(indiv)
 	if ret_cost:
-		return new_pop, fitness_evals, bit_flips
+		return indiv, fitness_evals, bit_flips
 	else:
-		return new_pop
-
-def flip_ga(population, clauses, ret_cost=False):
-	fitness_evals, bit_flips = 0, 0
-	new_pop = []
-	for i, pop in enumerate(population):
-		indiv = pop[:]
-		ind_fitness = maxsat_fitness(clauses, indiv)
-		prev_fitness = ind_fitness-1
-		while(prev_fitness<ind_fitness):
-			prev_fitness = ind_fitness
-			for j in range(len(indiv)):
-				t_indiv = indiv[:]
-				new_bit = 1
-				if t_indiv[j]==1: new_bit=0
-				t_indiv[j] = new_bit
-				t_fitness = maxsat_fitness(clauses, t_indiv)
-				if t_fitness > ind_fitness:
-					ind_fitness = t_fitness
-					indiv = t_indiv
-		new_pop.append(indiv)
-	if ret_cost:
-		return new_pop, fitness_evals, bit_flips
-	else:
-		return new_pop
+		return indiv

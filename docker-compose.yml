@@ -2,7 +2,7 @@ version: '3.5'
 services:
 
   postgres:
-    container_name: postgres
+    container_name: postgres_tfg
     image: postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
@@ -18,7 +18,7 @@ services:
   pgadmin:
     depends_on:
       - postgres
-    container_name: pgadmin
+    container_name: pgadmin_tfg
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
@@ -29,6 +29,16 @@ services:
     ports:
       - "${PGADMIN_PORT:-5050}:80"
     restart: unless-stopped
+
+  python:
+    depends_on:
+      - postgres
+    container_name: python_tfg
+    image: python:3.7-buster
+    volumes:
+      - ./:/genetic_algorithm
+    restart: unless-stopped
+    command: bash -c "pip install -r genetic_algorithm/requirements.txt && tail -f /dev/null"
 
 volumes:
     postgres_ga_data: 
