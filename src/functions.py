@@ -247,7 +247,7 @@ def satisfy_clauses_population(num_vars, set_vars, pop_size, clauses):
 	return population
 
 ############# EVALUATE POPULATION #############
-def evaluate_population(population, clauses, fitness_function, max_workers=3):
+def evaluate_population(population, clauses, fitness_function, max_workers=1):
 	
 	pop_fitness = []
 	max_fitness = 0
@@ -511,7 +511,7 @@ def uniform_crossover(parent_pair, ret_cost=False):
 
 ############# MUTATION FUNCTIONS #############
 
-def mutate_population(population, mutation_function, mutation_params, ret_cost=False, max_workers=1):
+def mutate_population(population, mutation_function, mutation_params, ret_cost=False, max_workers=4):
 	fitness_evals, bit_flips = 0, 0
 	new_pop = []
 	if max_workers == 1:
@@ -522,7 +522,16 @@ def mutate_population(population, mutation_function, mutation_params, ret_cost=F
 				bit_flips += newindiv[2]
 				newindiv = newindiv[0]
 			new_pop.append(newindiv)
-
+	else:
+		ex = futures.ProcessPoolExecutor(max_workers=max_workers)
+		results = ex.map(mutation_function, population, itertools.repeat(mutation_params[0], len(population)), itertools.repeat(mutation_params[1], len(population)))
+		if ret_cost:
+			for indiv, fit_ev, bit_f in results:
+				new_pop.append(indiv)
+				fitness_evals += fit_ev
+				bit_flips += bit_f
+		else:
+			new_pop=results
 
 	if ret_cost:
 		return new_pop, fitness_evals, bit_flips

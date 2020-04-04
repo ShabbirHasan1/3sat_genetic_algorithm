@@ -222,7 +222,7 @@ class GeneticAlgorithm:
 			if self.log_level=="time":
 				t0 = time.time()
 			# Mutate children
-			children = self.mutation_func(children, *self.mut_params)
+			children = fn.mutate_population(children, self.mutation_func, self.mut_params, self.ret_cost)
 			if self.ret_cost:
 				num_fitness_evals += children[1]
 				num_flips += children[2]
@@ -239,6 +239,7 @@ class GeneticAlgorithm:
 			if self.log_level=="time":
 				t1 = time.time()
 				print ("Replace population: ", t1-t0)
+				print("------------------------------------")
 
 			cur_iter += 1
 			t_fitness_evals += num_fitness_evals
@@ -301,7 +302,7 @@ class GeneticAlgorithm:
 ############# PROGRAM #############
 filename = 'uf200-01.cnf'
 foldername = './data/uf20-91'
-log_levels = ['all']
+log_levels = ['all', 'time']
 initial_pop_funcs = ['random', 'binary range', 'satisfy clauses']
 fitness_funcs = ['maxsat']
 selection_funcs = ['roulette', 'roulette elimination', 'rank', 'tournament', 'boltzmann']
@@ -322,7 +323,7 @@ gen_alg = GeneticAlgorithm(filename=foldername+'/'+filename, max_iters=max_iters
 gen_alg.set_params(initial_pop_func=initial_pop_funcs[2], fitness_func=fitness_funcs[0], selection_func=selection_funcs[3], crossover_func=crossover_funcs[1], 
 				  mutation_func=mutation_funcs[2],mutation_rate=mutation_rate, tournament_size=tournament_size, 
 				  crossover_window_len=crossover_window_len)
-gen_alg.set_log_level('time')
+gen_alg.set_log_level('none')
 
 sol_found, sol, iteration, fitness, num_fitness_evals, num_flips = gen_alg.start_ga()
 
