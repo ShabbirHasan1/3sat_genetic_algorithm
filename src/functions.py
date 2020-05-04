@@ -3,16 +3,122 @@ import random
 import sys
 import psycopg2
 from datetime import datetime as dt
-from os import listdir
+import os
 from concurrent import futures
 import itertools
+import seaborn as sns
+import matplotlib as mpl
+mpl.rc('figure', max_open_warning = 0)
+import matplotlib.pyplot as plt
+import glob
+import re
+import subprocess
+import scipy.stats as sp
+import hashlib
+from multiprocessing import Pool
 
-# TODO: Add more functions to generate initial population, so the individuals are better distributed across the solution space ??
-# TODO: Finish implementing float fitness
-# TODO: Add tests for db methods??
+# TODO: Explain why we rejected float fitness
 # TODO: Finish implementing boltzmann selection (threshold and control_param behaviour)
+# TODO: Fix population replacement bugs
 ############# CONSTANTS #############
 infinite = 2**31
+levene_constant = 0.05
+fp_in = "./gifs/image_*.png"
+fp_out = "./gifs/"
+
+############# POPULATION REPLACEMENT FUNCTIONS #############
+def random_replacement(allow_duplicates, children_fitness, pop_fitness):
+	new_pop = [x for x,y in pop_fitness]
+	for _ in children_fitness:
+		rand_ind = np.random.randint(0, len(new_pop))
+		new_pop.pop(rand_ind)
+	new_pop += [x for x,y in children_fitness]
+	if allow_duplicates:
+		return new_pop
+	else:
+		return set(new_pop)
+
+
+def weak_parent_replacement(allow_duplicates, children_fitness, parent_pairs, pop_fitness_dict, pop_fitness):
+	new_pop = [x for x,y in pop_fitness]
+	tmp_children = list(children_fitness)
+	new_children = []
+	for ppair in parent_pairs:
+		new_pop.remove(ppair[0])
+		aux = tmp_children[:2] + [[ppair[0],pop_fitness_dict[tuple(ppair[0])]], [ppair[1],pop_fitness_dict[tuple(ppair[1])]]]
+		tmp_children = tmp_children[2:]
+		sorted_pop = sorted(aux, key=lambda x: x[1], reverse=True)
+		if ppair[0]==ppair[1]:
+			new_children += [x for x,y in sorted_pop[:1]]
+		else:
+			new_pop.remove(ppair[1])
+			new_children += [x for x,y in sorted_pop[:2]]
+	new_pop += new_children
+	if allow_duplicates:
+		return new_pop
+	else:
+		return set(new_pop)
+
+def parent_replacement(allow_duplicates, children_fitness, parent_pairs, pop_fitness_dict, pop_fitness):
+	# TODO: Fix it so it doesnt expand the dataset when allow_duplicates is false
+	new_pop = [x for x,y in pop_fitness]
+	remove_children = 0
+	for ppair in parent_pairs:
+		new_pop.remove(ppair[0])
+		if ppair[0]==ppair[1]:
+			remove_children += 1
+		else:
+			new_pop.remove(ppair[1])
+	if remove_children>0:
+		new_pop += [x for x,y in sorted(children_fitness, key=lambda x: x[1], reverse=True)][:-remove_children]
+	else:
+		new_pop += [x for x,y in sorted(children_fitness, key=lambda x: x[1], reverse=True)]
+	if allow_duplicates:
+		return new_pop
+	else:
+		return set(new_pop)
+
+def delete_n(allow_duplicates, children_fitness, pop_fitness, num_individuals, selection_method, selection_params):
+	# TODO: Fix!, fails with steady state False and duplicates False
+	tmp_pop = pop_fitness[:]
+	tmp_children = children_fitness[:]
+	new_children = []
+	for _ in range(num_individuals):
+		to_kill = selection_method(tmp_pop, 1, *selection_params)[0]
+		to_add = selection_method(tmp_children, 1, *selection_params)[0]
+		tmp_pop.remove(to_kill)
+		new_children += [to_add]
+
+	new_pop = [x for x,y in tmp_pop] + [x for x,y in new_children]
+	if allow_duplicates:
+		return new_pop
+	else:
+		return set(new_pop)
+
+def mu_lambda_replacement(allow_duplicates, pop_fitness, pop_size):
+	new_population = []
+	sorted_pop = sorted(pop_fitness, key=lambda x: x[1], reverse=True)
+	new_population = [x for x,y in sorted_pop[:pop_size]]
+	if not allow_duplicates: new_population = set(new_population)
+	return new_population
+
+def generational_replacement(allow_duplicates, elitism, children, pop_fitness):
+	if elitism == 0:
+		return children
+
+	if allow_duplicates:
+		new_population = []
+	else:
+		new_population = set()
+	sorted_pop = sorted(pop_fitness, key=lambda x: x[1], reverse=True)
+	if allow_duplicates:
+		new_population = children + [x for x,y in sorted_pop[:elitism]]
+	else:
+		new_population = children
+		for x,y in sorted_pop[:elitism]:
+			new_population.add(x)
+	return new_population
+
 
 ############# FUNCTIONS #############
 
@@ -21,7 +127,7 @@ def get_random_int(bot, top):
 
 def read_folder(folder_path):
 	files = []
-	for file in listdir(folder_path):
+	for file in os.listdir(folder_path):
 		if len(file)>4 and file[-4:]=='.cnf':
 			files.append(folder_path+'/'+file)
 	return files
@@ -50,11 +156,210 @@ def read_problem(filepath):
 
 	return num_vars, clauses
 
-def get_pop_set_len(population):
+def get_pop_set(population):
 	unique_pop = set()
 	for indiv in population:
 		unique_pop.add(str(indiv))
-	return len(unique_pop)
+	return unique_pop
+
+def get_indiv_count(population, indiv):
+	str_pop = [str(x) for x in population]
+	return str_pop.count(indiv)
+
+def append_to(dest_list, elem):
+	if type(dest_list) == type(set()):
+		dest_list.add(elem)
+	elif type(dest_list) == type([]):
+		dest_list.append(elem)
+	return dest_list
+
+def animate_phenotypic_distributions(population_distributions, filename):
+	min_f, max_f = 2**31, 0
+	for distribution in population_distributions:
+		max_d, min_d = max(distribution), min(distribution)
+		if max_d > max_f: max_f = max_d
+		if min_d < min_f: min_f = min_d
+
+	for i, distribution in enumerate(population_distributions):
+		fig, ax = plt.subplots()
+		plot = sns.distplot(distribution, bins=20, norm_hist=True, ax=ax)
+		ax.set_xlim(min_f, max_f)
+		#ax.set_ylim(0, 100)
+		plt.title("Generation {}".format(i))
+		plt.xlabel("Fitness")
+		plt.ylabel("Bin frequency")
+
+		textstr = ['variance=%.3f' % (np.var(distribution), )]
+		if i>0 and np.var(distribution)>0:
+			statistic, result = sp.levene(distribution, population_distributions[i-1])
+			# if levene result (p value) < 0.05 there is a difference between the variance of the populations
+			textstr.append(r'levene p=%.3f' % (result))
+			ttest,pval = sp.ttest_ind(distribution, population_distributions[i-1], equal_var=result > levene_constant)
+			textstr.append(r't-test p=%.3f' % (pval))
+			# if pval < threshold (0.05, 0.1) reject the null hypothesis of equal averages
+
+		textstr = '\n'.join(textstr)
+		# these are matplotlib.patch.Patch properties0
+		props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+
+		# place a text box in upper left in axes coords
+		ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=14,
+			verticalalignment='top', bbox=props)
+
+		plt.savefig("gifs/image_{}.png".format(i))
+
+	file_out = fp_out + 'phenotype_' + filename + '.gif'
+	filenames = sorted(glob.glob( fp_in),key=lambda x:float(re.findall("([0-9]+?)\.png",x)[0]))
+	subprocess.call("convert -delay 50 " + " ".join(filenames) + " -loop 5 " + file_out, shell=True)
+	for f in sorted(glob.glob(fp_in)):
+		os.remove(f)
+
+def plot_violin_graph(pop_distributions, y_axis, title, filename, dist_type):
+	fig, ax = plt.subplots(figsize=(30,15))
+	ax.violinplot(pop_distributions, showmeans=True, widths=0.7)
+	plt.title(title)
+	plt.xlabel("Generation number")
+	plt.ylabel(y_axis)
+	file_out = fp_out + dist_type + '_' + filename + '.png'
+	plt.savefig(file_out)
+
+def plot_means(genotype_distributions, phenotype_distributions, filename):
+	fig, ax = plt.subplots(figsize=(30,15))
+
+	ind_arr = [x for x in range(len(genotype_distributions))]
+
+	gen_mean, gen_dev = get_mean_distributions(genotype_distributions)
+	gen_lower, gen_upper = [], []
+	for i in range(len(gen_mean)):
+		gen_lower += [gen_mean[i]-gen_dev[i]]
+		gen_upper += [gen_mean[i]+gen_dev[i]]
+	
+	phen_mean, phen_dev = get_mean_distributions(phenotype_distributions)
+	phen_lower, phen_upper = [], []
+	for i in range(len(phen_mean)):
+		phen_lower += [phen_mean[i]-phen_dev[i]]
+		phen_upper += [phen_mean[i]+phen_dev[i]]
+	
+	ax.fill_between(ind_arr, gen_upper, gen_lower, color="lightcyan")
+	ax.plot(ind_arr, gen_mean, color="blue", lw=2, label="Genotype mean")
+	#plt.plot(ind_arr, gen_mean, color ='g')
+
+	ax.fill_between(ind_arr, phen_upper, phen_lower, color="lightyellow", alpha=0.7)
+	ax.plot(ind_arr, phen_mean, color="brown", lw=2, label="Phenotype mean")
+
+	ax.set_title("Genotypic vs Phenotypic mean evolution")
+	ax.set_xlabel("Generation number")
+	ax.set_ylabel("Mean percentage")
+	ax.legend()
+	file_out = fp_out + 'bbands_' + filename + '.png'
+	plt.savefig(file_out)
+
+def get_mean_distributions(pop_distributions):
+	mean_dists = []
+	deviation_dists = []
+	for distrib in pop_distributions:
+		mean_dists += [np.mean(distrib)]
+		deviation_dists += [np.std(distrib)]
+	return mean_dists, deviation_dists
+
+def normalize_distributions(pop_distributions, max_value):
+	normalized_dists = []
+	for distribution in pop_distributions:
+		new_dist = []
+		for indiv in distribution:
+			new_dist += [indiv/max_value]
+		normalized_dists += [new_dist]
+	return normalized_dists
+
+
+def hamming_distance(chain1, chain2):
+	chaine1 = hashlib.md5(chain1.encode()).hexdigest()
+	chaine2 = hashlib.md5(chain2.encode()).hexdigest()
+	return sum(c1 != c2 for c1, c2 in zip(chaine1, chaine2))
+
+def get_hamming_distances(population, hamming_dict=None):
+	pop = []
+	for indiv in population:
+		dist = 0
+		for indiv2 in population:
+			if indiv!=indiv2:
+				if hamming_dict != None:
+					try:
+						ld = hamming_dict[tuple(indiv)+tuple(indiv2)]
+					except:
+						ld = hamming_distance(indiv, indiv2)
+						hamming_dict[tuple(indiv)+tuple(indiv2)] = ld
+				else:
+					ld = hamming_distance(indiv, indiv2)
+				dist += ld
+		dist /= len(population)
+		pop.append(dist)
+
+	if hamming_dict != None:
+		return pop, hamming_dict
+	return pop
+
+
+def get_genotypic_distribution(pop_distributions, max_workers=1):
+	genotype_distributions = []
+
+	if max_workers == 1:
+		hamming_dict = {}
+		for population in pop_distributions:
+			pop, hamming_dict = get_hamming_distances(population, hamming_dict)
+			genotype_distributions.append(pop)
+	
+	else:
+		for i in range(0,len(pop_distributions), max_workers):
+			p = Pool(processes=max_workers)
+			data = p.map(get_hamming_distances, pop_distributions[i:i+10])
+			p.close()
+			genotype_distributions += data
+
+	return genotype_distributions
+
+def animate_genotypic_distributions(genotype_distributions, filename):
+	min_f, max_f = 2**31, 0
+	for pop in genotype_distributions:
+		tmin = min(pop)
+		tmax = max(pop)
+		if tmin < min_f: min_f = tmin
+		if tmax > max_f: max_f = tmax
+
+	for i, distribution in enumerate(genotype_distributions):
+		fig, ax = plt.subplots()
+		plot = sns.distplot(distribution, bins=20, ax=ax)
+		ax.set_xlim(min_f,max_f)
+		#ax.set_ylim(0, len(distribution))
+		plt.title("Generation {}".format(i))
+		plt.xlabel("Hamming distance")
+		plt.ylabel("Bin frequency")
+
+		textstr = ['variance=%.3f' % (np.var(distribution), )]
+		if i>0 and np.var(distribution)>0:
+			statistic, result = sp.levene(distribution, genotype_distributions[i-1])
+			# if levene result (p value) < 0.05 there is a difference between the variance of the populations
+			textstr.append(r'levene p=%.3f' % (result))
+			ttest,pval = sp.ttest_ind(distribution, genotype_distributions[i-1], equal_var=result > levene_constant)
+			textstr.append(r't-test p=%.3f' % (pval))
+			# if pval < threshold (0.05, 0.1) reject the null hypothesis of equal averages
+
+		textstr = '\n'.join(textstr)
+		# these are matplotlib.patch.Patch properties0
+		props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+
+		# place a text box in upper left in axes coords
+		ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=14,
+			verticalalignment='top', bbox=props)
+		plt.savefig("gifs/image_{}.png".format(i))
+
+	file_out = fp_out + 'genotype_' + filename + '.gif'
+	filenames = sorted(glob.glob( fp_in),key=lambda x:float(re.findall("([0-9]+?)\.png",x)[0]))
+	subprocess.call("convert -delay 50 " + " ".join(filenames) + " -loop 5 " + file_out, shell=True)
+	for f in sorted(glob.glob(fp_in)):
+		os.remove(f)
+
+
 
 ############# DATABASE HELPER FUNCTIONS #############
 
@@ -210,51 +515,79 @@ def remove_pure_vars(clauses, set_vars):
 
 ############# GENERATE INITIAL POPULATION #############
 
-def random_population(num_vars, set_vars, pop_size):
-	population = []
-	for p in range(pop_size):
-		rpop = np.random.randint(2, size=num_vars)
-		for j, var in enumerate(set_vars):
-			if var != infinite:
-				rpop[j] = var
-		population.append(rpop)
+def random_population(num_vars, set_vars, pop_size, allow_duplicates):
+	if allow_duplicates:
+		population = []
+	else:
+		population = set()
+	while(len(population)<pop_size):
+		for p in range(pop_size):
+			rpop = np.random.randint(2, size=num_vars)
+			for j, var in enumerate(set_vars):
+				if var != infinite:
+					rpop[j] = var
+			if allow_duplicates:
+				population.append(rpop.tolist())
+			else:
+				population.add(tuple(rpop.tolist()))
 	return population
 
-def binary_range_population(num_vars, set_vars, pop_size):
-	population = []
+def binary_range_population(num_vars, set_vars, pop_size, allow_duplicates):
+	if allow_duplicates:
+		population = []
+	else:
+		population = set()
 	total_num = 2**num_vars
-	ctr = 0
-	while ctr < int(total_num/pop_size)*pop_size:
-		bin_i = f'{ctr:0b}'
-		padded_bin_i = '0'*(num_vars-len(bin_i))+bin_i
-		indiv = [int(l) for l in padded_bin_i]
-		for j, var in enumerate(set_vars):
-			if var != infinite:
-				indiv[j] = var
-		population.append(indiv)
-		ctr+=int(total_num/pop_size)
+	c = 0
+	while(len(population)<pop_size):
+		ctr = c
+		while ctr < int(total_num/pop_size)*pop_size:
+			bin_i = f'{ctr:0b}'
+			padded_bin_i = '0'*(num_vars-len(bin_i))+bin_i
+			indiv = [int(l) for l in padded_bin_i]
+			for j, var in enumerate(set_vars):
+				if var != infinite:
+					indiv[j] = var
+			if allow_duplicates:
+				population.append(indiv)
+			else:
+				population.add(indiv)
+			ctr+=int(total_num/pop_size)
+		c += 1
 	return population
 
-def satisfy_clauses_population(num_vars, set_vars, pop_size, clauses):
-	population = []
-	for p in range(pop_size):
-		indiv = [0]*num_vars
-		for clause in clauses:
-			rind = np.random.randint(len(clause))
-			if clause[rind]>=0: indiv[clause[rind]-1] = 1
-			else: indiv[abs(clause[rind])-1] = 0
-		population.append(indiv)
+def satisfy_clauses_population(num_vars, set_vars, pop_size, clauses, allow_duplicates):
+	if allow_duplicates:
+		population = []
+	else:
+		population = set()
+	while len(population)<pop_size:
+		for p in range(pop_size):
+			indiv = [0]*num_vars
+			for clause in clauses:
+				rind = np.random.randint(len(clause))
+				if clause[rind]>=0: indiv[clause[rind]-1] = 1
+				else: indiv[abs(clause[rind])-1] = 0
+			if allow_duplicates:
+				population.append(indiv)
+			else:
+				population.add(indiv)
 	return population
 
 ############# EVALUATE POPULATION #############
-def evaluate_population(population, clauses, fitness_function, max_workers=1):
-	
+def evaluate_population(population, clauses, fitness_function, fitness_dict, max_workers=1):
 	pop_fitness = []
 	max_fitness = 0
 	max_fit_indiv = None
 	if max_workers == 1:
 		for pop in population:
-			fitness = fitness_function(clauses, pop)
+			try:
+				if type(pop)==type(()):
+					fitness = fitness_dict[pop]
+				else:
+					fitness = fitness_dict[tuple(pop)]
+			except:
+				fitness = fitness_function(clauses, pop)
 			if fitness >= max_fitness:
 				max_fitness = fitness
 				max_fit_indiv = pop
@@ -267,7 +600,6 @@ def evaluate_population(population, clauses, fitness_function, max_workers=1):
 			if fitness >= max_fitness:
 				max_fitness = fitness
 				max_fit_indiv = population[i]
-	
 	return pop_fitness, max_fitness, max_fit_indiv
 
 
@@ -311,6 +643,14 @@ def maxsat_solution_found(clauses, fitness):
 
 ############# SELECTION FUNCTIONS #############
 
+def random_selection(population, num_parents):
+	tmp_pop = population[:]
+	parents = []
+	for _ in range(num_parents):
+		ind = np.random.randint(0, len(tmp_pop))
+		parents.append(tmp_pop.pop(ind))
+	return parents
+
 def roulette_selection_with_elimination(population, num_parents):
 	tmp_pop = population[:]
 	parents = []
@@ -325,8 +665,7 @@ def roulette_selection_with_elimination(population, num_parents):
 		sprob = 0
 		for i, prob in enumerate(probabilities):
 			if rnum >= sprob and rnum <= sprob+prob:
-				parents.append(tmp_pop[i])
-				tmp_pop.pop(i)
+				parents.append(tmp_pop.pop(i))
 				break
 			sprob += prob
 	return parents 
@@ -372,6 +711,56 @@ def tournament_selection(population, num_parents, tournament_size):
 				twinner = population[rnum][0]
 				tfitness = population[rnum][1]
 		parents.append([twinner,tfitness])
+	return parents
+
+
+def stochastic_universal_sampling_selection(population, num_parents):
+	total_fitness = sum([x[1] for x in population])
+	point_distance = total_fitness/num_parents
+	start_point = int(np.random.uniform(0, point_distance))
+	points = [start_point + i * point_distance for i in range(num_parents)]
+
+	parents = []
+	while len(parents) < num_parents:
+		random.shuffle(population)
+		fit_sum, point = 0, 0
+		for indiv in population:
+			if len(parents)==num_parents:
+				break
+			elif fit_sum+indiv[1]>points[point]:
+				point+=1
+				parents.append(indiv)
+			fit_sum += indiv[1]
+	return parents
+
+
+def annealed_selection(population, num_parents, max_generations, generation_num):
+	# Combination if rank and roulette wheel selection
+	# Rank selection
+	sorted_pop = sorted(population, key=lambda x: x[1])
+	pop_rank = [[x, i+1] for i,x in enumerate(sorted_pop)]
+	total_rank = int((pop_rank[-1][1]*(pop_rank[-1][1]-1))/2)
+	# Roulette wheel selection
+	total_fitness = sum([x[1] for x in sorted_pop])
+	# Combination
+	factor = (1/max_generations)*generation_num
+	annealed_pop = []
+	total_a_fitness = 0
+	for i,x in enumerate(pop_rank):
+		annealed_fitness = (sorted_pop[i][1]/total_fitness)*(1-factor)+(x[1]/total_rank)*(0+factor)
+		annealed_pop.append([x[0], annealed_fitness])
+		total_a_fitness += annealed_fitness
+	parents = []
+
+	while len(parents)<num_parents:
+		rnum = np.random.uniform(0, total_a_fitness)
+		fsum = 0
+		for indiv in annealed_pop:
+			if fsum+indiv[1]>=rnum:
+				parents.append(indiv[0])
+				break
+			fsum += indiv[1]
+
 	return parents
 
 
@@ -511,7 +900,7 @@ def uniform_crossover(parent_pair, ret_cost=False):
 
 ############# MUTATION FUNCTIONS #############
 
-def mutate_population(population, mutation_function, mutation_params, ret_cost=False, max_workers=4):
+def mutate_population(population, mutation_function, mutation_params, ret_cost=False, max_workers=1):
 	fitness_evals, bit_flips = 0, 0
 	new_pop = []
 	if max_workers == 1:
