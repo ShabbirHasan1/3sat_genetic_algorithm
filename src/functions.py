@@ -16,108 +16,18 @@ import subprocess
 import scipy.stats as sp
 import hashlib
 from multiprocessing import Pool
+import pandas as pd
+import sklearn.decomposition as sd
+
 
 # TODO: Explain why we rejected float fitness
-# TODO: Finish implementing boltzmann selection (threshold and control_param behaviour)
-# TODO: Fix population replacement bugs
+# TODO: Explain why boltzmann selection failed (we loose too much phenotypic diversity fast, and so it becomes impossible to find contestants with
+# a phenotypical distance equal to the boltzman_threshold amongst them)
 ############# CONSTANTS #############
 infinite = 2**31
 levene_constant = 0.05
 fp_in = "./gifs/image_*.png"
 fp_out = "./gifs/"
-
-############# POPULATION REPLACEMENT FUNCTIONS #############
-def random_replacement(allow_duplicates, children_fitness, pop_fitness):
-	new_pop = [x for x,y in pop_fitness]
-	for _ in children_fitness:
-		rand_ind = np.random.randint(0, len(new_pop))
-		new_pop.pop(rand_ind)
-	new_pop += [x for x,y in children_fitness]
-	if allow_duplicates:
-		return new_pop
-	else:
-		return set(new_pop)
-
-
-def weak_parent_replacement(allow_duplicates, children_fitness, parent_pairs, pop_fitness_dict, pop_fitness):
-	new_pop = [x for x,y in pop_fitness]
-	tmp_children = list(children_fitness)
-	new_children = []
-	for ppair in parent_pairs:
-		new_pop.remove(ppair[0])
-		aux = tmp_children[:2] + [[ppair[0],pop_fitness_dict[tuple(ppair[0])]], [ppair[1],pop_fitness_dict[tuple(ppair[1])]]]
-		tmp_children = tmp_children[2:]
-		sorted_pop = sorted(aux, key=lambda x: x[1], reverse=True)
-		if ppair[0]==ppair[1]:
-			new_children += [x for x,y in sorted_pop[:1]]
-		else:
-			new_pop.remove(ppair[1])
-			new_children += [x for x,y in sorted_pop[:2]]
-	new_pop += new_children
-	if allow_duplicates:
-		return new_pop
-	else:
-		return set(new_pop)
-
-def parent_replacement(allow_duplicates, children_fitness, parent_pairs, pop_fitness_dict, pop_fitness):
-	# TODO: Fix it so it doesnt expand the dataset when allow_duplicates is false
-	new_pop = [x for x,y in pop_fitness]
-	remove_children = 0
-	for ppair in parent_pairs:
-		new_pop.remove(ppair[0])
-		if ppair[0]==ppair[1]:
-			remove_children += 1
-		else:
-			new_pop.remove(ppair[1])
-	if remove_children>0:
-		new_pop += [x for x,y in sorted(children_fitness, key=lambda x: x[1], reverse=True)][:-remove_children]
-	else:
-		new_pop += [x for x,y in sorted(children_fitness, key=lambda x: x[1], reverse=True)]
-	if allow_duplicates:
-		return new_pop
-	else:
-		return set(new_pop)
-
-def delete_n(allow_duplicates, children_fitness, pop_fitness, num_individuals, selection_method, selection_params):
-	# TODO: Fix!, fails with steady state False and duplicates False
-	tmp_pop = pop_fitness[:]
-	tmp_children = children_fitness[:]
-	new_children = []
-	for _ in range(num_individuals):
-		to_kill = selection_method(tmp_pop, 1, *selection_params)[0]
-		to_add = selection_method(tmp_children, 1, *selection_params)[0]
-		tmp_pop.remove(to_kill)
-		new_children += [to_add]
-
-	new_pop = [x for x,y in tmp_pop] + [x for x,y in new_children]
-	if allow_duplicates:
-		return new_pop
-	else:
-		return set(new_pop)
-
-def mu_lambda_replacement(allow_duplicates, pop_fitness, pop_size):
-	new_population = []
-	sorted_pop = sorted(pop_fitness, key=lambda x: x[1], reverse=True)
-	new_population = [x for x,y in sorted_pop[:pop_size]]
-	if not allow_duplicates: new_population = set(new_population)
-	return new_population
-
-def generational_replacement(allow_duplicates, elitism, children, pop_fitness):
-	if elitism == 0:
-		return children
-
-	if allow_duplicates:
-		new_population = []
-	else:
-		new_population = set()
-	sorted_pop = sorted(pop_fitness, key=lambda x: x[1], reverse=True)
-	if allow_duplicates:
-		new_population = children + [x for x,y in sorted_pop[:elitism]]
-	else:
-		new_population = children
-		for x,y in sorted_pop[:elitism]:
-			new_population.add(x)
-	return new_population
 
 
 ############# FUNCTIONS #############
@@ -209,6 +119,60 @@ def animate_phenotypic_distributions(population_distributions, filename):
 		plt.savefig("gifs/image_{}.png".format(i))
 
 	file_out = fp_out + 'phenotype_' + filename + '.gif'
+	filenames = sorted(glob.glob( fp_in),key=lambda x:float(re.findall("([0-9]+?)\.png",x)[0]))
+	subprocess.call("convert -delay 50 " + " ".join(filenames) + " -loop 5 " + file_out, shell=True)
+	for f in sorted(glob.glob(fp_in)):
+		os.remove(f)
+
+
+def animate_3d_distributions(populations, filename, dimensionality_reduction):
+
+	if dimensionality_reduction == "PCA":
+		pca = sd.PCA(n_components=3)
+	elif dimensionality_reduction == "SVD":
+		pca = sd.TruncatedSVD(3)
+	elif dimensionality_reduction == "NMF":
+		pca = sd.NMF(n_components=3, max_iter=100000)
+	elif dimensionality_reduction == "FactorAnalysis":
+		pca = sd.FactorAnalysis(n_components=3)
+	elif dimensionality_reduction == "KernelPCA":
+		pca = sd.KernelPCA(n_components=3)
+
+	pandas_dfs = []
+	max_ind = [0,0,0] 
+	min_ind = [2**31,2**31,2**31]
+	for i, distribution in enumerate(populations):
+		principalComponents = pca.fit_transform(distribution)
+		dataframe = pd.DataFrame(data = principalComponents, columns=['principal component 1', 
+			'principal component 2', 'principal component 3'])
+		pandas_dfs.append(dataframe)
+		if dataframe.min()[0]<min_ind[0]: min_ind[0] = dataframe.min()[0]
+		if dataframe.min()[1]<min_ind[1]: min_ind[1] = dataframe.min()[1]
+		if dataframe.min()[2]<min_ind[2]: min_ind[2] = dataframe.min()[2]
+
+		if dataframe.max()[0]>max_ind[0]: max_ind[0] = dataframe.max()[0]
+		if dataframe.max()[1]>max_ind[1]: max_ind[1] = dataframe.max()[1]
+		if dataframe.max()[2]>max_ind[2]: max_ind[2] = dataframe.max()[2]
+
+
+	for i, principalDf in enumerate(pandas_dfs):
+
+		fig = plt.figure()
+		ax = fig.add_subplot(111, projection='3d')
+		ax.set_ylim(min_ind[1]-1, max_ind[1]+1)
+		ax.set_xlim(min_ind[0]-1, max_ind[0]+1)
+		ax.set_zlim(min_ind[2]-1, max_ind[2]+1)
+		plt.title("Generation {}".format(i))
+		ax.set_xlabel("Principal Component 1")
+		ax.set_ylabel("Principal Component 2")
+		ax.set_zlabel("Principal Component 3")
+
+		ax.scatter(principalDf['principal component 1'],principalDf['principal component 2'],
+           principalDf['principal component 3'], c='r', marker='o')
+
+		plt.savefig("gifs/image_{}.png".format(i))
+
+	file_out = fp_out + dimensionality_reduction + '_analysis_' + filename + '.gif'
 	filenames = sorted(glob.glob( fp_in),key=lambda x:float(re.findall("([0-9]+?)\.png",x)[0]))
 	subprocess.call("convert -delay 50 " + " ".join(filenames) + " -loop 5 " + file_out, shell=True)
 	for f in sorted(glob.glob(fp_in)):
@@ -406,7 +370,7 @@ def add_ga_run_result(conn, ga_run_id, sol_found, solution, num_iterations, max_
 			cursor = conn.cursor()
 			sql_string = "UPDATE ga_run SET updated_timestamp = %s, sol_found = %s, solution = %s, \
 				num_iterations = %s, max_fitness = %s, num_fitness_evals = %s, num_bit_flips = %s WHERE id = %s"
-			cursor.execute(sql_string, (dt.now(), sol_found, ''.join([str(int(x)) for x in solution]), num_iterations, 
+			cursor.execute(sql_string, (dt.now(), sol_found, solution, num_iterations, 
 				max_fitness, num_fitness_evals, num_bit_flips, ga_run_id))
 	except (Exception, psycopg2.DatabaseError) as error:
 		print (error)
@@ -428,9 +392,8 @@ def add_ga_run_population(conn, ga_run_id, population, ga_run_generation_id=None
 	try:
 		with conn:
 			cursor = conn.cursor()
-			for individual in population:
-				sql_string = "INSERT INTO ga_run_population (ga_run_id, ga_run_generation_id, individual, observations) VALUES (%s, %s, %s, %s)"
-				cursor.execute(sql_string, (ga_run_id, ga_run_generation_id, ''.join([str(int(x)) for x in individual]), observation))
+			sql_string = "INSERT INTO ga_run_population (ga_run_id, ga_run_generation_id, population, observations) VALUES (%s, %s, %s, %s)"
+			cursor.execute(sql_string, (ga_run_id, ga_run_generation_id, population, observation))
 	except (Exception, psycopg2.DatabaseError) as error:
 		print (error)
 
@@ -764,59 +727,6 @@ def annealed_selection(population, num_parents, max_generations, generation_num)
 	return parents
 
 
-def boltzmann_tournament_selection(population, num_parents, threshold, control_param):
-	parents=[]
-	alt_flag = 0
-	for i in range(num_parents):
-		if alt_flag: alt_flag = 0
-		else: alt_flag = 1
-		# Choose individual uniformly at random
-		indiv_one = population[int(np.random.uniform(0, len(population)))]
-		# Choose second individual
-		indiv_two = population[int(np.random.uniform(0, len(population)))]
-		while indiv_two[1]>=indiv_one[1]-threshold and indiv_two[1]<=indiv_one[1]+threshold:
-			indiv_two = population[int(np.random.uniform(0, len(population)))]
-		# Choose third individual
-		if alt_flag:
-			# Strict choice
-			big_one, small_one = 0, 0
-			if indiv_one[1] > indiv_two[1]:
-				big_one = indiv_one[1]
-				small_one = indiv_two[1]
-			else:
-				big_one = indiv_two[1]
-				small_one = indiv_one[1]
-			indiv_three = population[int(np.random.uniform(0, len(population)))]
-			while indiv_three[1]>=small_one-threshold and indiv_three[1]<=big_one+threshold:
-				indiv_three = population[int(np.random.uniform(0, len(population)))]
-		else:
-			# Relaxed choice
-			indiv_three = population[int(np.random.uniform(0, len(population)))]
-			while indiv_three[1]>=indiv_one[1]-threshold and indiv_three[1]<=indiv_one[1]+threshold:
-				indiv_three = population[int(np.random.uniform(0, len(population)))]
-
-		# Anti-acceptance tournament
-		chosen_indiv = 0
-		prob_2 = np.exp(-indiv_three[1]/control_param)/(np.exp(-indiv_two[1]/control_param)+np.exp(-indiv_three[1]/control_param))
-		rnum = random.random()
-		if rnum <= prob_2:
-			chosen_indiv = indiv_two
-		else:
-			chosen_indiv = indiv_three
-
-		# Acceptance tournament
-		acc_indiv = 0
-		prob_1 = np.exp(-indiv_one[1]/control_param)/(np.exp(-indiv_one[1]/control_param)+np.exp(-chosen_indiv[1]/control_param))
-		rnum = random.random()
-		if rnum <= prob_1:
-			acc_indiv = indiv_two
-		else:
-			acc_indiv = chosen_indiv
-
-		parents.append()
-	return parents
-
-
 ############# CROSSOVER FUNCTIONS #############
 
 def single_point_crossover(parent_pair, ret_cost=False):
@@ -1034,3 +944,97 @@ def flip_ga(individual, clauses, ret_cost=False):
 		return indiv, fitness_evals, bit_flips
 	else:
 		return indiv
+
+
+############# POPULATION REPLACEMENT FUNCTIONS #############
+def random_replacement(allow_duplicates, children_fitness, pop_fitness):
+	new_pop = [x for x,y in pop_fitness]
+	for _ in children_fitness:
+		rand_ind = np.random.randint(0, len(new_pop))
+		new_pop.pop(rand_ind)
+	new_pop += [x for x,y in children_fitness]
+	if allow_duplicates:
+		return new_pop
+	else:
+		return set(new_pop)
+
+
+def weak_parent_replacement(allow_duplicates, children_fitness, parent_pairs, pop_fitness_dict, pop_fitness):
+	new_pop = [x for x,y in pop_fitness]
+	tmp_children = list(children_fitness)
+	new_children = []
+	for ppair in parent_pairs:
+		new_pop.remove(ppair[0])
+		aux = tmp_children[:2] + [[ppair[0],pop_fitness_dict[tuple(ppair[0])]], [ppair[1],pop_fitness_dict[tuple(ppair[1])]]]
+		tmp_children = tmp_children[2:]
+		sorted_pop = sorted(aux, key=lambda x: x[1], reverse=True)
+		if ppair[0]==ppair[1]:
+			new_children += [x for x,y in sorted_pop[:1]]
+		else:
+			new_pop.remove(ppair[1])
+			new_children += [x for x,y in sorted_pop[:2]]
+	new_pop += new_children
+	if allow_duplicates:
+		return new_pop
+	else:
+		return set(new_pop)
+
+def parent_replacement(allow_duplicates, children_fitness, parent_pairs, pop_fitness_dict, pop_fitness):
+	new_pop = [x for x,y in pop_fitness]
+	remove_children = 0
+	for ppair in parent_pairs:
+		try:
+			new_pop.remove(ppair[0])
+		except: pass
+		try:
+			new_pop.remove(ppair[1])
+		except: pass
+	new_pop += [x for x,y in sorted(children_fitness, key=lambda x: x[1], reverse=True)][:len(pop_fitness)-len(new_pop)]
+	if allow_duplicates:
+		return new_pop
+	else:
+		return set(new_pop)
+
+def delete_n(allow_duplicates, children_fitness, pop_fitness, num_individuals, selection_method, selection_params):
+	tmp_pop = pop_fitness[:]
+	tmp_children = children_fitness[:]
+	new_children = []
+	for _ in range(num_individuals):
+		to_kill = selection_method(tmp_pop, 1, *selection_params)[0]
+		if len(tmp_children)>0:
+			tmp_pop.remove(to_kill)
+			to_add = selection_method(tmp_children, 1, *selection_params)[0]
+			tmp_children.remove(to_add)
+			new_children += [to_add]
+		else:
+			break
+
+	new_pop = [x for x,y in tmp_pop] + [x for x,y in new_children]
+	if allow_duplicates:
+		return new_pop
+	else:
+		return set(new_pop)
+
+def mu_lambda_replacement(allow_duplicates, pop_fitness, pop_size):
+	new_population = []
+	sorted_pop = sorted(pop_fitness, key=lambda x: x[1], reverse=True)
+	new_population = [x for x,y in sorted_pop[:pop_size]]
+	if not allow_duplicates: new_population = set(new_population)
+	return new_population
+
+def generational_replacement(allow_duplicates, elitism, children, pop_fitness):
+	if elitism == 0:
+		return children
+
+	if allow_duplicates:
+		new_population = []
+	else:
+		new_population = set()
+	sorted_pop = sorted(pop_fitness, key=lambda x: x[1], reverse=True)
+	if allow_duplicates:
+		new_population = children + [x for x,y in sorted_pop[:elitism]]
+	else:
+		new_population = children
+		for x,y in sorted_pop[:elitism]:
+			new_population.add(x)
+	return new_population

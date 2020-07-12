@@ -1,0 +1,157 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{Cochran2011}{article}{}
+      \name{author}{6}{}{%
+        {{uniquename=0,uniquepart=base,hash=2564570825beb0cbbcef8ac3a9341c40}{%
+           family={Cochran},
+           familyi={C\bibinitperiod},
+           given={James\bibnamedelima J.},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=a5682faa40961a3e276d081e40551fcb}{%
+           family={Cox},
+           familyi={C\bibinitperiod},
+           given={Louis\bibnamedelima A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=9a82b37948b7312e22f9c62b6c621dbf}{%
+           family={Keskinocak},
+           familyi={K\bibinitperiod},
+           given={Pinar},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=08cfe74affa7022f548b7cdd889ea880}{%
+           family={Kharoufeh},
+           familyi={K\bibinitperiod},
+           given={Jeffrey\bibnamedelima P.},
+           giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=e886cdb7c0450ea84818a4011c21d833}{%
+           family={Smith},
+           familyi={S\bibinitperiod},
+           given={J.\bibnamedelimi Cole},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=3cbb7cffd1dd7afb84cb61f03a48712e}{%
+           family={Zabinsky},
+           familyi={Z\bibinitperiod},
+           given={Zelda\bibnamedelima B.},
+           giveni={Z\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{166d8f1e155d744c2ed37bd25a820cec}
+      \strng{fullhash}{159cf3534d53f794c1464e7043cd228a}
+      \strng{bibnamehash}{166d8f1e155d744c2ed37bd25a820cec}
+      \strng{authorbibnamehash}{166d8f1e155d744c2ed37bd25a820cec}
+      \strng{authornamehash}{166d8f1e155d744c2ed37bd25a820cec}
+      \strng{authorfullhash}{159cf3534d53f794c1464e7043cd228a}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Random search algorithms are useful for many ill-structured global optimization problems with continuous and/or discrete variables. Typically random search algo- rithms sacrifice a guarantee of optimality for finding a good solution quickly with convergence results in probability. Random search algorithms include simulated an- nealing, tabu search, genetic algorithms, evolutionary programming, particle swarm optimization, ant colony optimization, cross-entropy, stochastic approximation, multi- start and clustering algorithms, to name a few. They may be categorized as global (exploration) versus local (exploitation) search, or instance-based versus model-based. However, one feature these methods share is the use of probability in determining their iterative procedures. This article provides an overview of these random search algorithms, with a probabilistic view that ties them together.}
+      \field{journaltitle}{Wiley Encyclopedia of Operations Research and Management Science}
+      \field{title}{{Random Search Algorithms}}
+      \field{year}{2011}
+      \verb{doi}
+      \verb 10.1002/9780470400531.eorms0704
+      \endverb
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/AdapRandomSearch4.05.2009.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Karp2010}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=5d77d3cf25d2ee3ce64732bb77de0b0f}{%
+           family={Karp},
+           familyi={K\bibinitperiod},
+           given={Richard\bibnamedelima M.},
+           giveni={R\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
+      \strng{fullhash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
+      \strng{bibnamehash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
+      \strng{authorbibnamehash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
+      \strng{authornamehash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
+      \strng{authorfullhash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Throughout the 1960s I worked on combinatorial optimization problems including logic circuit design with Paul Roth and assembly line balancing and the traveling salesman problem with Mike Held. These experiences made me aware that seemingly simple discrete optimization problems could hold the seeds of combinatorial explosions. The work of Dantzig, Fulkerson, Hoffman, Edmonds, Lawler and other pioneers on network flows, matching and matroids acquainted me with the elegant and efficient algorithms that were sometimes possible. Jack Edmonds' papers and a few key discussions with him drew my attention to the crucial distinction between polynomial-time and superpolynomial-time solvability. I was also influenced by Jack's emphasis on min-max theorems as a tool for fast verification of optimal solutions, which foreshadowed Steve Cook's definition of the complexity class NP. Another influence was George Dantzig's suggestion that integer programming could serve as a universal format for combinatorial optimization problems. {©} 2010 Springer-Verlag Berlin Heidelberg.}
+      \field{booktitle}{50 Years of Integer Programming 1958-2008: From the Early Years to the State-of-the-Art}
+      \field{isbn}{9783540682745}
+      \field{title}{{Reducibility among combinatorial problems}}
+      \field{year}{2010}
+      \field{pages}{219\bibrangedash 241}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1007/978-3-540-68279-0_8
+      \endverb
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/karp.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Cook1971}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=bc00f87a27f34a10060fc126ca386235}{%
+           family={Cook},
+           familyi={C\bibinitperiod},
+           given={Stephen\bibnamedelima A.},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{bc00f87a27f34a10060fc126ca386235}
+      \strng{fullhash}{bc00f87a27f34a10060fc126ca386235}
+      \strng{bibnamehash}{bc00f87a27f34a10060fc126ca386235}
+      \strng{authorbibnamehash}{bc00f87a27f34a10060fc126ca386235}
+      \strng{authornamehash}{bc00f87a27f34a10060fc126ca386235}
+      \strng{authorfullhash}{bc00f87a27f34a10060fc126ca386235}
+      \field{sortinit}{3}
+      \field{sortinithash}{a4b52e5432884761f50fb9571273b93e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{It is shown that any recognition problem solved by a polynomial timebounded nondeterministic Turing machine can be "reduced" to the problem of determining whether a given propositional formula is a tautology. Here "reduced" means, roughly speaking, that the first problem can be solved deterministically in polynomial time provided an oracle is available for solving the second. From this notion of reducible, polynomial degrees of difficulty are defined, and it is shown that the problem of determining tautologyhood has the same polynomial degree as the problem of determining whether the first of two given graphs is isomorphic to a subgraph of the second. Other examples are discussed. A method of measuring the complexity of proof procedures for the predicate calculus is introduced and discussed. Throughout this paper, a set of strings means a set of strings on some fixed, large, finite alphabet Z. This alphabet is large enough to include symbols for all sets described here. All Turing machines are deterministic recognition devices, unless the contrary is explicitly stated.}
+      \field{booktitle}{Proceedings of the Annual ACM Symposium on Theory of Computing}
+      \field{issn}{07378017}
+      \field{title}{{The complexity of theorem-proving procedures}}
+      \field{year}{1971}
+      \field{pages}{151\bibrangedash 158}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1145/800157.805047
+      \endverb
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/1971.pdf:pdf
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

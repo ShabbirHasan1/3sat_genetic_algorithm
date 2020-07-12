@@ -1,4 +1,5 @@
 numpy
 matplotlib
-psycopg2
+psycopg2-binary
 seaborn
+sklearn

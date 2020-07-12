@@ -4,3 +4,8 @@ data/
 .coverage
 .pyc
 not/
+*.jpg
+*.jpeg
+*.png
+*.gif
+

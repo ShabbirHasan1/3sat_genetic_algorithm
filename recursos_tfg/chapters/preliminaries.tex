@@ -1,0 +1,82 @@
+\subsection{3-SAT Problem}
+
+The boolean satisfiability problem is the problem of determining, for a given boolean expression, if there exists an assignment of values, such that the formula evaluates to True, or proving no such assignment exists and therefore the formula will always evaluate to False. For example, having variables $\{x_1, x_2, x_3, x_4\}$ and the boolean expression:
+\bigbreak
+$
+ x_1 \land (x_1 \lor \overline{x_2}) \land (x_2 \lor x_3 \lor \overline{x_4}) \land (x_1 \lor \overline{x_2} \lor \overline{x_4}) \land (x_1 \lor x_2 \lor \overline{x_3} \lor x_4)
+$
+\bigbreak
+It is trivial to find an assignment of variables such that the given expression evaluates to True (eg. $\{True, True, False, False\}$), consequently this expression is said to be \textit{satisfiable}, but for this other boolean expression:
+\bigbreak
+$
+ \overline{x_1} \land (x_1 \lor \overline{x_2}) \land (x_2 \lor x_3 \lor \overline{x_4}) \land (x_1 \lor \overline{x_2} \lor \overline{x_4}) \land (x_1 \lor x_2 \lor \overline{x_3} \lor x_4)
+$
+\bigbreak There exists no such assignment, the equation will never be solved by tweaking the variable values, therefore it is an \textit{unsatisfiable} expression.
+\\Any algorithm designed to solve SAT instances must distinguish between satisfiable and unsatisfiable problems however, barring some trivial or contradictory expressions, this can only be done by attempting to solve the actual problems, since no one can assert that no solution exists if they haven't searched the whole solution space.
+\\Due to the inherently random nature of Genetic Algorithms one can not be sure the whole solution space has been searched and, in consequence, won't be able to assert with confidence that no solution exists, only that no solution has been found in the given amount of time, this is the main reason why this work will focus only on SAT instances which are known to be solvable.
+\\All the boolean SAT expressions used throughout this work are in conjunctive normal form or CNF, this means that all formulas are a conjunction ($\wedge$) of clauses (or a single clause), these clauses contain the variables and the disjunction ($\vee$) operator, they can also contain the negation ($\neg$) operator; Both of the boolean formulas shown above are in conjunctive normal form.
+\\3-SAT is a restricted version of SAT where each clause has exactly three variables in it, the problem of determining the satisfiability of a 3-SAT formula in conjunctive normal form is also NP-Complete \parencite{Karp2010} (TODO:ADD more text??).
+
+\subsection{P vs NP}
+
+Computational complexity theory is a branch of mathematics and theoretical computer science, which tries to classify different mathematical problems according to the computational resources needed to solve them, usually the measured resources are time and storage space, though other complexity measures can also be used.
+\\The analysis of complexity is done using a mathematical model of computation, this model allows us to analyze the performance of algorithms inside a theoretical computation machine, which means we can compare different algorithms without worrying about the details of their specific implementations.
+\\The most common model of computation used is called a Turing machine, invented in 1936 by mathematician Alan Turing, a Turing machine is a theoretical machine which consists of four parts:
+\renewcommand\labelitemi{$\textendash$}
+\begin{itemize}
+	\item An infinite \textit{tape} divided into cells
+	\item A \textit{head} that can write and read symbols on the tape and can also move left or right along the tape
+	\item A \textit{state register} that stores the state of the Turing machine
+	\item A finite table of \textit{instructions}, which tell the head what to do based on the state and the symbols on the tape
+\end{itemize}
+The machine then operates on the tape, its behavior is defined in the instructions table where instructions are indexed by state and symbol, there are three types of possible instructions:
+\renewcommand\labelitemi{$\textendash$}
+\begin{itemize}
+	\item Erase or write a symbol on the tape
+	\item Move the head left or right one cell
+	\item Change state. 
+\end{itemize}
+The machine will begin by reading the first symbol on the tape and then executing instructions until it halts. 
+\\A Turing machine is a useful model of computation when trying to study an algorithm's performance on real machines, since anything that can be calculated using a traditional computer can also be computed using a Turing machine.
+\\Different types of Turing machines can be used to define different complexity classes, the most commonly used are:
+\renewcommand\labelitemi{$\textendash$}
+\begin{itemize}
+	\item \textit{Deterministic Turing machines}, for each combination of state and symbol in the instructions table there exists only one instruction. 
+	\item \textit{Non-deterministic Turing machines}, for each combination of state and symbol there can exist more than one instruction in the instructions table, therefore it is non-deterministic since it is not possible to know exactly the next state of the machine based on the current state and the tape symbol.
+\end{itemize}
+Though a non-deterministic Turing machine can be fully replicated using a deterministic Turing machine, it is nonetheless a useful abstraction because it allows us to generate computation trees with many branches, and as long as any one of these branches reaches an accepting state, the machine will halt and accept, it will only reject once all the branches have reached their limit. 
+\\This is in contrast with deterministic Turing machines where the computation tree is a single branch with nodes following each other sequentially; A non-deterministic Turing machine can be recreated using a deterministic Turing machine by exploring the whole computation tree generated by the non-deterministic machine using tree traversal algorithms, but the resulting machine is much more convoluted and difficult to reason about.
+(TODO: Change image for one made by me)
+\bigbreak
+\begin{figure}[h!]
+	\includegraphics[width=\linewidth]{images/computation_trees.png}
+	\caption{ Left: Deterministic Turing machine computation tree. Right: Non-deterministic Turing machine computation tree}
+	\label{fig:Computation Trees}
+\end{figure}
+\bigbreak
+
+\\Different complexity classes are defined by establishing upper bounds to the resources available for the aforementioned Turing machines; For example the complexity class P is composed of all the problems which can be solved by a deterministic Turing machine in polynomial time, P is a class with a time constraint, the amount of space used is irrelevant for this categorization.
+There exist four fundamental classes based on the resources constrained:
+
+\begin{itemize}
+	\item \textbf{$DTIME[t(n)]$} is composed of all the problems which can be solved by a deterministic Turing machine in $t(n)$ amount of time
+	\item \textbf{$NTIME[t(n)]$} is composed of all the problems which can be solved by a non-deterministic Turing machine in $t(n)$ amount of time
+	\item \textbf{$DSPACE[s(n)]$} is composed of all the problems which can be solved by a deterministic Turing machine in $s(n)$ amount of space
+	\item \textbf{$NSPACE[s(n)]$} is composed of all the problems which can be solved by a non-deterministic Turing machine in $s(n)$ amount of space
+\end{itemize}
+
+Using these fundamental classes the complexity class P can be defined as the union of all problems in $DTIME[t(n)]$ where t(n) is a polynomial expression, formally: 
+\begin{equation}
+P=DTIME[n^{O(1)}]=\bigcup_{k\geq1}DTIME[n^k]}
+\end{equation}
+\bigbreak
+(TODO: Show some canonical complexity classes, then mention that some borders and relations are known but others are not, which leads us to P vs NP)
+
+\\The boolean satisfiability problem was the first problem proven to be NP-Complete \parencite{Cook1971}
+
+
+\subsection{Genetic Algorithms}
+
+
+\subsection{State of the Art}
+

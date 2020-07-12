@@ -3,9 +3,7 @@ import time
 from datetime import datetime
 
 # TODO: Add function to test all different combinations of hyperparameters (like tensorflow hparams)
-# TODO: Add code to run all problems in folder and take measurements??
-# TODO: Change the way the ga generates children, instead of generating all parents, then all children, etc..., generate one parent pair at a time, 
-# then generate children, mutate them, if steady state add them to the population, if not add them to children array
+# TODO: Add code to run all problems in folder??
 ############# CONSTANTS #############
 infinite = 2**31
 
@@ -87,8 +85,7 @@ class GeneticAlgorithm:
 			'rank':fn.rank_selection,
 			'tournament':fn.tournament_selection,
 			'stochastic':fn.stochastic_universal_sampling_selection,
-			'annealed': fn.annealed_selection,
-			'boltzmann':fn.boltzmann_tournament_selection
+			'annealed': fn.annealed_selection
 		}
 
 		selection_params = {
@@ -98,8 +95,7 @@ class GeneticAlgorithm:
 			'rank':[],
 			'tournament':[tournament_size,],
 			'stochastic':[],
-			'annealed':[self.max_iters,  0],
-			'boltzmann':[]
+			'annealed':[self.max_iters,  0]
 		}
 
 
@@ -173,6 +169,7 @@ class GeneticAlgorithm:
 
 		phenotype_distributions = []
 		genotype_distributions = []
+		populations = []
 		pop_fitness_dict = {}
 
 		if self.log_level=="time":
@@ -194,6 +191,9 @@ class GeneticAlgorithm:
 		
 		while (self.sol_value==-1 and cur_iter < self.max_iters):
 
+			if self.selection_func_str=="annealed":
+				self.sel_params[1] = cur_iter
+
 			num_fitness_evals, num_flips = 0, 0
 
 			if self.log_level=="time":
@@ -211,14 +211,16 @@ class GeneticAlgorithm:
 
 			phenotype_distributions.append(fitness_arr)
 			genotype_distributions.append(genes_arr)
+			populations.append(population)
 
 			num_fitness_evals += len(population) # Since we evaluated the whole population
 			if fn.maxsat_solution_found(self.clauses, max_fitness):
 				if self.save_to_db:
 					fn.add_ga_run_result(self.db_conn, ga_run_id, True, max_fit_indiv, cur_iter, max_fitness, t_fitness_evals, t_num_flips)
+					#fn.add_ga_run_population(conn=self.db_conn, ga_run_id=ga_run_id, population=population, observation="Solution found")
 					fn.close_db_connection(self.db_conn)
 
-				self.plot_distributions(genotype_distributions, phenotype_distributions)
+				self.plot_distributions(populations, genotype_distributions, phenotype_distributions)
 				return (True, max_fit_indiv, cur_iter, max_fitness, t_fitness_evals, t_num_flips)
 			if self.log_level=="time":
 				t1 = time.time()
@@ -237,9 +239,6 @@ class GeneticAlgorithm:
 				# Select parents
 				if self.log_level=="time":
 					t0 = time.time()
-
-				if self.selection_func_str=="annealed":
-					self.sel_params[1] = cur_iter
 
 				parents = self.selection_func(pop_fitness, num_children, *self.sel_params)
 
@@ -365,22 +364,29 @@ class GeneticAlgorithm:
 					fn.add_ga_run_generation(conn=self.db_conn, ga_run_id=ga_run_id, generation_num=cur_iter,
 						max_fitness=max_fitness, population_length=len(population), population_set_length=len(pop_set),
 						num_fitness_evals=num_fitness_evals, num_bit_flips=num_flips)
+					fn.add_ga_run_population(conn=self.db_conn, ga_run_id=ga_run_id, population=population)
 
 		if self.save_to_db:
 			fn.add_ga_run_result(self.db_conn, ga_run_id, False, None, cur_iter, max_fitness, t_fitness_evals, t_num_flips)
+			#fn.add_ga_run_population(conn=self.db_conn, ga_run_id=ga_run_id, population=population, observation="No solution")
 			fn.close_db_connection(self.db_conn)
 
-		self.plot_distributions(genotype_distributions, phenotype_distributions)
+		self.plot_distributions(populations, genotype_distributions, phenotype_distributions)
 		return (False, [], cur_iter, max_fitness, t_fitness_evals, t_num_flips)
 
 
-	def plot_distributions(self, genotype_distributions, phenotype_distributions):
-		gen_distribs = fn.get_genotypic_distribution(genotype_distributions, max_workers=10)
-		norm_gen_distrib = fn.normalize_distributions(gen_distribs, max([max(x) for x in gen_distribs]))
-		norm_phen_distrib = fn.normalize_distributions(phenotype_distributions, len(self.clauses))
-		fn.plot_violin_graph(norm_phen_distrib, "Fitness percentage", "Phenotypic Distributions", self.get_filename(), "phenotype")
-		fn.plot_violin_graph(norm_gen_distrib, "Mean Hamming Distance percentage", "Genotypic Distributions", self.get_filename(), "genotype")
-		fn.plot_means(norm_gen_distrib, norm_phen_distrib, self.get_filename())
+	def plot_distributions(self, populations, genotype_distributions, phenotype_distributions):
+		#gen_distribs = fn.get_genotypic_distribution(genotype_distributions, max_workers=10)
+		#norm_gen_distrib = fn.normalize_distributions(gen_distribs, max([max(x) for x in gen_distribs]))
+		#norm_phen_distrib = fn.normalize_distributions(phenotype_distributions, len(self.clauses))
+		#fn.plot_violin_graph(norm_phen_distrib, "Fitness percentage", "Phenotypic Distributions", self.get_filename(), "phenotype")
+		#fn.plot_violin_graph(norm_gen_distrib, "Mean Hamming Distance percentage", "Genotypic Distributions", self.get_filename(), "genotype")
+		#fn.plot_means(norm_gen_distrib, norm_phen_distrib, self.get_filename())
+		fn.animate_3d_distributions(populations, self.get_filename(), "PCA")
+		fn.animate_3d_distributions(populations, self.get_filename(), "SVD")
+		fn.animate_3d_distributions(populations, self.get_filename(), "NMF")
+		#fn.animate_3d_distributions(populations, self.get_filename(), "FactorAnalysis")
+		fn.animate_3d_distributions(populations, self.get_filename(), "KernelPCA")
 		#fn.animate_phenotypic_distributions(norm_phen_distrib, self.get_filename())
 		#fn.animate_genotypic_distributions(norm_gen_distrib, self.get_filename())
 
@@ -430,24 +436,22 @@ foldername = './data/uf20-91'
 log_levels = ['all', 'time']
 initial_pop_funcs = ['random', 'binary range', 'satisfy clauses']
 fitness_funcs = ['maxsat']
-selection_funcs = ['random', 'roulette', 'roulette elimination', 'rank', 'tournament', 'stochastic', 'annealed', 'boltzmann']
+selection_funcs = ['random', 'roulette', 'roulette elimination', 'rank', 'tournament', 'stochastic', 'annealed']
 crossover_funcs = ['single point', 'two points', 'sliding window', 'random map', 'uniform']
 mutation_funcs = ['single bit', 'multiple bit', 'single bit greedy', 'single bit max greedy', 'multiple bit greedy', 'flip ga']
 replacement_funcs = ['generational', 'mu lambda', 'mu lambda offspring', 'delete n', 'random replacement', 'parents', 'weak parents']
-max_iters = 5000
-pop_size = 100
-elitism = 0.9
+max_iters = 200
+pop_size = 1000
+elitism = 0.1
 num_individuals_to_replace = 0.4
 mutation_rate = 0.1
 crossover_window_len = 0.4
 tournament_size = 5
-boltzmann_threshold = "Ni idea"
-boltzmann_control_param = "Ni idea"
 
 gen_alg = GeneticAlgorithm(filename=foldername+'/'+filename, max_iters=max_iters, pop_size=pop_size, elitism=elitism, 
-	steady_state_replacement = False, allow_duplicates=False, save_to_db=False, max_workers=1)
-gen_alg.set_params(initial_pop_func=initial_pop_funcs[0], fitness_func=fitness_funcs[0], selection_func=selection_funcs[4], crossover_func=crossover_funcs[1], 
-				  mutation_func=mutation_funcs[0], replacement_func=replacement_funcs[6], mutation_rate=mutation_rate, tournament_size=tournament_size, 
+	steady_state_replacement = False, allow_duplicates=True, save_to_db=True, max_workers=1)
+gen_alg.set_params(initial_pop_func=initial_pop_funcs[0], fitness_func=fitness_funcs[0], selection_func=selection_funcs[1], crossover_func=crossover_funcs[1], 
+				  mutation_func=mutation_funcs[0], replacement_func=replacement_funcs[0], mutation_rate=mutation_rate, tournament_size=tournament_size, 
 				  crossover_window_len=crossover_window_len, num_individuals=num_individuals_to_replace)
 gen_alg.set_log_level('all')
 

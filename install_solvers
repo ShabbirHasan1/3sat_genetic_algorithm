@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd /genetic_algorithm/minisat_master
+make config prefix = $PREFIX
+make install
+
+alias zchaff="/genetic_algorithm/zchaff/zchaff"
+
+alias manysat = "/genetic_algorithm/manysat2.0/manysat"
+
+
+

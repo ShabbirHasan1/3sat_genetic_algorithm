@@ -1,0 +1,57 @@
+\documentclass[12pt,twoside]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot[LE,LO]{\thepage}
+\fancyfoot[CO,CE]{\thechapter}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\usepackage[style=authoryear,sorting=none]{biblatex}
+\addbibresource{papers/Genetic Algorithms.bib}
+
+\usepackage{mathtools}
+
+\title{
+	{Application of Genetic Algorithms for the optimization of combinatorial problems}
+	{\break \large Final Year Project Thesis}
+}
+
+\author{ \textbf{Author:} Juan Francisco Ariño Sales \\ {\large \textbf{Tutor:} Federico Barber Sanchís}}
+\date {Course 2020 - 2021}
+
+\begin{document}
+
+\maketitle
+
+\chapter*{Abstract}
+\pagestyle{empty}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pharetra nibh. Cras dui magna, dignissim suscipit nibh ac, viverra tincidunt dolor. Integer facilisis dictum augue sit amet gravida. Curabitur hendrerit nulla quis felis euismod tincidunt. Nunc ullamcorper porta mi ut scelerisque. Morbi congue, dolor id tristique pharetra, nisi arcu hendrerit est, non porta lorem arcu sed nibh. Donec facilisis ex at massa suscipit iaculis. In pharetra, diam sed mattis ornare, libero quam molestie nisl, ut finibus nibh leo nec lectus. Quisque rutrum turpis quis consectetur finibus. Duis eget purus feugiat, sagittis magna a, lobortis ligula. Maecenas pretium efficitur risus, vel congue est. Quisque eu nisi vestibulum ligula pulvinar imperdiet sed non massa. Proin id tellus vitae elit eleifend molestie. Morbi sit amet elit molestie, hendrerit dolor eu, eleifend diam. Pellentesque ultricies neque lacinia diam porttitor vehicula. 
+
+\tableofcontents
+\pagestyle{empty}
+% \pagestyle{plain} = Only number in footer
+% \pagestyle{fancy} = Fancy header/footer
+
+\chapter{Introduction}
+\input{chapters/introduction}
+
+\chapter{Preliminaries}
+\input{chapters/preliminaries}
+
+\appendix
+
+\printbibliography
+
+
+
+\end{document}
+
+
+% first run: biber markdown_document
+% then run: pdflatex markdown_document 

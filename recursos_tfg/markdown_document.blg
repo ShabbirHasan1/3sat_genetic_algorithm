@@ -1,0 +1,17 @@
+[0] Config.pm:302> INFO - This is Biber 2.9
+[0] Config.pm:305> INFO - Logfile is 'markdown_document.blg'
+[19] biber:313> INFO - === dom jul 12, 2020, 20:37:08
+[33] Biber.pm:371> INFO - Reading 'markdown_document.bcf'
+[74] Biber.pm:857> INFO - Found 3 citekeys in bib section 0
+[83] Biber.pm:3981> INFO - Processing section 0
+[90] Biber.pm:4154> INFO - Looking for bibtex format file 'papers/Genetic Algorithms.bib' for section 0
+[93] bibtex.pm:1468> INFO - LaTeX decoding ...
+[113] bibtex.pm:1294> INFO - Found BibTeX data source 'papers/Genetic Algorithms.bib'
+[137] Utils.pm:169> WARN - BibTeX subsystem: /tmp/zbdp1rbprk/Genetic Algorithms.bib_19758.utf8, line 6, warning: 172 characters of junk seen at toplevel
+[145] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[145] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[146] Biber.pm:3809> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'en-US'
+[146] Biber.pm:3815> INFO - No sort tailoring available for locale 'en-US'
+[148] bbl.pm:617> INFO - Writing 'markdown_document.bbl' with encoding 'UTF-8'
+[150] bbl.pm:720> INFO - Output to markdown_document.bbl
+[151] Biber.pm:110> INFO - WARNINGS: 1

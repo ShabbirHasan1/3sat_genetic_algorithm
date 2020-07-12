@@ -14,7 +14,7 @@ CREATE TABLE ga_run (
 	updated_timestamp TIMESTAMP,
 	problem VARCHAR NOT NULL,
 	sol_found Boolean,
-	solution VARCHAR,
+	solution INT[],
 	max_iterations INT NOT NULL,
 	pop_size INT NOT NULL,
 	elitism INT NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE ga_run_population (
 	id SERIAL PRIMARY KEY,
 	ga_run_id INT NOT NULL,
 	ga_run_generation_id INT,
-	individual VARCHAR NOT NULL,
+	population INT[][] NOT NULL,
 	observations VARCHAR,
 	FOREIGN KEY (ga_run_id) REFERENCES ga_run(id),
 	FOREIGN KEY (ga_run_generation_id) REFERENCES ga_run_generations(id)
