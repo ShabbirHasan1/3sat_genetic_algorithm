@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.6.14)  12 JUL 2020 20:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.6.14)  13 AUG 2020 21:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -24,10 +24,18 @@ File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks14
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2015/03/17 v1.2c Input encoding file
-\inpenc@prehook=\toks14
-\inpenc@posthook=\toks15
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
@@ -347,7 +355,7 @@ Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks16
+\KV@toks@=\toks17
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
@@ -390,7 +398,7 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutheight=\dimen110
 \Gm@layouthoffset=\dimen111
 \Gm@layoutvoffset=\dimen112
-\Gm@dimlist=\toks17
+\Gm@dimlist=\toks18
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
@@ -405,6 +413,68 @@ s
 \f@nch@O@olf=\skip50
 \f@nch@O@orf=\skip51
 )
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count91
+\float@exts=\toks19
+\float@box=\box26
+\@float@everytoks=\toks20
+\@floatcapt=\box27
+)
+\@float@every@table=\toks21
+
+(/usr/share/texlive/texmf-dist/tex/latex/changepage/changepage.sty
+Package: changepage 2009/10/20 v1.0c check page and change page layout
+\c@cp@cntr=\count92
+\cp@tempcnt=\count93
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
+\col@sep=\dimen113
+\extrarowheight=\dimen114
+\NC@list=\toks22
+\extratabsurround=\skip52
+\backup@length=\skip53
+)
+\everycr=\toks23
+\minrowclearance=\skip54
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count94
+\lst@gtempboxa=\box28
+\lst@token=\toks24
+\lst@length=\count95
+\lst@currlwidth=\dimen115
+\lst@column=\count96
+\lst@pos=\count97
+\lst@lostspace=\dimen116
+\lst@width=\dimen117
+\lst@newlines=\count98
+\lst@lineno=\count99
+\lst@maxwidth=\dimen118
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count100
+\lst@skipnumbers=\count101
+\lst@framebox=\box29
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2017/12/19 v3.10 programmable bibliographies (PK/JW/AB)
 
@@ -429,7 +499,7 @@ Package pdftexcmds Info: \pdfdraftmode found.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2018/02/11 v2.5e e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count91
+\etb@tempcnta=\count102
 )
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
@@ -446,7 +516,7 @@ Package etexcmds Info: Could not find \expanded.
 )))
 (/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count92
+\lrq@indent=\count103
 
 (/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
@@ -461,62 +531,62 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 (/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.sty
 (/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.tex
 \@xs@message=\write3
-\integerpart=\count93
-\decimalpart=\count94
+\integerpart=\count104
+\decimalpart=\count105
 )
 Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
 )
-\c@tabx@nest=\count95
-\c@listtotal=\count96
-\c@listcount=\count97
-\c@liststart=\count98
-\c@liststop=\count99
-\c@citecount=\count100
-\c@citetotal=\count101
-\c@multicitecount=\count102
-\c@multicitetotal=\count103
-\c@instcount=\count104
-\c@maxnames=\count105
-\c@minnames=\count106
-\c@maxitems=\count107
-\c@minitems=\count108
-\c@citecounter=\count109
-\c@savedcitecounter=\count110
-\c@uniquelist=\count111
-\c@uniquename=\count112
-\c@refsection=\count113
-\c@refsegment=\count114
-\c@maxextratitle=\count115
-\c@maxextratitleyear=\count116
-\c@maxextradate=\count117
-\c@maxextraalpha=\count118
-\c@abbrvpenalty=\count119
-\c@highnamepenalty=\count120
-\c@lownamepenalty=\count121
-\c@maxparens=\count122
-\c@parenlevel=\count123
-\blx@tempcnta=\count124
-\blx@tempcntb=\count125
-\blx@tempcntc=\count126
-\blx@maxsection=\count127
-\blx@maxsegment@0=\count128
-\blx@notetype=\count129
-\blx@parenlevel@text=\count130
-\blx@parenlevel@foot=\count131
-\blx@sectionciteorder@0=\count132
-\labelnumberwidth=\skip52
-\labelalphawidth=\skip53
-\biblabelsep=\skip54
-\bibitemsep=\skip55
-\bibnamesep=\skip56
-\bibinitsep=\skip57
-\bibparsep=\skip58
-\bibhang=\skip59
+\c@tabx@nest=\count106
+\c@listtotal=\count107
+\c@listcount=\count108
+\c@liststart=\count109
+\c@liststop=\count110
+\c@citecount=\count111
+\c@citetotal=\count112
+\c@multicitecount=\count113
+\c@multicitetotal=\count114
+\c@instcount=\count115
+\c@maxnames=\count116
+\c@minnames=\count117
+\c@maxitems=\count118
+\c@minitems=\count119
+\c@citecounter=\count120
+\c@savedcitecounter=\count121
+\c@uniquelist=\count122
+\c@uniquename=\count123
+\c@refsection=\count124
+\c@refsegment=\count125
+\c@maxextratitle=\count126
+\c@maxextratitleyear=\count127
+\c@maxextradate=\count128
+\c@maxextraalpha=\count129
+\c@abbrvpenalty=\count130
+\c@highnamepenalty=\count131
+\c@lownamepenalty=\count132
+\c@maxparens=\count133
+\c@parenlevel=\count134
+\blx@tempcnta=\count135
+\blx@tempcntb=\count136
+\blx@tempcntc=\count137
+\blx@maxsection=\count138
+\blx@maxsegment@0=\count139
+\blx@notetype=\count140
+\blx@parenlevel@text=\count141
+\blx@parenlevel@foot=\count142
+\blx@sectionciteorder@0=\count143
+\labelnumberwidth=\skip55
+\labelalphawidth=\skip56
+\biblabelsep=\skip57
+\bibitemsep=\skip58
+\bibnamesep=\skip59
+\bibinitsep=\skip60
+\bibparsep=\skip61
+\bibhang=\skip62
 \blx@bcfin=\read1
 \blx@bcfout=\write4
-\c@mincomprange=\count133
-\c@maxcomprange=\count134
-\c@mincompwidth=\count135
+\c@mincomprange=\count144
+\c@maxcomprange=\count145
+\c@mincompwidth=\count146
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
 
@@ -525,80 +595,80 @@ Package biblatex Info: Trying to load biblatex style data model...
 Package biblatex Info: ... file 'authoryear.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count136
-\c@savedafterword=\count137
-\c@annotator=\count138
-\c@savedannotator=\count139
-\c@author=\count140
-\c@savedauthor=\count141
-\c@bookauthor=\count142
-\c@savedbookauthor=\count143
-\c@commentator=\count144
-\c@savedcommentator=\count145
-\c@editor=\count146
-\c@savededitor=\count147
-\c@editora=\count148
-\c@savededitora=\count149
-\c@editorb=\count150
-\c@savededitorb=\count151
-\c@editorc=\count152
-\c@savededitorc=\count153
-\c@foreword=\count154
-\c@savedforeword=\count155
-\c@holder=\count156
-\c@savedholder=\count157
-\c@introduction=\count158
-\c@savedintroduction=\count159
-\c@namea=\count160
-\c@savednamea=\count161
-\c@nameb=\count162
-\c@savednameb=\count163
-\c@namec=\count164
-\c@savednamec=\count165
-\c@translator=\count166
-\c@savedtranslator=\count167
-\c@shortauthor=\count168
-\c@savedshortauthor=\count169
-\c@shorteditor=\count170
-\c@savedshorteditor=\count171
-\c@labelname=\count172
-\c@savedlabelname=\count173
-\c@institution=\count174
-\c@savedinstitution=\count175
-\c@lista=\count176
-\c@savedlista=\count177
-\c@listb=\count178
-\c@savedlistb=\count179
-\c@listc=\count180
-\c@savedlistc=\count181
-\c@listd=\count182
-\c@savedlistd=\count183
-\c@liste=\count184
-\c@savedliste=\count185
-\c@listf=\count186
-\c@savedlistf=\count187
-\c@location=\count188
-\c@savedlocation=\count189
-\c@organization=\count190
-\c@savedorganization=\count191
-\c@origlocation=\count192
-\c@savedoriglocation=\count193
-\c@origpublisher=\count194
-\c@savedorigpublisher=\count195
-\c@publisher=\count196
-\c@savedpublisher=\count197
-\c@language=\count198
-\c@savedlanguage=\count199
-\c@origlanguage=\count266
-\c@savedoriglanguage=\count267
-\c@pageref=\count268
-\c@savedpageref=\count269
-\shorthandwidth=\skip60
-\shortjournalwidth=\skip61
-\shortserieswidth=\skip62
-\shorttitlewidth=\skip63
-\shortauthorwidth=\skip64
-\shorteditorwidth=\skip65
+\c@afterword=\count147
+\c@savedafterword=\count148
+\c@annotator=\count149
+\c@savedannotator=\count150
+\c@author=\count151
+\c@savedauthor=\count152
+\c@bookauthor=\count153
+\c@savedbookauthor=\count154
+\c@commentator=\count155
+\c@savedcommentator=\count156
+\c@editor=\count157
+\c@savededitor=\count158
+\c@editora=\count159
+\c@savededitora=\count160
+\c@editorb=\count161
+\c@savededitorb=\count162
+\c@editorc=\count163
+\c@savededitorc=\count164
+\c@foreword=\count165
+\c@savedforeword=\count166
+\c@holder=\count167
+\c@savedholder=\count168
+\c@introduction=\count169
+\c@savedintroduction=\count170
+\c@namea=\count171
+\c@savednamea=\count172
+\c@nameb=\count173
+\c@savednameb=\count174
+\c@namec=\count175
+\c@savednamec=\count176
+\c@translator=\count177
+\c@savedtranslator=\count178
+\c@shortauthor=\count179
+\c@savedshortauthor=\count180
+\c@shorteditor=\count181
+\c@savedshorteditor=\count182
+\c@labelname=\count183
+\c@savedlabelname=\count184
+\c@institution=\count185
+\c@savedinstitution=\count186
+\c@lista=\count187
+\c@savedlista=\count188
+\c@listb=\count189
+\c@savedlistb=\count190
+\c@listc=\count191
+\c@savedlistc=\count192
+\c@listd=\count193
+\c@savedlistd=\count194
+\c@liste=\count195
+\c@savedliste=\count196
+\c@listf=\count197
+\c@savedlistf=\count198
+\c@location=\count199
+\c@savedlocation=\count266
+\c@organization=\count267
+\c@savedorganization=\count268
+\c@origlocation=\count269
+\c@savedoriglocation=\count270
+\c@origpublisher=\count271
+\c@savedorigpublisher=\count272
+\c@publisher=\count273
+\c@savedpublisher=\count274
+\c@language=\count275
+\c@savedlanguage=\count276
+\c@origlanguage=\count277
+\c@savedoriglanguage=\count278
+\c@pageref=\count279
+\c@savedpageref=\count280
+\shorthandwidth=\skip63
+\shortjournalwidth=\skip64
+\shortserieswidth=\skip65
+\shorttitlewidth=\skip66
+\shortauthorwidth=\skip67
+\shorteditorwidth=\skip68
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
 
@@ -610,13 +680,13 @@ Package biblatex Info: ... file 'biblatex.def' found.
 
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.def
 File: biblatex.def 2017/12/19 v3.10 biblatex compatibility (PK/JW/AB)
-\c@textcitecount=\count270
-\c@textcitetotal=\count271
-\c@textcitemaxnames=\count272
-\c@biburlnumpenalty=\count273
-\c@biburlucpenalty=\count274
-\c@biburllcpenalty=\count275
-\c@smartand=\count276
+\c@textcitecount=\count281
+\c@textcitetotal=\count282
+\c@textcitemaxnames=\count283
+\c@biburlnumpenalty=\count284
+\c@biburlucpenalty=\count285
+\c@biburllcpenalty=\count286
+\c@smartand=\count287
 )
 Package biblatex Info: Trying to load bibliography style 'authoryear'...
 Package biblatex Info: ... file 'authoryear.bbx' found.
@@ -628,8 +698,8 @@ Package biblatex Info: ... file 'standard.bbx' found.
 
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
 File: standard.bbx 2017/12/19 v3.10 biblatex bibliography style (PK/JW/AB)
-\c@bbx:relatedcount=\count277
-\c@bbx:relatedtotal=\count278
+\c@bbx:relatedcount=\count288
+\c@bbx:relatedtotal=\count289
 ))
 Package biblatex Info: Trying to load citation style 'authoryear'...
 Package biblatex Info: ... file 'authoryear.cbx' found.
@@ -655,23 +725,23 @@ Package: mathtools 2018/01/08 v1.21 mathematical typesetting tools
 
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count279
-\calc@Bcount=\count280
-\calc@Adimen=\dimen113
-\calc@Bdimen=\dimen114
-\calc@Askip=\skip66
-\calc@Bskip=\skip67
+\calc@Acount=\count290
+\calc@Bcount=\count291
+\calc@Adimen=\dimen119
+\calc@Bdimen=\dimen120
+\calc@Askip=\skip69
+\calc@Bskip=\skip70
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count281
-\calc@Cskip=\skip68
+\calc@Ccount=\count292
+\calc@Cskip=\skip71
 )
 (/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
 Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2017/09/02 v2.17a AMS math features
-\@mathmargin=\skip69
+\@mathmargin=\skip72
 
 For additional information on amsmath, use the `?' option.
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -679,51 +749,51 @@ Package: amstext 2000/06/29 v2.01 AMS text
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks18
-\ex@=\dimen115
+\@emptytoks=\toks25
+\ex@=\dimen121
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen116
+\pmbraise@=\dimen122
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count282
+\inf@bad=\count293
 LaTeX Info: Redefining \frac on input line 213.
-\uproot@=\count283
-\leftroot@=\count284
+\uproot@=\count294
+\leftroot@=\count295
 LaTeX Info: Redefining \overline on input line 375.
-\classnum@=\count285
-\DOTSCASE@=\count286
+\classnum@=\count296
+\DOTSCASE@=\count297
 LaTeX Info: Redefining \ldots on input line 472.
 LaTeX Info: Redefining \dots on input line 475.
 LaTeX Info: Redefining \cdots on input line 596.
-\Mathstrutbox@=\box26
-\strutbox@=\box27
-\big@size=\dimen117
+\Mathstrutbox@=\box30
+\strutbox@=\box31
+\big@size=\dimen123
 LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
-\macc@depth=\count287
-\c@MaxMatrixCols=\count288
+\macc@depth=\count298
+\c@MaxMatrixCols=\count299
 \dotsspace@=\muskip11
-\c@parentequation=\count289
-\dspbrk@lvl=\count290
-\tag@help=\toks19
-\row@=\count291
-\column@=\count292
-\maxfields@=\count293
-\andhelp@=\toks20
-\eqnshift@=\dimen118
-\alignsep@=\dimen119
-\tagshift@=\dimen120
-\tagwidth@=\dimen121
-\totwidth@=\dimen122
-\lineht@=\dimen123
-\@envbody=\toks21
-\multlinegap=\skip70
-\multlinetaggap=\skip71
-\mathdisplay@stack=\toks22
+\c@parentequation=\count300
+\dspbrk@lvl=\count301
+\tag@help=\toks26
+\row@=\count302
+\column@=\count303
+\maxfields@=\count304
+\andhelp@=\toks27
+\eqnshift@=\dimen124
+\alignsep@=\dimen125
+\tagshift@=\dimen126
+\tagwidth@=\dimen127
+\totwidth@=\dimen128
+\lineht@=\dimen129
+\@envbody=\toks28
+\multlinegap=\skip73
+\multlinetaggap=\skip74
+\mathdisplay@stack=\toks29
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
 )
@@ -731,15 +801,15 @@ LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
-\g_MT_multlinerow_int=\count294
-\l_MT_multwidth_dim=\dimen124
-\origjot=\skip72
-\l_MT_shortvdotswithinadjustabove_dim=\dimen125
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen126
-\l_MT_above_intertext_sep=\dimen127
-\l_MT_below_intertext_sep=\dimen128
-\l_MT_above_shortintertext_sep=\dimen129
-\l_MT_below_shortintertext_sep=\dimen130
+\g_MT_multlinerow_int=\count305
+\l_MT_multwidth_dim=\dimen130
+\origjot=\skip75
+\l_MT_shortvdotswithinadjustabove_dim=\dimen131
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen132
+\l_MT_above_intertext_sep=\dimen133
+\l_MT_below_intertext_sep=\dimen134
+\l_MT_above_shortintertext_sep=\dimen135
+\l_MT_below_shortintertext_sep=\dimen136
 )
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
@@ -747,38 +817,38 @@ Package biblatex Info: ... file 'english.lbx' found.
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/english.lbx
 File: english.lbx 2017/12/19 v3.10 biblatex localization (PK/JW/AB)
 )
-\@quotelevel=\count295
-\@quotereset=\count296
+\@quotelevel=\count306
+\@quotereset=\count307
 
 (./markdown_document.aux)
 \openout1 = `markdown_document.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count297
-\scratchdimen=\dimen131
-\scratchbox=\box28
-\nofMPsegments=\count298
-\nofMParguments=\count299
-\everyMPshowfont=\toks23
-\MPscratchCnt=\count300
-\MPscratchDim=\dimen132
-\MPnumerator=\count301
-\makeMPintoPDFobject=\count302
-\everyMPtoPDFconversion=\toks24
+\scratchcounter=\count308
+\scratchdimen=\dimen137
+\scratchbox=\box32
+\nofMPsegments=\count309
+\nofMParguments=\count310
+\everyMPshowfont=\toks30
+\MPscratchCnt=\count311
+\MPscratchDim=\dimen138
+\MPnumerator=\count312
+\makeMPintoPDFobject=\count313
+\everyMPtoPDFconversion=\toks31
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -834,6 +904,7 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+\c@lstlisting=\count314
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
@@ -842,9 +913,18 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'markdown_document.bbl' found.
 (./markdown_document.bbl)
-Package biblatex Info: Reference section=0 on input line 28.
-Package biblatex Info: Reference segment=0 on input line 28.
- [1
+Package biblatex Info: Reference section=0 on input line 37.
+Package biblatex Info: Reference segment=0 on input line 37.
+LaTeX Font Info:    Try loading font information for U+msa on input line 43.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 43.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
@@ -856,124 +936,190 @@ Package biblatex Info: Reference segment=0 on input line 28.
 
 ]
 Chapter 1.
-(./chapters/introduction.tex) [4
+(./chapters/introduction.tex
+Underfull \vbox (badness 1874) has occurred while \output is active []
 
-]
+ [4
+
+])
+[5]
 Chapter 2.
-(./chapters/preliminaries.tex [5
+(./chapters/preliminaries.tex [6
 
 ]
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 27.
-
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 28.
-
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 29.
-
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 30.
-
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 35.
-
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 36.
-
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 37.
-
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 44.
-
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 45.
-
-[6]
 <images/computation_trees.png, id=30, 583.42969pt x 344.78813pt>
 File: images/computation_trees.png Graphic file (type png)
 <use images/computation_trees.png>
-Package pdftex.def Info: images/computation_trees.png  used on input line 52.
-(pdftex.def)             Requested size: 426.79134pt x 252.2246pt.
+Package pdftex.def Info: images/computation_trees.png  used on input line 50.
+(pdftex.def)             Requested size: 298.75262pt x 176.55511pt.
+ [7] [8 <./images/computation_trees.png>]
+Overfull \hbox (3.4403pt too wide) in paragraph at lines 80--81
+[]$\OML/cmm/m/it/12 EXPSPACE \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 DSPACE\OT1/cmr/
+m/n/12 [2[]] = [][] \OML/cmm/m/it/12 DSPACE\OT1/cmr/m/n/12 [2[]]$ (ex-po-nen-ti
+al space) 
+ []
 
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 90.
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 90.
+<images/complexity_classes.png, id=44, 722.7pt x 323.2075pt>
+File: images/complexity_classes.png Graphic file (type png)
+<use images/complexity_classes.png>
+Package pdftex.def Info: images/complexity_classes.png  used on input line 100.
 
-! LaTeX Error: There's no line here to end.
+(pdftex.def)             Requested size: 298.75262pt x 133.61078pt.
+ [9]
+<images/complete_hard.png, id=50, 1927.2pt x 1204.5pt>
+File: images/complete_hard.png Graphic file (type png)
+<use images/complete_hard.png>
+Package pdftex.def Info: images/complete_hard.png  used on input line 118.
+(pdftex.def)             Requested size: 298.75262pt x 186.71394pt.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.58 \\D
-        ifferent complexity classes are defined by establishing upper bounds...
-
-? 
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 62.
-
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 63.
-
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 64.
-
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 65.
-
-! Extra }, or forgotten $.
-l.70 P=DTIME[n^{O(1)}]=\bigcup_{k\geq1}DTIME[n^k]}
-                                                  
-? 
-[7 <./images/computation_trees.png>]
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.73 \\T
-        he boolean satisfiability problem was the first problem proven to be...
-
-? 
-
-Overfull \hbox (7.06667pt too wide) in paragraph at lines 73--74
+Overfull \hbox (7.06667pt too wide) in paragraph at lines 123--124
 []\OT1/cmr/m/n/12 The boolean sat-is-fi-a-bil-ity prob-lem was the first prob-l
 em proven to be NP-Complete
  []
 
-) [8] [9
+[10 <./images/complexity_classes.png> <./images/complete_hard.png>]
+<images/genetic_algorithm_2.jpg, id=56, 757.83125pt x 420.57124pt>
+File: images/genetic_algorithm_2.jpg Graphic file (type jpg)
+<use images/genetic_algorithm_2.jpg>
+Package pdftex.def Info: images/genetic_algorithm_2.jpg  used on input line 136
+.
+(pdftex.def)             Requested size: 384.10959pt x 213.16652pt.
+ [11 <./images/genetic_algorithm_2.jpg>]
+Overfull \hbox (11.57178pt too wide) in paragraph at lines 147--148
+\OT1/cmr/m/it/12 Logemann-Loveland \OT1/cmr/m/n/12 (DPLL) al-go-rithm and the \
+OT1/cmr/m/it/12 conflict-driven clause learn-ing \OT1/cmr/m/n/12 (CDCL)
+ []
 
-] (./markdown_document.aux)
+[12] [13]) [14]
+Chapter 3.
+(./chapters/genetic_algorithm_design.tex [15
+
+]
+
+Package amsmath Warning: Foreign command \over;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 46.
+
+[16] [17]
+<images/stochastic_universal_sampling.png, id=81, 564.1075pt x 132.495pt>
+File: images/stochastic_universal_sampling.png Graphic file (type png)
+<use images/stochastic_universal_sampling.png>
+Package pdftex.def Info: images/stochastic_universal_sampling.png  used on inpu
+t line 100.
+(pdftex.def)             Requested size: 384.10959pt x 90.21872pt.
+ [18 <./images/stochastic_universal_sampling.png>]
+<images/single_point_crossover.png, id=86, 804.00375pt x 282.05376pt>
+File: images/single_point_crossover.png Graphic file (type png)
+<use images/single_point_crossover.png>
+Package pdftex.def Info: images/single_point_crossover.png  used on input line 
+136.
+(pdftex.def)             Requested size: 298.75262pt x 104.80583pt.
+<images/two_point_crossover.png, id=87, 804.00375pt x 282.05376pt>
+File: images/two_point_crossover.png Graphic file (type png)
+<use images/two_point_crossover.png>
+Package pdftex.def Info: images/two_point_crossover.png  used on input line 147
+.
+(pdftex.def)             Requested size: 298.75262pt x 104.80583pt.
+ [19 <./images/single_point_crossover.png>]
+<images/sliding_window_crossover.png, id=93, 814.04124pt x 292.09125pt>
+File: images/sliding_window_crossover.png Graphic file (type png)
+<use images/sliding_window_crossover.png>
+Package pdftex.def Info: images/sliding_window_crossover.png  used on input lin
+e 158.
+(pdftex.def)             Requested size: 298.75262pt x 107.19403pt.
+<images/random_map_crossover.png, id=94, 814.04124pt x 432.61626pt>
+File: images/random_map_crossover.png Graphic file (type png)
+<use images/random_map_crossover.png>
+Package pdftex.def Info: images/random_map_crossover.png  used on input line 16
+9.
+(pdftex.def)             Requested size: 298.75262pt x 158.76508pt.
+<images/uniform_crossover.png, id=95, 814.04124pt x 292.09125pt>
+File: images/uniform_crossover.png Graphic file (type png)
+<use images/uniform_crossover.png>
+Package pdftex.def Info: images/uniform_crossover.png  used on input line 180.
+(pdftex.def)             Requested size: 298.75262pt x 107.19403pt.
+ [20 <./images/two_point_crossover.png> <./images/sliding_window_crossover.png>
+]
+Underfull \vbox (badness 1067) has occurred while \output is active []
+
+ [21 <./images/random_map_crossover.png> <./images/uniform_crossover.png>] [22]
+ [23]
+Overfull \hbox (16.18108pt too wide) in paragraph at lines 267--268
+[]\OT1/cmr/m/n/12 contains only pos-i-tive vari-ables there-fore by set-ting th
+em all to true $\OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 x[]; x[]; x[]; x[]\OMS/cmsy/
+m/n/12 g \OT1/cmr/m/n/12 =
+ []
+
+[24]) [25]
+Chapter 4.
+(./chapters/implementation.tex [26
+
+] [27] [28]
+<images/bbdd_diagram.png, id=129, 593.21625pt x 382.42876pt>
+File: images/bbdd_diagram.png Graphic file (type png)
+<use images/bbdd_diagram.png>
+Package pdftex.def Info: images/bbdd_diagram.png  used on input line 166.
+(pdftex.def)             Requested size: 426.79134pt x 275.15009pt.
+ [29 <./images/bbdd_diagram.png>]
+[30]) [31]
+Chapter 5.
+(./chapters/analysis.tex) [32
+
+] [33]
+Chapter 6.
+(./chapters/conclusions.tex) [34
+
+] [35
+
+]
+Overfull \hbox (7.69833pt too wide) in paragraph at lines 75--75
+\OT1/cmr/m/it/12 netic al-go-rithms\OT1/cmr/m/n/12 . Ku-ruk-shetra, pp. 94{124.
+ \OT1/cmr/m/sc/12 url\OT1/cmr/m/n/12 : $\OT1/cmtt/m/n/12 http : / / shodhganga 
+. inflibnet .
+ []
+
+[36] (./markdown_document.aux)
 Package logreq Info: Writing requests to 'markdown_document.run.xml'.
 \openout1 = `markdown_document.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 10159 strings out of 494923
- 170675 string characters out of 6180742
- 587160 words of memory out of 5000000
- 13350 multiletter control sequences out of 15000+600000
- 11583 words of font info for 42 fonts, out of 8000000 for 9000
+ 12044 strings out of 494923
+ 199862 string characters out of 6180742
+ 617814 words of memory out of 5000000
+ 15160 multiletter control sequences out of 15000+600000
+ 15125 words of font info for 58 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 44i,8n,45p,1193b,1333s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on markdown_document.pdf (9 pages, 168980 bytes).
+ 44i,16n,52p,2417b,1393s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/symbols/msbm10.pfb>
+Output written on markdown_document.pdf (36 pages, 503189 bytes).
 PDF statistics:
- 93 PDF objects out of 1000 (max. 8388607)
- 65 compressed objects within 1 object stream
+ 222 PDF objects out of 1000 (max. 8388607)
+ 141 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,18 +1,22 @@
 \section{Introduction}
+\label{section:introduction}
 
 The Boolean satisfiability problem (SAT) consists of determining an assignment of variables such that a given Boolean expression evaluates to True, or proving no such expression exists; It is a very famous problem in logic and computer science since it was the first problem proven to be NP-Complete, thus finding an efficient general SAT solver is bound to advance the P vs NP problem, which is considered by many to be one of the most important open problems in computer science and is actually one of the unsolved\footnote{The Poincaré Conjecture is the only solved millennium problem} seven millennium problems stated by the Clay Mathematics Institute on May 24, 2000. 
 \\This work attempts to study the behavior of genetic algorithms applied to a restricted version of the SAT problem called the 3-SAT problem, which is still NP-complete. It will attempt to do so by analyzing the behavior of genetic algorithms based on different operators and hyper-parameters tested on a series of 3-SAT problems, and then grading them against each other, the best ranking genetic algorithms found will then be compared with some of the most popular open source SAT solvers.
 
-\subsection {Motivation}
-
-A genetic algorithm is a meta-heuristic designed to mimic the behavior of natural selection, it does so by evolving a population of candidate solutions through the use of biologically inspired operators, it is a population based random search algorithm \parencite{Cochran2011}
-TODO: ADD MORE MOTIVATION
-
 \subsection {Objectives}
 
+The main objective of this work is to generate a series of genetic algorithms which can solve 3-SAT problem instances, these algorithms will be compared with some existing popular open source SAT solvers, in order to determine if a random search algorithm can compete with the local search used by most solvers.
+\\A secondary objective is to determine the effect the different genetic operators and their parameters have on the evolution of the population, and how this affects both the exploration of the search space and the exploitation of the available solutions/individuals.
+\\The point of the analysis of the different genetic operators and parameters stated as a secondary objective, is to determine the configuration of the genetic algorithms which will be compared with the SAT solvers explained in Section \ref{subsection:sat_solvers} in order to carry out the main objective.
 
-\subsection {Methodology}
 
+\subsection {Outline}
 
-\subsection {Document Structure}
+This work is organized as follows:
 
+Chapter \ref{section:preliminaries} provides an overview of the background information necessary to understand this work, among such background information one can find explanations for the boolean satisfiability problem, P vs Np and the field of computational complexity and finally completeness and hardness, in the sections \ref{subsection:3sat}, \ref{subsection:pvsnp} and \ref{subsection:cpandh} respectively, there is also a basic explanation for how genetic algorithms work in Section \ref{subsection:ga_prelim}.
+\\The SAT-solvers which will be compared with the genetic algorithms are explained in Chapter \ref{section:preliminaries}, Section \ref{subsection:sat_solvers}
+\\Chapter \ref{section:ga_design} lays out a more in-depth description of how genetic algorithms work, along with detailed descriptions of the genetic operators and the different algorithms which can be used to carry out each operation.
+\\Chapter \ref{section:implementation} explains the specific details of the design of the \textit{genetic\_algorithm} class and the functionality of the developed implementation in Section \ref{subsection:ga_class}, the database structure used to log the results of the experiments is shown in Section \ref{subsection:data_desc} and an overview of how the actual experiments are run can be found in Section \ref{subsection:exp_design}.
+(TODO: Describe Analysis and Conclusions chapters)

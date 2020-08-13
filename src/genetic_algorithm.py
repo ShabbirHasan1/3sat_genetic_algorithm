@@ -12,7 +12,7 @@ infinite = 2**31
 class GeneticAlgorithm:
 
 	def __init__(self, filename, max_iters=1000, pop_size=100, elitism=0.1, allow_duplicates=True, 
-		steady_state_replacement=False, save_to_db = True, max_workers = 1):
+		steady_state_replacement=False, save_to_db = True, plot_results = True, max_workers = 1):
 		self.filename = filename
 		self.num_vars, self.clauses = fn.read_problem(filename)
 		self.set_vars = [infinite]*self.num_vars
@@ -40,21 +40,24 @@ class GeneticAlgorithm:
 		if self.save_to_db:
 			self.db_conn = fn.get_db_connection(dbname='genetic_algorithm', user='postgres', password='changeme')
 
+		self.plot_results = plot_results
+
+		fn.fitness_dict = {}
+
 
 	def set_log_level(self, log_level=None):
 		self.log_level = log_level
 
-	def set_params(self, initial_pop_func="random", fitness_func="maxsat", selection_func="roulette", 
+	def set_params(self, selection_func="roulette", 
 				crossover_func="single point", mutation_func="single bit", replacement_func="generational",
-				mutation_rate=0.1, tournament_size=5, crossover_window_len=0.4, num_individuals=0.5):
-		if fitness_func == "maxsat":
-			self.fitness_func = fn.maxsat_fitness
+				mutation_rate=0.1, tournament_size=5, crossover_window_len=0.4, num_individuals=0.5, truncation_proportion=1/3):
+
+		self.fitness_func = fn.maxsat_fitness
 
 		self.mutation_rate=mutation_rate
 		self.tournament_size=tournament_size
+		self.truncation_proportion = truncation_proportion
 		self.crossover_window_len = crossover_window_len
-		self.initial_pop_func_str = initial_pop_func
-		self.fitness_func_str = fitness_func
 		self.selection_func_str = selection_func
 		self.crossover_func_str = crossover_func
 		self.mutation_func_str = mutation_func
@@ -68,14 +71,10 @@ class GeneticAlgorithm:
 
 		initial_pop_funcs = {
 			'random':fn.random_population,
-			'binary range':fn.binary_range_population,
-			'satisfy clauses':fn.satisfy_clauses_population
 		}
 
 		initial_pop_params = {
 			'random':(self.num_vars, self.set_vars, self.pop_size, self.allow_duplicates,),
-			'binary range':(self.num_vars, self.set_vars, self.pop_size, self.allow_duplicates,),
-			'satisfy clauses':(self.num_vars, self.set_vars, self.pop_size,self.clauses, self.allow_duplicates,)
 		}
 
 		selection_funcs = {
@@ -85,7 +84,8 @@ class GeneticAlgorithm:
 			'rank':fn.rank_selection,
 			'tournament':fn.tournament_selection,
 			'stochastic':fn.stochastic_universal_sampling_selection,
-			'annealed': fn.annealed_selection
+			'annealed': fn.annealed_selection,
+			'truncation':fn.truncation_selection
 		}
 
 		selection_params = {
@@ -95,7 +95,8 @@ class GeneticAlgorithm:
 			'rank':[],
 			'tournament':[tournament_size,],
 			'stochastic':[],
-			'annealed':[self.max_iters,  0]
+			'annealed':[self.max_iters,  0],
+			'truncation':[truncation_proportion,]
 		}
 
 
@@ -127,14 +128,14 @@ class GeneticAlgorithm:
 		mutation_params = {
 			'single bit':(mutation_rate,self.ret_cost,),
 			'multiple bit':(mutation_rate,self.ret_cost,),
-			'single bit greedy':(self.clauses,self.ret_cost,),
-			'single bit max greedy':(self.clauses,self.ret_cost,),
-			'multiple_bit_greedy':(self.clauses,self.ret_cost,),
-			'flip ga':(self.clauses,self.ret_cost,)
+			'single bit greedy':(mutation_rate,self.clauses,self.ret_cost,),
+			'single bit max greedy':(mutation_rate,self.clauses,self.ret_cost,),
+			'multiple_bit_greedy':(mutation_rate,self.clauses,self.ret_cost,),
+			'flip ga':(mutation_rate,self.clauses,self.ret_cost,)
 		}
 
-		self.initial_pop_func = initial_pop_funcs[initial_pop_func]
-		self.initial_pop_params = initial_pop_params[initial_pop_func]
+		self.initial_pop_func = initial_pop_funcs["random"]
+		self.initial_pop_params = initial_pop_params["random"]
 
 		self.selection_func = selection_funcs[selection_func]
 		self.sel_params = selection_params[selection_func]
@@ -152,8 +153,6 @@ class GeneticAlgorithm:
 			filename += "set_"
 		if self.steady_state_replacement:
 			filename += "steady_state_"
-		filename += self.initial_pop_func_str.replace(' ','_') + "_"
-		filename += self.fitness_func_str.replace(' ','_') + "_"
 		filename += self.selection_func_str.replace(' ','_') + "_"
 		filename += self.crossover_func_str.replace(' ','_') + "_"
 		filename += self.mutation_func_str.replace(' ','_') + "_"
@@ -167,8 +166,9 @@ class GeneticAlgorithm:
 		t_fitness_evals, t_num_flips = 0,0 
 		max_fitness = 0
 
-		phenotype_distributions = []
-		genotype_distributions = []
+		if self.plot_distributions:
+			phenotype_distributions = []
+			genotype_distributions = []
 		populations = []
 		pop_fitness_dict = {}
 
@@ -184,9 +184,8 @@ class GeneticAlgorithm:
 		if self.save_to_db:
 			ga_run_id = fn.add_ga_run(conn=self.db_conn, problem=self.filename.split('/')[-1],
 				max_iterations=self.max_iters, pop_size=len(population), elitism=self.elitism, 
-				fitness_function=self.fitness_func_str, initial_population_function=self.initial_pop_func_str,
 				selection_function=self.selection_func_str, crossover_function=self.crossover_func_str, mutation_function=self.mutation_func_str,
-				mutation_rate=self.mutation_rate, tournament_size=self.tournament_size, crossover_window_len=self.crossover_window_len)
+				mutation_rate=self.mutation_rate, tournament_size=self.tournament_size, crossover_window_len=self.crossover_window_len, population_replacement_function=self.replacement_func, num_individuals=self.num_individuals, truncation_proportion=self.truncation_proportion, num_clauses=len(self.clauses))
 			fn.add_ga_run_population(conn=self.db_conn, ga_run_id=ga_run_id, population=population, observation="Initial population")
 		
 		while (self.sol_value==-1 and cur_iter < self.max_iters):
@@ -204,23 +203,30 @@ class GeneticAlgorithm:
 					pop_fitness_dict[indiv]=pop_fitness[i][1]
 				else:
 					pop_fitness_dict[tuple(indiv)]=pop_fitness[i][1]
-			fitness_arr, genes_arr = [], []
-			for x in pop_fitness:
-				fitness_arr.append(x[1])
-				genes_arr.append(''.join([str(y) for y in x[0]]))
 
-			phenotype_distributions.append(fitness_arr)
-			genotype_distributions.append(genes_arr)
+			if self.plot_results or self.save_to_db:
+				fitness_arr, genes_arr = [], []
+				for x in pop_fitness:
+					fitness_arr.append(x[1])
+					genes_arr.append(''.join([str(y) for y in x[0]]))
+
+				phenotype_distributions.append(fitness_arr)
+				genotype_distributions.append(genes_arr)
+
 			populations.append(population)
 
 			num_fitness_evals += len(population) # Since we evaluated the whole population
 			if fn.maxsat_solution_found(self.clauses, max_fitness):
 				if self.save_to_db:
 					fn.add_ga_run_result(self.db_conn, ga_run_id, True, max_fit_indiv, cur_iter, max_fitness, t_fitness_evals, t_num_flips)
-					#fn.add_ga_run_population(conn=self.db_conn, ga_run_id=ga_run_id, population=population, observation="Solution found")
+					fn.add_ga_run_generation(conn=self.db_conn, ga_run_id=ga_run_id, generation_num=cur_iter,
+						max_fitness=max_fitness, population_length=len(population), population_set_length=len(pop_set),
+						num_fitness_evals=num_fitness_evals, num_bit_flips=num_flips, num_clauses=len(self.clauses), fitness_array = fitness_arr)
+					fn.add_ga_run_population(conn=self.db_conn, ga_run_id=ga_run_id, population=population, observation="Solution found")
 					fn.close_db_connection(self.db_conn)
 
-				self.plot_distributions(populations, genotype_distributions, phenotype_distributions)
+				if self.plot_results:
+					self.plot_distributions(populations, genotype_distributions, phenotype_distributions)
 				return (True, max_fit_indiv, cur_iter, max_fitness, t_fitness_evals, t_num_flips)
 			if self.log_level=="time":
 				t1 = time.time()
@@ -229,7 +235,9 @@ class GeneticAlgorithm:
 
 			if self.replacement_func=="mu lambda offspring":
 				num_children = len(pop_fitness)*2
-			elif self.steady_state_replacement or self.replacement_func in ["random replacement", "parents", "weak parents"]:
+				if self.steady_state_replacement:
+					num_children = 4
+			elif self.steady_state_replacement or self.replacement_func in ["parents", "weak parents"]:
 				num_children = 2
 			else:
 				num_children = len(pop_fitness)-self.elitism
@@ -256,6 +264,8 @@ class GeneticAlgorithm:
 					p1 = fn.get_random_int(0, len(parents))
 					parent_1 = parents.pop(p1)[0]
 					p2 = fn.get_random_int(0, len(parents))
+					#while parent_1 == parents[p2][0]:
+					#	p2 = fn.get_random_int(0, len(parents))
 					parent_2 = parents.pop(p2)[0]
 					parent_pairs.append([parent_1, parent_2])
 
@@ -363,30 +373,36 @@ class GeneticAlgorithm:
 				if self.save_to_db:
 					fn.add_ga_run_generation(conn=self.db_conn, ga_run_id=ga_run_id, generation_num=cur_iter,
 						max_fitness=max_fitness, population_length=len(population), population_set_length=len(pop_set),
-						num_fitness_evals=num_fitness_evals, num_bit_flips=num_flips)
+						num_fitness_evals=num_fitness_evals, num_bit_flips=num_flips, num_clauses=len(self.clauses), 
+						fitness_array = fitness_arr)
 					fn.add_ga_run_population(conn=self.db_conn, ga_run_id=ga_run_id, population=population)
 
 		if self.save_to_db:
 			fn.add_ga_run_result(self.db_conn, ga_run_id, False, None, cur_iter, max_fitness, t_fitness_evals, t_num_flips)
-			#fn.add_ga_run_population(conn=self.db_conn, ga_run_id=ga_run_id, population=population, observation="No solution")
+			fn.add_ga_run_generation(conn=self.db_conn, ga_run_id=ga_run_id, generation_num=cur_iter,
+						max_fitness=max_fitness, population_length=len(population), population_set_length=len(pop_set),
+						num_fitness_evals=num_fitness_evals, num_bit_flips=num_flips, num_clauses=len(self.clauses),
+						fitness_array = fitness_arr)
+			fn.add_ga_run_population(conn=self.db_conn, ga_run_id=ga_run_id, population=population, observation="No solution")
 			fn.close_db_connection(self.db_conn)
 
-		self.plot_distributions(populations, genotype_distributions, phenotype_distributions)
+		if self.plot_results:
+			self.plot_distributions(populations, genotype_distributions, phenotype_distributions)
 		return (False, [], cur_iter, max_fitness, t_fitness_evals, t_num_flips)
 
 
 	def plot_distributions(self, populations, genotype_distributions, phenotype_distributions):
-		#gen_distribs = fn.get_genotypic_distribution(genotype_distributions, max_workers=10)
-		#norm_gen_distrib = fn.normalize_distributions(gen_distribs, max([max(x) for x in gen_distribs]))
-		#norm_phen_distrib = fn.normalize_distributions(phenotype_distributions, len(self.clauses))
+		gen_distribs = fn.get_genotypic_distribution(genotype_distributions, max_workers=10)
+		norm_gen_distrib = fn.normalize_distributions(gen_distribs, max([max(x) for x in gen_distribs]))
+		norm_phen_distrib = fn.normalize_distributions(phenotype_distributions, len(self.clauses))
 		#fn.plot_violin_graph(norm_phen_distrib, "Fitness percentage", "Phenotypic Distributions", self.get_filename(), "phenotype")
 		#fn.plot_violin_graph(norm_gen_distrib, "Mean Hamming Distance percentage", "Genotypic Distributions", self.get_filename(), "genotype")
-		#fn.plot_means(norm_gen_distrib, norm_phen_distrib, self.get_filename())
-		fn.animate_3d_distributions(populations, self.get_filename(), "PCA")
-		fn.animate_3d_distributions(populations, self.get_filename(), "SVD")
-		fn.animate_3d_distributions(populations, self.get_filename(), "NMF")
+		fn.plot_means(norm_gen_distrib, norm_phen_distrib, self.get_filename())
+		#fn.animate_3d_distributions(populations, self.get_filename(), "PCA")
+		#fn.animate_3d_distributions(populations, self.get_filename(), "SVD")
+		#fn.animate_3d_distributions(populations, self.get_filename(), "NMF")
 		#fn.animate_3d_distributions(populations, self.get_filename(), "FactorAnalysis")
-		fn.animate_3d_distributions(populations, self.get_filename(), "KernelPCA")
+		#fn.animate_3d_distributions(populations, self.get_filename(), "KernelPCA")
 		#fn.animate_phenotypic_distributions(norm_phen_distrib, self.get_filename())
 		#fn.animate_genotypic_distributions(norm_gen_distrib, self.get_filename())
 
@@ -407,8 +423,6 @@ class GeneticAlgorithm:
 		print ("Filename: ", self.filename.split('/')[-1])
 		print ("Location: ", '/'.join(self.filename.split('/')[:-1])+'/')
 		print ("----------Parameters---------")
-		print ("Fitness function: ", self.fitness_func_str)
-		print ("Initial population function: ",self.initial_pop_func_str)
 		sel_str = "Selection function: "+self.selection_func_str
 		if self.selection_func_str=='tournament':
 			sel_str += '(tournament_size = '+str(self.sel_params[0])+')'
@@ -431,38 +445,46 @@ class GeneticAlgorithm:
 
 
 ############# PROGRAM #############
-filename = 'uf50-01.cnf'
-foldername = './data/uf20-91'
+filename = 'uf75-02.cnf'
+foldername = './data/uf_mix'
 log_levels = ['all', 'time']
-initial_pop_funcs = ['random', 'binary range', 'satisfy clauses']
+initial_pop_funcs = ['random']
 fitness_funcs = ['maxsat']
-selection_funcs = ['random', 'roulette', 'roulette elimination', 'rank', 'tournament', 'stochastic', 'annealed']
+selection_funcs = ['random', 'roulette', 'roulette elimination', 'rank', 'tournament', 'stochastic', 'annealed', 'truncation']
 crossover_funcs = ['single point', 'two points', 'sliding window', 'random map', 'uniform']
 mutation_funcs = ['single bit', 'multiple bit', 'single bit greedy', 'single bit max greedy', 'multiple bit greedy', 'flip ga']
 replacement_funcs = ['generational', 'mu lambda', 'mu lambda offspring', 'delete n', 'random replacement', 'parents', 'weak parents']
-max_iters = 200
+# TODO: Fix mu lambda offspring
+max_iters = 1000
 pop_size = 1000
-elitism = 0.1
+elitism = 0.01
 num_individuals_to_replace = 0.4
-mutation_rate = 0.1
+mutation_rate = 0.05
 crossover_window_len = 0.4
 tournament_size = 5
+truncation_proportion = 1/3
 
-gen_alg = GeneticAlgorithm(filename=foldername+'/'+filename, max_iters=max_iters, pop_size=pop_size, elitism=elitism, 
-	steady_state_replacement = False, allow_duplicates=True, save_to_db=True, max_workers=1)
-gen_alg.set_params(initial_pop_func=initial_pop_funcs[0], fitness_func=fitness_funcs[0], selection_func=selection_funcs[1], crossover_func=crossover_funcs[1], 
-				  mutation_func=mutation_funcs[0], replacement_func=replacement_funcs[0], mutation_rate=mutation_rate, tournament_size=tournament_size, 
-				  crossover_window_len=crossover_window_len, num_individuals=num_individuals_to_replace)
-gen_alg.set_log_level('all')
+for selection_func in selection_funcs[:-1]:
+	for i in ['uf20', 'uf50', 'uf75', 'uf100']:
+		for j in range(1, 11):
+			filename = i+'-0'+str(j)+'.cnf'
+			
+			gen_alg = GeneticAlgorithm(filename=foldername+'/'+filename, max_iters=max_iters, pop_size=pop_size, elitism=elitism, 
+			steady_state_replacement = False, allow_duplicates=True, save_to_db=True, plot_results=False, max_workers=1)
+			gen_alg.set_params(selection_func=selection_func, crossover_func=crossover_funcs[2], 
+						  mutation_func=mutation_funcs[0], replacement_func=replacement_funcs[2], mutation_rate=mutation_rate, tournament_size=tournament_size, 
+						  crossover_window_len=crossover_window_len, num_individuals=num_individuals_to_replace, 
+						  truncation_proportion=truncation_proportion)
+			gen_alg.set_log_level('all')
+			
+			sol_found, sol, iteration, fitness, num_fitness_evals, num_flips = gen_alg.start_ga()
 
-sol_found, sol, iteration, fitness, num_fitness_evals, num_flips = gen_alg.start_ga()
-
-if sol_found:
-	print ("Solution found in iteration {} > {}".format(iteration, sol))
-	print ("Num fitness evals: {}, Num bit flips: {}".format(num_fitness_evals, num_flips))
-else:
-	print ("Solution not found in {} iterations".format(iteration))
-	print ("Max fitness found: {}/{}".format(fitness, len(gen_alg.clauses)))
+			if sol_found:
+				print ("Solution found in iteration {} > {}".format(iteration, sol))
+				print ("Num fitness evals: {}, Num bit flips: {}".format(num_fitness_evals, num_flips))
+			else:
+				print ("Solution not found in {} iterations".format(iteration))
+				print ("Max fitness found: {}/{}".format(fitness, len(gen_alg.clauses)))
 
 #gen_alg.get_run_average(10)
 

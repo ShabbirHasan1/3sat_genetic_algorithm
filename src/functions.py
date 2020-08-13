@@ -343,20 +343,19 @@ def close_db_connection(conn):
 	except (Exception, psycopg2.DatabaseError) as error:
 		print(error)
 
-def add_ga_run(conn, problem, max_iterations, pop_size, elitism, fitness_function,
-	initial_population_function, selection_function, crossover_function, mutation_function,
-	mutation_rate, tournament_size, crossover_window_len):
+def add_ga_run(conn, problem, max_iterations, pop_size, elitism, selection_function, crossover_function, 
+	mutation_function,	mutation_rate, tournament_size, crossover_window_len, population_replacement_function, 
+	num_individuals, truncation_proportion, num_clauses):
 	new_id = -1
 	try:	
 		with conn:
 			cursor = conn.cursor()
 			sql_string = "INSERT INTO ga_run (created_timestamp, problem, max_iterations, pop_size, elitism, \
-					 fitness_function, initial_population_function, selection_function, crossover_function, \
-					 mutation_function, mutation_rate, tournament_size, crossover_window_len) VALUES \
-					 (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"
-			cursor.execute(sql_string, (dt.now(), problem, max_iterations, pop_size, elitism, fitness_function,
-					  initial_population_function, selection_function, crossover_function, mutation_function,
-					  mutation_rate, tournament_size, crossover_window_len))
+					 selection_function, crossover_function, mutation_function,\
+					 population_replacement_function, mutation_rate, tournament_size, crossover_window_len, \
+					 num_individuals, truncation_proportion, num_clauses) VALUES \
+					 (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"
+			cursor.execute(sql_string, (dt.now(), problem, max_iterations, pop_size, elitism, selection_function, crossover_function, mutation_function, population_replacement_function, mutation_rate, tournament_size, crossover_window_len, num_individuals, truncation_proportion, num_clauses))
 			new_id = cursor.fetchone()[0]
 
 	except (Exception, psycopg2.DatabaseError) as error:
@@ -375,16 +374,23 @@ def add_ga_run_result(conn, ga_run_id, sol_found, solution, num_iterations, max_
 	except (Exception, psycopg2.DatabaseError) as error:
 		print (error)
 
-def add_ga_run_generation(conn, ga_run_id, generation_num, max_fitness, population_length,
-	population_set_length, num_fitness_evals, num_bit_flips):
+def add_ga_run_generation(conn, ga_run_id, generation_num, max_fitness, population_length, population_set_length, num_fitness_evals, num_bit_flips, num_clauses, fitness_array):
+	mean = float(numpy.mean(fitness_array))
+    median = float(numpy.median(fitness_array))
+    mode = stats.mode(fitness_array)
+    mode_value = float(mode[0][0])
+    mode_count = int(mode[1][0])
+    deviation = float(numpy.std(fitness_array))
 	try:
 		with conn:
 			cursor = conn.cursor()
 			sql_string = "INSERT INTO ga_run_generations (time_stamp, ga_run_id, generation_num, max_fitness, \
-						 population_length, population_set_length, num_fitness_evals, num_bit_flips) VALUES \
-						 (%s, %s, %s, %s, %s, %s, %s, %s)"
+						 population_length, population_set_length, num_fitness_evals, num_bit_flips, num_clauses, \
+						 mean, median, mode, mode_count, standard_deviation) VALUES \
+						 (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 			cursor.execute(sql_string, (dt.now(), ga_run_id, generation_num, max_fitness, population_length,
-						  population_set_length, num_fitness_evals, num_bit_flips))
+						  population_set_length, num_fitness_evals, num_bit_flips, num_clauses, mean, median, mode_value,
+						  mode_count, deviation))
 	except (Exception, psycopg2.DatabaseError) as error:
 		print (error)
 
@@ -495,31 +501,8 @@ def random_population(num_vars, set_vars, pop_size, allow_duplicates):
 				population.add(tuple(rpop.tolist()))
 	return population
 
-def binary_range_population(num_vars, set_vars, pop_size, allow_duplicates):
-	if allow_duplicates:
-		population = []
-	else:
-		population = set()
-	total_num = 2**num_vars
-	c = 0
-	while(len(population)<pop_size):
-		ctr = c
-		while ctr < int(total_num/pop_size)*pop_size:
-			bin_i = f'{ctr:0b}'
-			padded_bin_i = '0'*(num_vars-len(bin_i))+bin_i
-			indiv = [int(l) for l in padded_bin_i]
-			for j, var in enumerate(set_vars):
-				if var != infinite:
-					indiv[j] = var
-			if allow_duplicates:
-				population.append(indiv)
-			else:
-				population.add(indiv)
-			ctr+=int(total_num/pop_size)
-		c += 1
-	return population
-
 def satisfy_clauses_population(num_vars, set_vars, pop_size, clauses, allow_duplicates):
+	#NOT USED
 	if allow_duplicates:
 		population = []
 	else:
@@ -567,24 +550,29 @@ def evaluate_population(population, clauses, fitness_function, fitness_dict, max
 
 
 ############# FITNESS FUNCTIONS #############
-
+fitness_dict = {}
 def maxsat_fitness(clauses, var_arr):
 	# Since CNF formulas are of the shape (x1 OR x2 OR x3) AND (x3 OR -x2 OR -x1)
 	# As soon as we find any True value inside a clause that clause is satisfied
-	t_clauses = 0
-	for clause in clauses:
-		for num in clause:
-			if num >= 0:
-				if var_arr[num-1]==1:
-					t_clauses += 1
-					break
-			elif num <= 0:
-				if var_arr[abs(num)-1]==0:
-					t_clauses += 1
-					break
-	return t_clauses
+	try:
+		x = fitness_dict[str(var_arr)]
+	except:
+		t_clauses = 0
+		for clause in clauses:
+			for num in clause:
+				if num >= 0:
+					if var_arr[num-1]==1:
+						t_clauses += 1
+						break
+				elif num <= 0:
+					if var_arr[abs(num)-1]==0:
+						t_clauses += 1
+						break
+		fitness_dict[str(var_arr)] = t_clauses
+	return fitness_dict[str(var_arr)]
 
 def float_fitness(clauses, var_arr):
+	#NOT USED
 	t_res = 1
 	for clause in clauses:
 		tmp_r = 0
@@ -651,7 +639,7 @@ def rank_selection(population, num_parents):
 	parents = []
 	sorted_pop = sorted(population, key=lambda x: x[1])
 	pop_rank = [[x, i+1] for i,x in enumerate(sorted_pop)]
-	total_rank = int((pop_rank[-1][1]*(pop_rank[-1][1]-1))/2)
+	total_rank = sum([y for x,y in pop_rank])
 	probabilities = [y/total_rank for x,y in pop_rank]
 	for _ in range(num_parents):
 		rnum = random.random()
@@ -662,6 +650,22 @@ def rank_selection(population, num_parents):
 				break
 			sprob += prob
 	return parents
+
+def truncation_selection(population, num_parents, proportion):
+	num_indivs = int(len(population)*proportion)
+	parents = []
+	sorted_pop = sorted(population, key=lambda x: x[1])
+	if num_indivs >= num_parents:
+		for i in range(num_parents):
+			parents.append(sorted_pop[i])
+	elif num_indivs < num_parents:
+		while len(parents)<num_parents:
+			for i in range(num_indivs):
+				parents.append(sorted_pop[i])
+				if len(parents)>=num_parents:
+					break
+	return parents
+
 
 
 def tournament_selection(population, num_parents, tournament_size):
@@ -763,8 +767,8 @@ def sliding_window_crossover(parent_pair, clauses, crossover_window_len=0.4, ret
 	max_fitness, max_i = [0,0], [0,0]
 	bad_children = [[],[]]
 	for i in range(len(parent1)-window_len):
-		bad_children[0].append(np.concatenate((parent1[:i],parent2[i:i+window_len],parent1[i+window_len:]))).tolist()
-		bad_children[1].append(np.concatenate((parent2[:i],parent1[i:i+window_len],parent2[i+window_len:]))).tolist()
+		bad_children[0].append(np.concatenate((parent1[:i],parent2[i:i+window_len],parent1[i+window_len:])).tolist())
+		bad_children[1].append(np.concatenate((parent2[:i],parent1[i:i+window_len],parent2[i+window_len:])).tolist())
 		for t in range(2):
 			fitness = maxsat_fitness(clauses, bad_children[t][i])
 			fitness_evals += 1
@@ -868,78 +872,86 @@ def multiple_bit_flip(individual, mutation_rate, ret_cost=False):
 	else:
 		return indiv
 
-def single_bit_greedy(individual, clauses, ret_cost=False):
+def single_bit_greedy(individual, mutation_rate, clauses, ret_cost=False):
 	fitness_evals, bit_flips = 0, 0
 	ind_fitness = maxsat_fitness(clauses, individual)
 	fitness_evals += 1
 	max_ind = individual
-	for j in range(len(individual)):
-		indiv = individual[:]
-		if indiv[j]==1: indiv[j]=0
-		elif indiv[j]==0: indiv[j]=1
-		bit_flips += 1
-		fitness_evals += 1
-		if maxsat_fitness(clauses, indiv)>ind_fitness:
-			max_ind = indiv
-			break
+	rmut = random.random()
+	if rmut <= mutation_rate:
+		for j in range(len(individual)):
+			indiv = individual[:]
+			if indiv[j]==1: indiv[j]=0
+			elif indiv[j]==0: indiv[j]=1
+			bit_flips += 1
+			fitness_evals += 1
+			if maxsat_fitness(clauses, indiv)>ind_fitness:
+				max_ind = indiv
+				break
 	if ret_cost:
 		return max_ind, fitness_evals, bit_flips
 	else:
 		return max_ind
 
-def single_bit_max_greedy(individual, clauses, ret_cost=False):
+def single_bit_max_greedy(individual, mutation_rate, clauses, ret_cost=False):
 	fitness_evals, bit_flips = 0, 0
 	ind_fitness = maxsat_fitness(clauses, individual)
 	fitness_evals += 1
 	max_ind, max_fit = individual, ind_fitness
-	for j in range(len(individual)):
-		t_indiv = individual[:]
-		if t_indiv[j]==1: t_indiv[j]=0
-		elif t_indiv[j]==0: t_indiv[j]=1
-		tfit = maxsat_fitness(clauses, t_indiv)
-		fitness_evals += 1
-		if tfit>max_fit:
-			max_ind = t_indiv
-			max_fit = tfit
+	rmut = random.random()
+	if rmut <= mutation_rate:
+		for j in range(len(individual)):
+			t_indiv = individual[:]
+			if t_indiv[j]==1: t_indiv[j]=0
+			elif t_indiv[j]==0: t_indiv[j]=1
+			tfit = maxsat_fitness(clauses, t_indiv)
+			fitness_evals += 1
+			if tfit>max_fit:
+				max_ind = t_indiv
+				max_fit = tfit
 	if ret_cost:
 		return max_ind, fitness_evals, bit_flips
 	else:
 		return max_ind
 
-def multiple_bit_greedy(individual, clauses, ret_cost=False):
+def multiple_bit_greedy(individual, mutation_rate, clauses, ret_cost=False):
 	fitness_evals, bit_flips = 0, 0	
 	ind_fitness = maxsat_fitness(clauses, individual)
 	indiv = individual[:]
-	for j in range(len(indiv)):
-		t_indiv = indiv[:]
-		new_bit = 1
-		if indiv[j]==1: new_bit=0
-		t_indiv[j] = new_bit
-		t_fitness = maxsat_fitness(clauses, t_indiv)
-		if t_fitness > ind_fitness:
-			ind_fitness = t_fitness
-			indiv = t_indiv
-	if ret_cost:
-		return indiv, fitness_evals, bit_flips
-	else:
-		return indiv
-
-def flip_ga(individual, clauses, ret_cost=False):
-	fitness_evals, bit_flips = 0, 0
-	indiv = individual[:]
-	ind_fitness = maxsat_fitness(clauses, indiv)
-	prev_fitness = ind_fitness-1
-	while(prev_fitness<ind_fitness):
-		prev_fitness = ind_fitness
+	rmut = random.random()
+	if rmut <= mutation_rate:
 		for j in range(len(indiv)):
 			t_indiv = indiv[:]
 			new_bit = 1
-			if t_indiv[j]==1: new_bit=0
+			if indiv[j]==1: new_bit=0
 			t_indiv[j] = new_bit
 			t_fitness = maxsat_fitness(clauses, t_indiv)
 			if t_fitness > ind_fitness:
 				ind_fitness = t_fitness
 				indiv = t_indiv
+	if ret_cost:
+		return indiv, fitness_evals, bit_flips
+	else:
+		return indiv
+
+def flip_ga(individual, mutation_rate, clauses, ret_cost=False):
+	fitness_evals, bit_flips = 0, 0
+	indiv = individual[:]
+	ind_fitness = maxsat_fitness(clauses, indiv)
+	prev_fitness = ind_fitness-1
+	rmut = random.random()
+	if rmut <= mutation_rate:
+		while(prev_fitness<ind_fitness):
+			prev_fitness = ind_fitness
+			for j in range(len(indiv)):
+				t_indiv = indiv[:]
+				new_bit = 1
+				if t_indiv[j]==1: new_bit=0
+				t_indiv[j] = new_bit
+				t_fitness = maxsat_fitness(clauses, t_indiv)
+				if t_fitness > ind_fitness:
+					ind_fitness = t_fitness
+					indiv = t_indiv
 	if ret_cost:
 		return indiv, fitness_evals, bit_flips
 	else:
@@ -999,6 +1011,26 @@ def delete_n(allow_duplicates, children_fitness, pop_fitness, num_individuals, s
 	tmp_pop = pop_fitness[:]
 	tmp_children = children_fitness[:]
 	new_children = []
+	to_kill = selection_method(tmp_pop, num_individuals, *selection_params)[0]
+	for indiv, fitness in to_kill:
+		tmp_pop.remove(indiv)
+
+	to_add = selection_method(tmp_children, num_individuals, *selection_params)[0]
+	for indiv, fitness in to_add:
+		tmp_children.remove(indiv)
+		new_children += [indiv]
+
+	new_pop = [x for x,y in tmp_pop] + [x for x,y in new_children]
+	if allow_duplicates:
+		return new_pop
+	else:
+		return set(new_pop)
+
+"""
+def delete_n(allow_duplicates, children_fitness, pop_fitness, num_individuals, selection_method, selection_params):
+	tmp_pop = pop_fitness[:]
+	tmp_children = children_fitness[:]
+	new_children = []
 	for _ in range(num_individuals):
 		to_kill = selection_method(tmp_pop, 1, *selection_params)[0]
 		if len(tmp_children)>0:
@@ -1014,6 +1046,7 @@ def delete_n(allow_duplicates, children_fitness, pop_fitness, num_individuals, s
 		return new_pop
 	else:
 		return set(new_pop)
+"""
 
 def mu_lambda_replacement(allow_duplicates, pop_fitness, pop_size):
 	new_population = []

@@ -19,6 +19,113 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global}
+    \entry{Karp2010}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=5d77d3cf25d2ee3ce64732bb77de0b0f}{%
+           family={Karp},
+           familyi={K\bibinitperiod},
+           given={Richard\bibnamedelima M.},
+           giveni={R\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
+      \strng{fullhash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
+      \strng{bibnamehash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
+      \strng{authorbibnamehash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
+      \strng{authornamehash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
+      \strng{authorfullhash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Throughout the 1960s I worked on combinatorial optimization problems including logic circuit design with Paul Roth and assembly line balancing and the traveling salesman problem with Mike Held. These experiences made me aware that seemingly simple discrete optimization problems could hold the seeds of combinatorial explosions. The work of Dantzig, Fulkerson, Hoffman, Edmonds, Lawler and other pioneers on network flows, matching and matroids acquainted me with the elegant and efficient algorithms that were sometimes possible. Jack Edmonds' papers and a few key discussions with him drew my attention to the crucial distinction between polynomial-time and superpolynomial-time solvability. I was also influenced by Jack's emphasis on min-max theorems as a tool for fast verification of optimal solutions, which foreshadowed Steve Cook's definition of the complexity class NP. Another influence was George Dantzig's suggestion that integer programming could serve as a universal format for combinatorial optimization problems. {©} 2010 Springer-Verlag Berlin Heidelberg.}
+      \field{booktitle}{50 Years of Integer Programming 1958-2008: From the Early Years to the State-of-the-Art}
+      \field{isbn}{9783540682745}
+      \field{title}{{Reducibility among combinatorial problems}}
+      \field{year}{2010}
+      \field{pages}{219\bibrangedash 241}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1007/978-3-540-68279-0_8
+      \endverb
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/karp.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Savitch1970}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=b697a281190be17d2b794aab63ddd62c}{%
+           family={Savitch},
+           familyi={S\bibinitperiod},
+           given={Walter\bibnamedelima J.},
+           giveni={W\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{b697a281190be17d2b794aab63ddd62c}
+      \strng{fullhash}{b697a281190be17d2b794aab63ddd62c}
+      \strng{bibnamehash}{b697a281190be17d2b794aab63ddd62c}
+      \strng{authorbibnamehash}{b697a281190be17d2b794aab63ddd62c}
+      \strng{authornamehash}{b697a281190be17d2b794aab63ddd62c}
+      \strng{authorfullhash}{b697a281190be17d2b794aab63ddd62c}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The amount of storage needed to simulate a nondeterministic tape bounded Turingmachine on a deterministic Turing machine is investigated. Results include the following: Theorem. A nondeterministic L(n)-tape bounded Turing machine can be simulated by a deterministic [L(n)]2-tape bounded Turing machine, provided L(n)≥log2n. Computations of nondeterministic machines are shown to correspond to threadings of certain mazes. This correspondence is used to produce a specific set, namely the set of all codings of threadable mazes, such that, if there is any set which distinguishes nondeterministic tape complexity classes from deterministic tape complexity classes, then this is one such set. {©} 1970 Academic Press, Inc.}
+      \field{issn}{10902724}
+      \field{journaltitle}{Journal of Computer and System Sciences}
+      \field{number}{2}
+      \field{title}{{Relationships between nondeterministic and deterministic tape complexities}}
+      \field{volume}{4}
+      \field{year}{1970}
+      \field{pages}{177\bibrangedash 192}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1016/S0022-0000(70)80006-X
+      \endverb
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/82306488.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Cook1971}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=bc00f87a27f34a10060fc126ca386235}{%
+           family={Cook},
+           familyi={C\bibinitperiod},
+           given={Stephen\bibnamedelima A.},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{bc00f87a27f34a10060fc126ca386235}
+      \strng{fullhash}{bc00f87a27f34a10060fc126ca386235}
+      \strng{bibnamehash}{bc00f87a27f34a10060fc126ca386235}
+      \strng{authorbibnamehash}{bc00f87a27f34a10060fc126ca386235}
+      \strng{authornamehash}{bc00f87a27f34a10060fc126ca386235}
+      \strng{authorfullhash}{bc00f87a27f34a10060fc126ca386235}
+      \field{sortinit}{3}
+      \field{sortinithash}{a4b52e5432884761f50fb9571273b93e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{It is shown that any recognition problem solved by a polynomial timebounded nondeterministic Turing machine can be "reduced" to the problem of determining whether a given propositional formula is a tautology. Here "reduced" means, roughly speaking, that the first problem can be solved deterministically in polynomial time provided an oracle is available for solving the second. From this notion of reducible, polynomial degrees of difficulty are defined, and it is shown that the problem of determining tautologyhood has the same polynomial degree as the problem of determining whether the first of two given graphs is isomorphic to a subgraph of the second. Other examples are discussed. A method of measuring the complexity of proof procedures for the predicate calculus is introduced and discussed. Throughout this paper, a set of strings means a set of strings on some fixed, large, finite alphabet Z. This alphabet is large enough to include symbols for all sets described here. All Turing machines are deterministic recognition devices, unless the contrary is explicitly stated.}
+      \field{booktitle}{Proceedings of the Annual ACM Symposium on Theory of Computing}
+      \field{issn}{07378017}
+      \field{title}{{The complexity of theorem-proving procedures}}
+      \field{year}{1971}
+      \field{pages}{151\bibrangedash 158}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1145/800157.805047
+      \endverb
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/1971.pdf:pdf
+      \endverb
+    \endentry
     \entry{Cochran2011}{article}{}
       \name{author}{6}{}{%
         {{uniquename=0,uniquepart=base,hash=2564570825beb0cbbcef8ac3a9341c40}{%
@@ -64,8 +171,8 @@
       \strng{authorbibnamehash}{166d8f1e155d744c2ed37bd25a820cec}
       \strng{authornamehash}{166d8f1e155d744c2ed37bd25a820cec}
       \strng{authorfullhash}{159cf3534d53f794c1464e7043cd228a}
-      \field{sortinit}{1}
-      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{sortinit}{4}
+      \field{sortinithash}{11cdaee3b18e01d77f3f428b13c1fc76}
       \field{extradatescope}{labelyear}
       \field{labeldatesource}{year}
       \field{labelnamesource}{author}
@@ -81,75 +188,690 @@
       \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/AdapRandomSearch4.05.2009.pdf:pdf
       \endverb
     \endentry
-    \entry{Karp2010}{misc}{}
-      \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=5d77d3cf25d2ee3ce64732bb77de0b0f}{%
-           family={Karp},
-           familyi={K\bibinitperiod},
-           given={Richard\bibnamedelima M.},
-           giveni={R\bibinitperiod\bibinitdelim M\bibinitperiod},
+    \entry{Davis1962}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=3030b497304f96b07639c080bd40073a}{%
+           family={Davis},
+           familyi={D\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=24e4630f17ad70c904b474689fa7c2f7}{%
+           family={Logemann},
+           familyi={L\bibinitperiod},
+           given={George},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=e12dfefe9f68decf10be77e2a9ee8760}{%
+           family={Loveland},
+           familyi={L\bibinitperiod},
+           given={Donald},
+           giveni={D\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
-      \strng{fullhash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
-      \strng{bibnamehash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
-      \strng{authorbibnamehash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
-      \strng{authornamehash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
-      \strng{authorfullhash}{5d77d3cf25d2ee3ce64732bb77de0b0f}
-      \field{sortinit}{2}
-      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \strng{namehash}{cd811c39e320a06b71599b34923063af}
+      \strng{fullhash}{cd811c39e320a06b71599b34923063af}
+      \strng{bibnamehash}{cd811c39e320a06b71599b34923063af}
+      \strng{authorbibnamehash}{cd811c39e320a06b71599b34923063af}
+      \strng{authornamehash}{cd811c39e320a06b71599b34923063af}
+      \strng{authorfullhash}{cd811c39e320a06b71599b34923063af}
+      \field{sortinit}{5}
+      \field{sortinithash}{3c19c3776b658b3558e9e2e4840c01e2}
       \field{extradatescope}{labelyear}
       \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{Throughout the 1960s I worked on combinatorial optimization problems including logic circuit design with Paul Roth and assembly line balancing and the traveling salesman problem with Mike Held. These experiences made me aware that seemingly simple discrete optimization problems could hold the seeds of combinatorial explosions. The work of Dantzig, Fulkerson, Hoffman, Edmonds, Lawler and other pioneers on network flows, matching and matroids acquainted me with the elegant and efficient algorithms that were sometimes possible. Jack Edmonds' papers and a few key discussions with him drew my attention to the crucial distinction between polynomial-time and superpolynomial-time solvability. I was also influenced by Jack's emphasis on min-max theorems as a tool for fast verification of optimal solutions, which foreshadowed Steve Cook's definition of the complexity class NP. Another influence was George Dantzig's suggestion that integer programming could serve as a universal format for combinatorial optimization problems. {©} 2010 Springer-Verlag Berlin Heidelberg.}
-      \field{booktitle}{50 Years of Integer Programming 1958-2008: From the Early Years to the State-of-the-Art}
-      \field{isbn}{9783540682745}
-      \field{title}{{Reducibility among combinatorial problems}}
-      \field{year}{2010}
-      \field{pages}{219\bibrangedash 241}
-      \range{pages}{23}
+      \field{abstract}{The programming of a proof procedure is discussed in connection with trial runs and possible improvements. {©} 1962, ACM. All rights reserved.}
+      \field{issn}{15577317}
+      \field{journaltitle}{Communications of the ACM}
+      \field{number}{7}
+      \field{title}{{A machine program for theorem-proving}}
+      \field{volume}{5}
+      \field{year}{1962}
+      \field{pages}{394\bibrangedash 397}
+      \range{pages}{4}
       \verb{doi}
-      \verb 10.1007/978-3-540-68279-0_8
+      \verb 10.1145/368273.368557
       \endverb
       \verb{file}
-      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/karp.pdf:pdf
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/Dav62.pdf:pdf
       \endverb
     \endentry
-    \entry{Cook1971}{misc}{}
-      \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=bc00f87a27f34a10060fc126ca386235}{%
-           family={Cook},
-           familyi={C\bibinitperiod},
-           given={Stephen\bibnamedelima A.},
-           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+    \entry{Een2000}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=4f1042c68af7cc6d08ec8424392dc9a0}{%
+           family={E{é}n},
+           familyi={E\bibinitperiod},
+           given={Niklas},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=60dff0b66ec81d4f4b6e0869e0d5a8bf}{%
+           family={Niklas},
+           familyi={N\bibinitperiod},
+           given={Sorensson},
+           giveni={S\bibinitperiod},
            givenun=0}}%
       }
-      \strng{namehash}{bc00f87a27f34a10060fc126ca386235}
-      \strng{fullhash}{bc00f87a27f34a10060fc126ca386235}
-      \strng{bibnamehash}{bc00f87a27f34a10060fc126ca386235}
-      \strng{authorbibnamehash}{bc00f87a27f34a10060fc126ca386235}
-      \strng{authornamehash}{bc00f87a27f34a10060fc126ca386235}
-      \strng{authorfullhash}{bc00f87a27f34a10060fc126ca386235}
-      \field{sortinit}{3}
-      \field{sortinithash}{a4b52e5432884761f50fb9571273b93e}
+      \strng{namehash}{01f4f2e93c61a901ee47ef06a86d51b2}
+      \strng{fullhash}{01f4f2e93c61a901ee47ef06a86d51b2}
+      \strng{bibnamehash}{01f4f2e93c61a901ee47ef06a86d51b2}
+      \strng{authorbibnamehash}{01f4f2e93c61a901ee47ef06a86d51b2}
+      \strng{authornamehash}{01f4f2e93c61a901ee47ef06a86d51b2}
+      \strng{authorfullhash}{01f4f2e93c61a901ee47ef06a86d51b2}
+      \field{sortinit}{6}
+      \field{sortinithash}{57e57fb8451e7fcfa45d1e069f6d3136}
       \field{extradatescope}{labelyear}
       \field{labeldatesource}{year}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{It is shown that any recognition problem solved by a polynomial timebounded nondeterministic Turing machine can be "reduced" to the problem of determining whether a given propositional formula is a tautology. Here "reduced" means, roughly speaking, that the first problem can be solved deterministically in polynomial time provided an oracle is available for solving the second. From this notion of reducible, polynomial degrees of difficulty are defined, and it is shown that the problem of determining tautologyhood has the same polynomial degree as the problem of determining whether the first of two given graphs is isomorphic to a subgraph of the second. Other examples are discussed. A method of measuring the complexity of proof procedures for the predicate calculus is introduced and discussed. Throughout this paper, a set of strings means a set of strings on some fixed, large, finite alphabet Z. This alphabet is large enough to include symbols for all sets described here. All Turing machines are deterministic recognition devices, unless the contrary is explicitly stated.}
-      \field{booktitle}{Proceedings of the Annual ACM Symposium on Theory of Computing}
-      \field{issn}{07378017}
-      \field{title}{{The complexity of theorem-proving procedures}}
-      \field{year}{1971}
-      \field{pages}{151\bibrangedash 158}
-      \range{pages}{8}
+      \field{title}{{Extensible SAT Solver}}
+      \field{year}{2000}
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/MiniSat.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Gent2006}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=cb23ef2aea6754b673c1559763a282fb}{%
+           family={Gent},
+           familyi={G\bibinitperiod},
+           given={Ian\bibnamedelima P.},
+           giveni={I\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=2d957c35e70b3319774f8817a5c7db35}{%
+           family={Jefferson},
+           familyi={J\bibinitperiod},
+           given={Chris},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=c813bea56d59d6a8d7b3ddae8ff87cbd}{%
+           family={Miguel},
+           familyi={M\bibinitperiod},
+           given={Ian},
+           giveni={I\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{786f232526405fed0fc48aef864526de}
+      \strng{fullhash}{786f232526405fed0fc48aef864526de}
+      \strng{bibnamehash}{786f232526405fed0fc48aef864526de}
+      \strng{authorbibnamehash}{786f232526405fed0fc48aef864526de}
+      \strng{authornamehash}{786f232526405fed0fc48aef864526de}
+      \strng{authorfullhash}{786f232526405fed0fc48aef864526de}
+      \field{sortinit}{7}
+      \field{sortinithash}{c818dd9105a2852444fc9f5e145c294e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Efficient constraint propagation is crucial to any constraint solver. We show that watched literals, already a great success in the satisfiability community, can be used to provide highly efficient implementations of constraint propagators. We describe three important aspects of watched literals as we apply them to constraints, and how they are implemented in the MINION constraint solver. We show three successful applications of to constraint propagators: the sum of Boolean variables; GAG for the 'element' constraint; and GAG for the 'table' constraint. {©} Springer-Verlag Berlin Heidelberg 2006.}
+      \field{isbn}{3540462678}
+      \field{issn}{16113349}
+      \field{journaltitle}{Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)}
+      \field{title}{{Watched literals for constraint propagation in Minion}}
+      \field{volume}{4204 LNCS}
+      \field{year}{2006}
+      \field{pages}{182\bibrangedash 197}
+      \range{pages}{16}
       \verb{doi}
-      \verb 10.1145/800157.805047
+      \verb 10.1007/11889205_15
       \endverb
       \verb{file}
-      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/1971.pdf:pdf
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/GentJeffersonMiguelCP06.pdf:pdf
       \endverb
+    \endentry
+    \entry{Bacchus1995}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=98033d9be9c56997f7eb59093ee0cfde}{%
+           family={Bacchus},
+           familyi={B\bibinitperiod},
+           given={Fahiem},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=82895b16f8c46c9b338c0409770b8c93}{%
+           family={{Van Run}},
+           familyi={V\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{2a7cc954e331985c43ffd2aa4f29f53e}
+      \strng{fullhash}{2a7cc954e331985c43ffd2aa4f29f53e}
+      \strng{bibnamehash}{2a7cc954e331985c43ffd2aa4f29f53e}
+      \strng{authorbibnamehash}{2a7cc954e331985c43ffd2aa4f29f53e}
+      \strng{authornamehash}{2a7cc954e331985c43ffd2aa4f29f53e}
+      \strng{authorfullhash}{2a7cc954e331985c43ffd2aa4f29f53e}
+      \field{sortinit}{8}
+      \field{sortinithash}{07edf88d4ea82509b9c4b4d13f41c452}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We investigate the dynamic variable ordering (DVO) technique commonly used in conjunction with tree-search algorithms for solving constraint satisfaction problems. We first provide an implementation methodology for adding DVO to an arbitrary tree-search algorithm. Our methodology is applicable to a wide range of algorithms including those that maintain complicated information about the search history, like backmarking. We then investigate the popular reordering heuristic of next instantiating the variable with the minimum remaining values (MRV). We prove some interesting theorems about the MRV heuristic which demonstrate that if one wants to use the MRV heuristic one should use it with forward checking. Finally, we investigate the empirical performance of 12 different algorithms with and without DVO. Our experiments and theoretical results demonstrate that forward checking equipped with dynamic variable ordering is a very good algorithm for solving CSPs.}
+      \field{isbn}{3540602992}
+      \field{issn}{16113349}
+      \field{journaltitle}{Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)}
+      \field{title}{{Dynamic variable ordering in CSPs}}
+      \field{volume}{976}
+      \field{year}{1995}
+      \field{pages}{258\bibrangedash 275}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10.1007/3-540-60299-2_16
+      \endverb
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/BvRCP95.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Hamadi2009}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=dc736e313d9aa8cd072f7413fba2a20e}{%
+           family={Hamadi},
+           familyi={H\bibinitperiod},
+           given={Youssef},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=0a5dcb62df6dbb5210c990bdab909678}{%
+           family={Jabbour},
+           familyi={J\bibinitperiod},
+           given={Said},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=aa68505755b60c5af9b6b47f930f9f3a}{%
+           family={Sais},
+           familyi={S\bibinitperiod},
+           given={Lakhdar},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{40f572a314ef5b52fa4528bbe2f62c42}
+      \strng{fullhash}{40f572a314ef5b52fa4528bbe2f62c42}
+      \strng{bibnamehash}{40f572a314ef5b52fa4528bbe2f62c42}
+      \strng{authorbibnamehash}{40f572a314ef5b52fa4528bbe2f62c42}
+      \strng{authornamehash}{40f572a314ef5b52fa4528bbe2f62c42}
+      \strng{authorfullhash}{40f572a314ef5b52fa4528bbe2f62c42}
+      \field{sortinit}{9}
+      \field{sortinithash}{1dd72ab054147731c9d824b49aba0534}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Multiple sclerosis (MS) is a progressive neurological disorder that disrupts axonal myelin in the central nervous system. Demyelination produces alterations in saltatory conduction, slowed conduction velocity, and a predisposition to conduction block. An estimated 60-80{\%} of MS patients experience temporary worsening of clinical signs and neurological symptoms with heat exposure. Additionally, MS may produce impaired neural control of autonomic and endocrine functions. This review focuses on five main themes regarding the current understanding of thermoregulatory dysfunction in MS: 1) heat sensitivity; 2) central regulation of body temperature; 3) thermoregulatory effector responses; 4) heat-induced fatigue; and 5) countermeasures to improve or maintain function during thermal stress. Heat sensitivity in MS is related to the detrimental effects of increased temperature on action potential propagation in demyelinated axons, resulting in conduction slowing and/or block, which can be quantitatively characterized using precise measurements of ocular movements. MS lesions can also occur in areas of the brain responsible for the control and regulation of body temperature and thermoregulatory effector responses, resulting in impaired neural control of sudomotor pathways or neural-induced changes in eccrine sweat glands, as evidenced by observations of reduced sweating responses in MS patients. Fatigue during thermal stress is common in MS and results in decreased motor function and increased symptomatology likely due to impairments in central conduction. Although not comprehensive, some evidence exists concerning treatments (cooling, precooling, and pharmacological) for the MS patient to preserve function and decrease symptom worsening during heat stress.}
+      \field{issn}{1574-0617}
+      \field{journaltitle}{Journal on Satisfiability, Boolean Modeling and Computation}
+      \field{number}{4}
+      \field{title}{{ManySAT: a Parallel SAT Solver}}
+      \field{volume}{6}
+      \field{year}{2009}
+      \field{pages}{245\bibrangedash 262}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10.3233/sat190070
+      \endverb
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/jsatmanysat.pdf:pdf
+      \endverb
+      \keyw{dynamic restarts,extended clause learning,parallel search,published june 2009,revised may 2009,submitted november 2008}
+    \endentry
+    \entry{Moskewicz2001}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{uniquename=0,uniquepart=base,hash=9748d448cbb896222f7c9d91d866bbfc}{%
+           family={Moskewicz},
+           familyi={M\bibinitperiod},
+           given={M.W.},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=dc23d8707ae74fdc86ef38a8071b76d7}{%
+           family={Madigan},
+           familyi={M\bibinitperiod},
+           given={C.F.},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=7d697b1b311e4ccb6b0f0a2f1c13c519}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Y.},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=4f9d4d2fa5b60c96090e0f4219c11d2c}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=c76ee12d94b713c90096410fcd3bdad8}{%
+           family={Malik},
+           familyi={M\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{73cdfdd2ed2c173d46f0809e4a73e88b}
+      \strng{fullhash}{6703faa1e929bb1ca817a8145f2e79be}
+      \strng{bibnamehash}{73cdfdd2ed2c173d46f0809e4a73e88b}
+      \strng{authorbibnamehash}{73cdfdd2ed2c173d46f0809e4a73e88b}
+      \strng{authornamehash}{73cdfdd2ed2c173d46f0809e4a73e88b}
+      \strng{authorfullhash}{6703faa1e929bb1ca817a8145f2e79be}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Boolean satisfiability is probably the most studied of the combinatorial optimization/search problems. Significant effort has been devoted to trying to provide practical solutions to this problem for problem instances encountered in a range of applications in electronic design automation (EDA), as well as in artificial intelligence (AI). This study has culminated in the development of several SAT packages, both proprietary and in the public domain (e.g. GRASP, SATO) which find significant use in both research and industry. Most existing complete solvers are variants of the Davis-Putnam (DP) search algorithm. In this paper we describe the development of a new complete solver, Chaff which achieves significant performance gains through careful engineering of all aspects of the search-especially a particularly efficient implementation of Boolean constraint propagation (BCP) and a novel low overhead decision strategy. Chaff has been able to obtain one to two orders of magnitude performance improvement on difficult SAT benchmarks in comparison with other solvers (DP or otherwise), including GRASP and SATO.}
+      \field{booktitle}{Proceedings of the 38th Design Automation Conference (IEEE Cat. No.01CH37232)}
+      \field{title}{{Chaff: engineering an efficient SAT solver}}
+      \field{year}{2001}
+      \field{pages}{530\bibrangedash 535}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1145/378239.379017
+      \endverb
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/DAC2001v56.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/stamp/stamp.jsp?tp={\&}arnumber=935565{\&}isnumber=20239
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=%7B%5C&%7Darnumber=935565%7B%5C&%7Disnumber=20239
+      \endverb
+      \keyw{Artificial intelligence,Boolean constraint propagation,Boolean functions,Boolean satisfiability,Business continuity,Chaff,Design automation,Design engineering,Electronic design automation and methodology,Electronics packaging,Logic testing,NP-complete problem,Performance gain,Permission,SAT benchmarks,SAT solver,artificial intelligence,computational complexity,constraint theory,electronic design automation,formal verification,low overhead decision strategy}
+    \endentry
+    \entry{Gebser2007}{article}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=a296fbe902a96f2ceebb7398463f3e13}{%
+           family={Gebser},
+           familyi={G\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=3fe0253f0b3212a4109e50143a91fede}{%
+           family={Kaufmann},
+           familyi={K\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=faaff7a355066d71a993bc545c37ff1c}{%
+           family={Neumann},
+           familyi={N\bibinitperiod},
+           given={Andr{é}},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=3c55d70c19bd5f5a654a6ad7ae64450c}{%
+           family={Schaub},
+           familyi={S\bibinitperiod},
+           given={Torsten},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{980252df49c9c725a120aee1519288fc}
+      \strng{fullhash}{a760dbff51b923126f55d62d963e6ff4}
+      \strng{bibnamehash}{980252df49c9c725a120aee1519288fc}
+      \strng{authorbibnamehash}{980252df49c9c725a120aee1519288fc}
+      \strng{authornamehash}{980252df49c9c725a120aee1519288fc}
+      \strng{authorfullhash}{a760dbff51b923126f55d62d963e6ff4}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We describe the conflict-driven answer set solver clasp, which is based on concepts from constraint processing (CSP) and satisfiability checking (SAT). We detail its system architecture and major features, and provide a systematic empirical evaluation of its features. {©} Springer-Verlag Berlin Heidelberg 2007.}
+      \field{isbn}{9783540721994}
+      \field{issn}{16113349}
+      \field{journaltitle}{Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)}
+      \field{title}{{clasp: A conflict-driven answer set solver}}
+      \field{volume}{4483 LNAI}
+      \field{year}{2007}
+      \field{pages}{260\bibrangedash 265}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1007/978-3-540-72200-7_23
+      \endverb
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/GebserKNS07a.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Biere2010}{report}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=22081d00e30965a89f413e528510617e}{%
+           family={Biere},
+           familyi={B\bibinitperiod},
+           given={Armin},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{2}{%
+        {Institute for Formal Models}%
+        {Verification, Johannes Kepler University, Linz, Austria}%
+      }
+      \strng{namehash}{22081d00e30965a89f413e528510617e}
+      \strng{fullhash}{22081d00e30965a89f413e528510617e}
+      \strng{bibnamehash}{22081d00e30965a89f413e528510617e}
+      \strng{authorbibnamehash}{22081d00e30965a89f413e528510617e}
+      \strng{authornamehash}{22081d00e30965a89f413e528510617e}
+      \strng{authorfullhash}{22081d00e30965a89f413e528510617e}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{number}{August}
+      \field{title}{{Lingeling, Plingeling, PicoSAT and PrecoSAT at SAT Race 2010}}
+      \field{type}{techreport}
+      \field{year}{2010}
+      \field{pages}{4}
+      \range{pages}{1}
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/Biere-FMV-TR-10-1.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://baldur.iti.uka.de/sat-race-2010/
+      \endverb
+      \verb{url}
+      \verb http://baldur.iti.uka.de/sat-race-2010/
+      \endverb
+    \endentry
+    \entry{Biere2012}{report}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=22081d00e30965a89f413e528510617e}{%
+           family={Biere},
+           familyi={B\bibinitperiod},
+           given={Armin},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{22081d00e30965a89f413e528510617e}
+      \strng{fullhash}{22081d00e30965a89f413e528510617e}
+      \strng{bibnamehash}{22081d00e30965a89f413e528510617e}
+      \strng{authorbibnamehash}{22081d00e30965a89f413e528510617e}
+      \strng{authornamehash}{22081d00e30965a89f413e528510617e}
+      \strng{authorfullhash}{22081d00e30965a89f413e528510617e}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of SAT Challenge 2012; Solver and Benchmark Descriptions}
+      \field{isbn}{9789515100436}
+      \field{title}{{Lingeling and friends entering the SAT challenge 2012}}
+      \field{type}{techreport}
+      \field{year}{2012}
+      \field{pages}{2}
+      \range{pages}{1}
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/Biere-SAT-Challenge-2012.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Biere2017}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=22081d00e30965a89f413e528510617e}{%
+           family={Biere},
+           familyi={B\bibinitperiod},
+           given={Armin},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{22081d00e30965a89f413e528510617e}
+      \strng{fullhash}{22081d00e30965a89f413e528510617e}
+      \strng{bibnamehash}{22081d00e30965a89f413e528510617e}
+      \strng{authorbibnamehash}{22081d00e30965a89f413e528510617e}
+      \strng{authornamehash}{22081d00e30965a89f413e528510617e}
+      \strng{authorfullhash}{22081d00e30965a89f413e528510617e}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of SAT Competition 2017 - Solver and Benchmark Descriptions}
+      \field{title}{{CaDiCaL, Lingeling, Plingeling, Treengeling, YalSAT Entering the SAT Competition 2017}}
+      \field{year}{2017}
+      \field{pages}{14\bibrangedash 15}
+      \range{pages}{2}
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/Biere-SAT-Competition-2017-solvers.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://fmv.jku.at/papers/Biere-SAT-Competition-2017-solvers.pdf
+      \endverb
+      \verb{url}
+      \verb http://fmv.jku.at/papers/Biere-SAT-Competition-2017-solvers.pdf
+      \endverb
+    \endentry
+    \entry{Jarvisalo2012}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=8eda90e56897304e7efcbcc68065787b}{%
+           family={J{ä}rvisalo},
+           familyi={J\bibinitperiod},
+           given={Matti},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=934bd01e24ccd76be8911cc4d255f4e6}{%
+           family={Heule},
+           familyi={H\bibinitperiod},
+           given={Marijn\bibnamedelima J.H.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=22081d00e30965a89f413e528510617e}{%
+           family={Biere},
+           familyi={B\bibinitperiod},
+           given={Armin},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{e04cf97f655d42503a7b275b1c3680c6}
+      \strng{fullhash}{e04cf97f655d42503a7b275b1c3680c6}
+      \strng{bibnamehash}{e04cf97f655d42503a7b275b1c3680c6}
+      \strng{authorbibnamehash}{e04cf97f655d42503a7b275b1c3680c6}
+      \strng{authornamehash}{e04cf97f655d42503a7b275b1c3680c6}
+      \strng{authorfullhash}{e04cf97f655d42503a7b275b1c3680c6}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Decision procedures for Boolean satisfiability (SAT), especially modern conflict-driven clause learning (CDCL) solvers, act routinely as core solving engines in various real-world applications. Preprocessing, i.e., applying formula rewriting/simplification rules to the input formula before the actual search for satisfiability, has become an essential part of the SAT solving tool chain. Further, some of the strongest SAT solvers today add more reasoning to search by interleaving formula simplification and CDCL search. Such inprocessing SAT solvers witness the fact that implementing additional deduction rules in CDCL solvers leverages the efficiency of state-of-the-art SAT solving further. In this paper we establish formal underpinnings of inprocessing SAT solving via an abstract inprocessing framework that covers a wide range of modern SAT solving techniques. {©} 2012 Springer-Verlag.}
+      \field{isbn}{9783642313646}
+      \field{issn}{03029743}
+      \field{journaltitle}{Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)}
+      \field{title}{{Inprocessing rules}}
+      \field{volume}{7364 LNAI}
+      \field{year}{2012}
+      \field{pages}{355\bibrangedash 370}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1007/978-3-642-31365-3_28
+      \endverb
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/jarvisalo-heule-biere.ijcar12.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Jebari2013}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=b332a337e20a48172d536ae35f86d20d}{%
+           family={Jebari},
+           familyi={J\bibinitperiod},
+           given={Khalid},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=a4946c4013b8eff881a75884e65913fe}{%
+           family={Mediafi},
+           familyi={M\bibinitperiod},
+           given={Mohammed},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=615ccf791e40f8d7a26b2f45d7be2719}{%
+           family={Elmoujahid},
+           familyi={E\bibinitperiod},
+           given={Abdelaziz},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d5b9cfbb66acd67ae951b113e47772f1}
+      \strng{fullhash}{d5b9cfbb66acd67ae951b113e47772f1}
+      \strng{bibnamehash}{d5b9cfbb66acd67ae951b113e47772f1}
+      \strng{authorbibnamehash}{d5b9cfbb66acd67ae951b113e47772f1}
+      \strng{authornamehash}{d5b9cfbb66acd67ae951b113e47772f1}
+      \strng{authorfullhash}{d5b9cfbb66acd67ae951b113e47772f1}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper, an experimental study of six well known selection methods has conducted to a new technique of selection. Dynamic selection (DS), the proposed technique, exploits the advantages of each selection methods in terms of quality of solution and population diversity. Indeed, dynamic selection is based on two parameters that allow to decide the quality of candidate solutions and the genotypic diversity. The famous 0-1 Knapsack Problem is used to illustrate the efficiency of DS.}
+      \field{journaltitle}{International Journal of Engineering Research {\&} Technology (IJERT)}
+      \field{number}{11}
+      \field{title}{{Parent Selection Operators for Genetic Algorithms}}
+      \field{volume}{2}
+      \field{year}{2013}
+      \field{pages}{1141\bibrangedash 1145}
+      \range{pages}{5}
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/V2I11-IJERTV2IS110523.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Jyotishree}{incollection}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=129edd56923c5f462604d5cd7b7320b0}{%
+           family={Jyotishree},
+           familyi={J\bibinitperiod},
+           given={Jyotishree},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=a695c393b6815b89be7b12cb2c406814}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Rakesh},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Kurukshetra}%
+      }
+      \list{organization}{1}{%
+        {Kurukshetra University}%
+      }
+      \strng{namehash}{24b5f75dfc11ba245283674eb4a0ed49}
+      \strng{fullhash}{24b5f75dfc11ba245283674eb4a0ed49}
+      \strng{bibnamehash}{24b5f75dfc11ba245283674eb4a0ed49}
+      \strng{authorbibnamehash}{24b5f75dfc11ba245283674eb4a0ed49}
+      \strng{authornamehash}{24b5f75dfc11ba245283674eb4a0ed49}
+      \strng{authorfullhash}{24b5f75dfc11ba245283674eb4a0ed49}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradate}{1}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Selection is the first genetic operation in the reproductive phase of genetic algorithm. The objective of selection is to choose the fitter individuals in the population that will create offsprings for the next generation, commonly known as mating pool. The mating pool thus selected takes part in further genetic operations, advancing the population to the next generation and hopefully close to the optimal solution. In other words, Selection is the process of choosing breeding stock or parents from a population. As the generations pass, the members of population should get fitter and fitter. Individuals from the mating pool are used to generate new offsprings, with the resulting offspring forming the basis of next generation. So it is desirable that the mating pool should have good individuals. Selection operator works at the level of chromosomes. The key idea of selection operator is to give preference to better individuals by allowing them to pass on their genes to the next generation and prohibit the entrance of worst fit individuals into the next generation. The goodness of each individual depends on its fitness. Fitness value is determined by an objective function. Selection of individuals in the population is fitness dependent and is done using different algorithms [Goldberg et al. 1991]. Some are roulette wheel selection, rank selection, steady state selection and many more. Selection acts as driving force in a genetic algorithm by directing the genetic search towards promising regions in the search space. Selection operator emulates phenomena and processes in nature. Selection chooses more fit individuals in analogy to Darwin's theory of evolution-survival of fittest [Fogel 1995]. All the individuals have a chance of being selected into the mating pool, but there are chances that an individual in the population can be selected more than once depending upon its fitness. Selection schemes are characterised by selection pressure, selection variance and loss of diversity. They primarily determine the convergence characteristics of genetic algorithms. Selection has to be balanced. Too strong selection means suboptimal highly fit individuals will take over the population reducing the diversity and too weak selection will result in too slow evolution [Mitchell 1996].}
+      \field{booktitle}{Knowledge based operation and problems representation in genetic algorithms}
+      \field{title}{{Chapter 6: SELECTION 6.1 Introduction}}
+      \field{year}{2012}
+      \field{pages}{94\bibrangedash 124}
+      \range{pages}{31}
+      \verb{file}
+      \verb :home/juan/Gen{\_}Algorithm{\_}TFG/recursos{\_}tfg/papers/16{\_}chapter 6.pdf:pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://shodhganga.inflibnet.ac.in/bitstream/10603/32680/16/16{\_}chapter 6.pdf
+      \endverb
+      \verb{url}
+      \verb http://shodhganga.inflibnet.ac.in/bitstream/10603/32680/16/16%7B%5C_%7Dchapter%206.pdf
+      \endverb
+    \endentry
+    \entry{Jyotishree2012a}{incollection}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=129edd56923c5f462604d5cd7b7320b0}{%
+           family={Jyotishree},
+           familyi={J\bibinitperiod},
+           given={Jyotishree},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=a695c393b6815b89be7b12cb2c406814}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Rakesh},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {Kurukshetra University}%
+      }
+      \strng{namehash}{24b5f75dfc11ba245283674eb4a0ed49}
+      \strng{fullhash}{24b5f75dfc11ba245283674eb4a0ed49}
+      \strng{bibnamehash}{24b5f75dfc11ba245283674eb4a0ed49}
+      \strng{authorbibnamehash}{24b5f75dfc11ba245283674eb4a0ed49}
+      \strng{authornamehash}{24b5f75dfc11ba245283674eb4a0ed49}
+      \strng{authorfullhash}{24b5f75dfc11ba245283674eb4a0ed49}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradate}{2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A genetic algorithm operates on population of constant size. An initial population of individuals is generated randomly or heuristically. Selection operator is used to improve the quality of the population by selecting the fittest individuals to form the mating pool. Crossover operator takes two individuals with higher fitness values from the mating pool and randomly chooses the position and length of the portion to be exchanged and performs this operation at either single or multiple points. Mutation introduces new genetic structures in the population by randomly modifying some of the genes, helping the search algorithm to escape from local optimum by reaching new points in the search space. Current generation of individuals is replaced by newly generated offsprings by the specific replacement strategy. Genetic algorithms are stochastic iterative algorithms, so the algorithm iterates till maximum number of generations is reached or the cycle of genetic algorithm continues until the optimal solution is achieved. When a new generation of offsprings is produced, the next question is which of these newly generated offsprings would move forward to the next generation and would replace which chromosomes of the current generation. The answer to this question is based on Darwin's principle of "Survival of Fittest". So better fit individuals have more chances to survive and carried forward to next generation leaving behind the less fit ones. The process of forming next generation of individuals by replacing or removing some offsprings or parent individuals is done by replacement operator. This process in evolution is known as replacement scheme. Replacement strategy helps to find out the individuals that would replace the current generation to form next generation of population.}
+      \field{booktitle}{Knowledge based operation and problems representation in genetic algorithms}
+      \field{title}{{Chapter 7 : REPLACEMENT}}
+      \field{year}{2012}
+      \field{pages}{125\bibrangedash 135}
+      \range{pages}{11}
+      \verb{file}
+      \verb :home/juan/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Unknown - Unknown - Chapter 7 REPLACEMENT 7.1 Need of Replacement.pdf:pdf
+      \endverb
+    \endentry
+    \entry{Bhattacharjee2017}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=b37d336144141d63663bfe6ec604db7d}{%
+           family={Bhattacharjee},
+           familyi={B\bibinitperiod},
+           given={Arunava},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=52a44fe25e584b79c7165d59c0190dba}{%
+           family={Chauhan},
+           familyi={C\bibinitperiod},
+           given={Prabal},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {ASTES Publishers}%
+      }
+      \strng{namehash}{687315762a20a7bb78bb1e88b2f4a686}
+      \strng{fullhash}{687315762a20a7bb78bb1e88b2f4a686}
+      \strng{bibnamehash}{687315762a20a7bb78bb1e88b2f4a686}
+      \strng{authorbibnamehash}{687315762a20a7bb78bb1e88b2f4a686}
+      \strng{authornamehash}{687315762a20a7bb78bb1e88b2f4a686}
+      \strng{authorfullhash}{687315762a20a7bb78bb1e88b2f4a686}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper we propose our genetic algorithm for solving the SAT problem. We introduce various crossover and mutation techniques and then make a comparative analysis between them in order to find out which techniques are the best suited for solving a SAT instance. Before the genetic algorithm is applied to an instance it is better to seek for unit and pure literals in the given formula and then try to eradicate them. This can considerably reduce the search space, and to demonstrate this we tested our algorithm on some random SAT instances. However, to analyse the various crossover and mutation techniques and also to evaluate the optimality of our algorithm we performed extensive experiments on benchmark instances of the SAT problem. We also estimated the ideal crossover length that would maximise the chances to solve a given SAT instance.}
+      \field{issn}{24156698}
+      \field{journaltitle}{Advances in Science, Technology and Engineering Systems}
+      \field{number}{4}
+      \field{title}{{Solving the SAT problem using genetic algorithm}}
+      \field{volume}{2}
+      \field{year}{2017}
+      \field{pages}{115\bibrangedash 120}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.25046/aj020416
+      \endverb
+      \verb{file}
+      \verb :home/juan/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Bhattacharjee, Chauhan - 2017 - Solving the SAT problem using genetic algorithm.pdf:pdf
+      \endverb
+      \keyw{CNF,Crossover,Elitism,Genetic Algorithm,Mutation,SAT}
     \endentry
   \enddatalist
 \endrefsection

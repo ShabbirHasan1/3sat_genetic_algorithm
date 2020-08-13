@@ -1,4 +1,5 @@
 \documentclass[12pt,twoside]{report}
+\usepackage{amsfonts}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \graphicspath{{images/}}
@@ -11,6 +12,14 @@
 \fancyfoot[CO,CE]{\thechapter}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
+\usepackage{float}
+\restylefloat{table}
+\usepackage{changepage}
+\usepackage{color, colortbl}
+\usepackage{listings}
+
+\definecolor{Gray}{gray}{0.9}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
 
 \usepackage[style=authoryear,sorting=none]{biblatex}
 \addbibresource{papers/Genetic Algorithms.bib}
@@ -27,11 +36,15 @@
 
 \begin{document}
 
+% (TODO: Add references/citations to the downloaded images)
+% (TODO: Fix references/citations types in mendeley)
+% (TODO: Move everything to tfg_plantilla_latex)
+
 \maketitle
 
 \chapter*{Abstract}
 \pagestyle{empty}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pharetra nibh. Cras dui magna, dignissim suscipit nibh ac, viverra tincidunt dolor. Integer facilisis dictum augue sit amet gravida. Curabitur hendrerit nulla quis felis euismod tincidunt. Nunc ullamcorper porta mi ut scelerisque. Morbi congue, dolor id tristique pharetra, nisi arcu hendrerit est, non porta lorem arcu sed nibh. Donec facilisis ex at massa suscipit iaculis. In pharetra, diam sed mattis ornare, libero quam molestie nisl, ut finibus nibh leo nec lectus. Quisque rutrum turpis quis consectetur finibus. Duis eget purus feugiat, sagittis magna a, lobortis ligula. Maecenas pretium efficitur risus, vel congue est. Quisque eu nisi vestibulum ligula pulvinar imperdiet sed non massa. Proin id tellus vitae elit eleifend molestie. Morbi sit amet elit molestie, hendrerit dolor eu, eleifend diam. Pellentesque ultricies neque lacinia diam porttitor vehicula. 
+(TODO: Write Abstract in Spanish, English and Valenciano/Catalán)
 
 \tableofcontents
 \pagestyle{empty}
@@ -43,6 +56,18 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet phare
 
 \chapter{Preliminaries}
 \input{chapters/preliminaries}
+
+\chapter{Genetic Algorithm Design}
+\input{chapters/genetic_algorithm_design}
+
+\chapter{Implementation}
+\input{chapters/implementation}
+
+\chapter{Analysis}
+\input{chapters/analysis}
+
+\chapter{Conclusions}
+\input{chapters/conclusions}
 
 \appendix
 

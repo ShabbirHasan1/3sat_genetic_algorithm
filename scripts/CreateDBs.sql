@@ -23,13 +23,15 @@ CREATE TABLE ga_run (
 	num_fitness_evals INT,
 	num_bit_flips INT,
 	fitness_function VARCHAR NOT NULL,
-	initial_population_function VARCHAR NOT NULL,
+	population_replacement_function VARCHAR NOT NULL,
+	num_individuals INT,
 	selection_function VARCHAR NOT NULL,
 	crossover_function VARCHAR NOT NULL,
 	mutation_function VARCHAR NOT NULL,
 	mutation_rate NUMERIC(4,3),
 	tournament_size INT,
-	crossover_window_len NUMERIC(4,3)
+	crossover_window_len NUMERIC(4,3),
+	truncation_proportion NUMERIC(4,3)
 );
 
 CREATE TABLE ga_run_generations (

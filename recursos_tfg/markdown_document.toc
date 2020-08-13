@@ -4,20 +4,124 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.1}Introduction}{4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.1.1}Motivation}{4}
+\contentsline {subsection}{\numberline {1.1.1}Objectives}{4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.1.2}Objectives}{4}
+\contentsline {subsection}{\numberline {1.1.2}Outline}{5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.1.3}Methodology}{4}
+\contentsline {chapter}{\numberline {2}Preliminaries}{6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.1.4}Document Structure}{4}
+\contentsline {section}{\numberline {2.1}Preliminaries}{6}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {2}Preliminaries}{5}
+\contentsline {subsection}{\numberline {2.1.1}3-SAT Problem}{6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.0.1}3-SAT Problem}{5}
+\contentsline {subsection}{\numberline {2.1.2}P vs NP}{7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.0.2}P vs NP}{6}
+\contentsline {subsection}{\numberline {2.1.3}Completeness and Hardness}{10}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.0.3}Genetic Algorithms}{8}
+\contentsline {subsection}{\numberline {2.1.4}Genetic Algorithms}{11}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.0.4}State of the Art}{8}
+\contentsline {subsection}{\numberline {2.1.5}SAT Solvers}{12}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{DPLL}{12}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{CDCL}{12}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{MiniSat}{12}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{ManySat}{13}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{zChaff}{13}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Clasp}{13}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Lingeling, Treengeling and Plingeling}{14}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{CaDiCal}{14}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Genetic Algorithm Design}{15}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Genetic Algorithm Design}{15}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.1}Codification of individuals}{15}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.2}Fitness Function}{15}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.3}Initial Population}{16}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.4}Selection}{16}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Random Selection}{16}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Roulette Selection}{17}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Rank Selection}{17}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Tournament Selection}{17}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Truncation Selection}{18}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Stochastic Universal Sampling}{18}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Annealed Selection}{18}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.5}Crossover}{19}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Single-point Crossover}{19}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Two-point Crossover}{19}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Sliding Window Crossover}{20}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Random Map Crossover}{20}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Uniform Crossover}{20}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.6}Mutation}{21}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Single Bit Flip}{21}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Multiple Bit Flip}{22}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Single Bit Greedy}{22}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Single Bit Max Greedy}{22}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Multiple Bit Greedy}{22}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{FlipGA}{22}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.7}Population Replacement}{22}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Random Replacement}{23}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Mu-Lambda Replacement}{23}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Parent Replacement}{23}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Weak Parent Replacement}{24}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Delete Replacement}{24}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.8}Problem Specific Optimizations}{24}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Trivial Case}{24}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Remove Unit Variables}{24}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Remove Pure Variables}{25}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Implementation}{26}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Implementation}{26}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.1}The genetic algorithm class}{26}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.2}Data logging and processing}{29}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.3}Experiment design}{30}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Analysis}{32}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Analysis}{32}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Conclusions}{34}

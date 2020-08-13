@@ -1,0 +1,206 @@
+\section{Implementation}
+\label{section:implementation}
+
+\subsection{The genetic algorithm class}
+\label{subsection:ga_class}
+
+The genetic algorithm is designed as a modular genetic algorithm where the selection, crossover, mutation and population replacement functions are all set as parameters when the genetic algorithm is initialized, along with all other parameters which said functions might need. 
+\\The genetic algorithm is designed to work with both generational and steady state replacement strategies, this can be set through a parameter during the initialization of the algorithm.
+\\Another important parameter in the genetic algorithm initialization function is a boolean called \textit{allow\_duplicates}, this value determines the type of storage for the population, if duplicate individuals are allowed, the population is stored in an array, if duplicate individuals are not allowed, the population is instead stored in a set; All the functions which can be used by the genetic algorithm are able to work with both types of population storage.
+\\The parameters which need to be set for the initialization of the genetic algorithm are:
+\begin{itemize}
+\item[--]\textit{filename}: The name of the file containing the 3-SAT problem instance.
+\item[--]\textit{max\_iterations}: The maximum number of iterations allowed.
+\item[--]\textit{pop\_size}: Length of the population array.
+\item[--]\textit{elitism}: The number of best individuals which will carry over from one generation to the next.
+\item[--]\textit{allow\_duplicates}: Determines if the population is a set or an array
+\item[--]\textit{steady\_state\_replacement}: Is a boolean which when set to True enables the steady state replacement strategy and disables the generational.
+\item[--]\textit{save\_to\_db}: Is a boolean which controls data logging to the database.
+\item[--]\textit{plot\_distributions}: Is a boolean which controls if the distributions are logged when the algorithm is over. 
+\end{itemize}
+After initializing the algorithm, before actually running it, some parameters have to be set through the function \textit{set\_params}, this function sets the selection, crossover, mutation and population replacement functions which will be used by the algorithm and their respective parameters.
+\\The arguments of the \textit{set\_params} function are:
+\begin{itemize}
+\item[--]\textit{selection\_func}: Sets the selection function.
+\item[--]\textit{crossover\_func}: Sets the crossover function.
+\item[--]\textit{mutation\_func}: Sets the mutation function.
+\item[--]\textit{replacement\_func}: Sets the population replacement function.
+\item[--]\textit{mutation\_rate}: Is the frequency with which the genes in the genetic string mutate, expressed as a real number between 0 and 1, both included.
+\item[--]\textit{truncation\_proportion}: Is the number of best individuals which will be selected from the population to breed by the truncation selection method, expressed as a fraction of the population size.
+\item[--]\textit{tournament\_size}: Is the number of individuals which will compete in each tournament in the tournament selection method.
+\item[--]\textit{crossover\_window\_len}: Is the length of the sliding window used by the sliding window crossover method, expressed as a fraction of the genetic string length.
+\item[--]\textit{num\_individuals}: Is the number of individuals which will be selected for deletion in order to be replaced by the selected children in the delete replacement method, expressed as a fraction of the population size.
+\end{itemize}
+
+Once the genetic algorithm has been initialized and the parameters have been set, an initial population of random individuals is generated, then all the individuals are evaluated using the fitness function and stored in a tuple array alongside their fitness value.
+\\The array containing the individuals and their fitness values is used as the \textit{population} input in the selection functions.
+
+\begin{table}[H]
+\begin{adjustwidth}{-3em}{-3em}
+\centering
+\begin{tabular}{|l|l|} 
+\hline
+\rowcolor{Gray}
+\textbf{Selection Function}   & \textbf{Parameters}                                                                 \\ 
+\hline
+Random                        & population, num. parents                                                       \\ 
+\hline
+Roulette                      & population, num. parents                                                       \\ 
+\hline
+Roulette W/ Elimination       & population, num. parents                                                       \\ 
+\hline
+Rank                          & population, num. parents                                                       \\ 
+\hline
+Truncation                    & population, num. parents, \textit{truncation\_proportion}                                \\ 
+\hline
+Tournament                    & population, num. parents, \textit{tournament\_size}                                     \\ 
+\hline
+Stochastic Universal Sampling & population, num. parents                                                       \\ 
+\hline
+Annealed                      & population, num. parents, max. iterations, current iteration  \\
+\hline
+\end{tabular}
+\caption{ Selection function parameters}
+\end{adjustwidth}
+\end{table}
+\begin{itemize}
+\item[--]\textit{population} is the array or set (if duplicates aren't allowed) where the population formed by all the individuals in the current generation is stored.
+\item[--]\textit{num. parents} is the number of parents which will be selected to breed, 2 if steady state replacement is used, and $Population Length - Elitism$ if generational replacement is used.
+\item[--]\textit{max iterations} is the maximum number of iterations allowed in the genetic algorithm.
+\end{itemize}
+The selection functions all return a list of parent tuples, where each tuple contains two individuals that have been selected as parents, these parent tuples are used as the input for all the crossover functions, where the genetic material of the two parents will be exchanged to form the children.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|} 
+\hline
+\rowcolor{Gray}
+\textbf{Crossover Function} & \textbf{Parameters}          \\ 
+\hline
+Single point                & parent tuple                 \\ 
+\hline
+Two points                  & parent tuple                 \\ 
+\hline
+Sliding window              & parent tuple, \textit{crossover\_window\_len}  \\ 
+\hline
+Random map                  & parent tuple                 \\ 
+\hline
+Uniform                     & parent tuple                 \\
+\hline
+\end{tabular}
+\caption{ Crossover function parameters}
+\end{table}
+
+The crossover functions receive one parent tuple as input and output one children tuple, then all the children tuples generated are put into a children array and fed into a function which navigates the children array one by one and feeds the corresponding genetic strings into the mutation function.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|} 
+\hline
+\rowcolor{Gray}
+\textbf{Mutation Function} & \textbf{Parameters}         \\ 
+\hline
+Single bit                 & gene string, \textit{mutation\_rate}  \\ 
+\hline
+Multiple bit               & gene string, \textit{mutation\_rate}  \\ 
+\hline
+Single bit greedy          & gene string, \textit{mutation\_rate}  \\ 
+\hline
+Single bit max greedy      & gene string, \textit{mutation\_rate}  \\ 
+\hline
+Multiple bit greedy        & gene string, \textit{mutation\_rate}  \\ 
+\hline
+FlipGA                     & gene string, \textit{mutation\_rate}  \\
+\hline
+\end{tabular}
+\caption{ Mutation function parameters}
+\end{table}
+All mutation functions receive one genetic string as their input and output another genetic string, they are also all dependent on the \textit{mutation\_rate} parameter.
+\\The resulting modified genetic strings are all stored inside an array called \textit{mchildren} which will be used as one of the inputs for the population replacement functions.
+
+\begin{table}[H]
+\begin{adjustwidth}{-5em}{-5em}
+\centering
+\footnotesize
+\begin{tabular}{|l|l|l|} 
+\hline
+\rowcolor{Gray}
+\textbf{Population Replacement} & \textbf{Replacement mode}  & \textbf{Parameters}                                      \\ 
+\hline
+Generational                    & generational               & \textit{elitism}, mchildren, population                            \\ 
+\hline
+Mu Lambda                       & generational, steady state & mchildren, population, population size                    \\ 
+\hline
+Mu Lambda Offspring             & generational, steady state & mchildren, population size                                \\ 
+\hline
+Delete                          & generational, steady state & mchildren, population, \textit{num\_individuals}, selection method  \\ 
+\hline
+Random                          & generational, steady state & mchildren, population                                     \\ 
+\hline
+Parents                         & steady state               & mchildren, parent tuple, population                   \\ 
+\hline
+Weak Parents                    & steady state               & mchildren, parent tuple, population                   \\
+\hline
+\end{tabular}
+\end{adjustwidth}
+\caption{ Population replacement function parameters}
+\end{table}
+\begin{itemize}
+\item[--]\textit{mchildren} is the array of mutated children genetic strings.
+\item[--]\textit{selection method} is the selection function which will be used to choose the individuals.
+\item[--]\textit{parent tuple} refers to the pair of individuals which were used to generate the children pair in \textit{mchildren}.
+\end{itemize}
+
+The population replacement functions return an array (or set) of individuals which become the new population, the \textit{current iteration} value is increased by one and the algorithm begins again by selecting parents from the new population.
+
+\subsection{Data logging and processing}
+\label{subsection:data_desc}
+
+The genetic algorithm is connected to a database where the information about the execution of said algorithm on a 3SAT problem instance can be logged; Logging the results to the database can be controlled by setting the boolean parameter \textit{save\_to\_db} during the initialization of the genetic algorithm, if set to $True$ the results will be logged.
+\\The table \textit{ga\_run} stores the results of the execution, the genetic operators used by the algorithm (selection, crossover, ...) and the parameters used by said functions, it also stores information about the cost of the execution.
+\\\textit{ga\_run\_generations} stores the information about each individual generation used by the algorithm, while the table \textit{ga\_run\_population} stores the population list containing all the individuals in each generation.
+\\The database structure is shown in the diagram below:
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1\columnwidth]{images/bbdd_diagram.png}
+	\caption{ BBDD design schema}
+	\label{fig:BBDD_diagram}
+\end{figure}
+
+\begin{itemize}
+\item[--]\textit{num\_fitness\_evals}: is a variable used to measure the cost of each generation, it records the number of fitness evaluations used by each genetic operator, the sum of which is the total cost of the generation.
+\item[--]\textit{num\_bit\_flips}: is also used to measure the cost of each generation, but it records the number of bit flips in each individuals genetic string used by the genetic operators.
+\item[--]\textit{population\_set\_length}: is the length of the population array when converted to a set, if no duplicates are allowed this value is equal to the \textit{population\_length}, this value is useful as a simple proxy of genetic diversity in the population.
+\end{itemize}
+
+The genetic algorithm can also calculate the phenotypic and genotypic variance and distributions in each generation.
+\\The phenotypic distribution is the list of fitness values of each individual in the population, while the variance is a value calculated using the following formula:
+
+\begin{equation*}
+\sigma^2_n = {1\over{n}}\sum^n_{i=1}(X_i - \overline{X}^2) 
+\end{equation*}
+
+where $n$ is equal to the population length, $X_i$ is the fitness value of individual $i$ and $\overline{X}$ is the mean of all the fitness values in the population.
+\\The genotypic distribution is a list of values where each value corresponds to the sum for the Hamming distances between each individuals gene string and the rest of the population divided by the population length, formally:
+
+\begin{equation*} 
+GV_i = {\sum_{j=1, j\neq i}^n Dist_H(x_i, x_j) \over n}
+\end{equation*}
+
+where $Dist_H(x, y)$ returns the hamming distance between $x$ and $y$, $x_i$ is the genetic string of individual $i$ and $GV_i$ is the actual value stored in the list.
+\\The hamming distance between two strings measures the number of substitutions needed to transform one string into the other.
+\\The genotypic distributions are used throughout this work to measure the genetic diversity inside the different populations, the genotypic variance is calculated using the same formula as the phenotypic variance but substituting the fitness values for $GV$ values.
+
+\subsection{Experiment design}
+\label{subsection:exp_design}
+
+Due to the prohibitively large computational cost, for the scope of this project, of running all the combinations of genetic operators and variations of their respective parameters on all the satisfiable uniform random 3-SAT problems in the Satlib benchmark set, the experimentation part of this work is broken down into three different phases.
+\bigbreak
+During the first phase a small subset of "easy" problems is chosen in order to run all the different combinations of genetic operators on said problems, once all combinations have been run on the chosen problem subset the \textit{success rate} of each operator is calculated by dividing the number of problems solved by the total number of problems attempted using the specified operator.
+\\The success rate for each problem category is then multiplied by the weight assigned to that category, then they are all added up to form the final \textit{score} of that operator, the genetic operators with a high enough score are then selected for phase two.
+\\Phase two is very similar to phase one but the subset of problems chosen is harder and only the genetic operators chosen during the first phase will be run on them; A more in-depth analysis of the effects of the genetic operators and their hyper-parameters on the evolution of the population is also carried out during phase two.
+\\Only the best combinations of genetic operators found during the second phase are chosen for the third experimentation phase.
+(TODO: Explain phase 3 of the experimentation)
+
+

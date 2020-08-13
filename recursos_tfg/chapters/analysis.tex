@@ -1,0 +1,38 @@
+\section{Analysis}
+\label{section:analysis}
+
+\begin{table}
+\centering
+\begin{tabular}{r|ccccc} 
+\hline
+\rowcolor[rgb]{0.69,0.69,0.69}                                                     & \textbf{uf20} & \textbf{uf50} & \textbf{uf75} & \textbf{uf100} & \textbf{Score}  \\ 
+\hline
+\textbf{Random}                                                                    & 0.673         & 0.244         & 0.089         & 0.04           & 36.33           \\
+\rowcolor[rgb]{0.933,0.933,0.933} \textbf{Roulette}                                & 0.736         & 0.29          & 0.11          & 0.027          & 40.17           \\
+\begin{tabular}[c]{@{}r@{}}\textbf{Roulette W/}\\\textbf{Elimination}\end{tabular} & 0.71          & 0.3           & 0.11          & 0.058          & 43.25           \\
+\rowcolor[rgb]{0.933,0.933,0.933} \textbf{Rank}                                    & 0.72          & 0.29          & 0.09          & 0.027          & 40.97           \\
+\textbf{Tournament}                                                                & 0.71          & 0.33          & 0.081         & 0.04           & 40.77           \\
+\rowcolor[rgb]{0.933,0.933,0.933} \textbf{Stochastic}                              & 0.758         & 0.222         & 0.087         & 0.05           & 37.78           \\
+\textbf{Annealed}                                                                  & 0.708         & 0.3           & 0.1           & 0.062          & 42.86           \\
+\rowcolor[rgb]{0.933,0.933,0.933} \textbf{Truncation}                              & 0             & 0             & -             & -              & 0               \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}
+\centering
+\begin{tabular}{r|ccccc} 
+\hline
+\rowcolor[rgb]{0.69,0.69,0.69}                        & \textbf{uf20} & \textbf{uf50} & \textbf{uf75} & \textbf{uf100} & \textbf{Score}  \\ 
+\hline
+\textbf{Single Point}                                 & 0.582         & 0.164         & 0.042         & 0.014          & 24.39           \\
+\rowcolor[rgb]{0.933,0.933,0.933} \textbf{Two Points} & 0.75          & 0.386         & 0.1           & 0.1            & 51.8            \\
+\textbf{Sliding Window}                               & 0.987         & 0.6           & 0.271         & 0.128          & 82.86           \\
+\rowcolor[rgb]{0.933,0.933,0.933} \textbf{Random Map} & 0.887         & 0.571         & 0.09          & 0.086          & 61.64           \\
+\textbf{Uniform}                                      & 0.828         & 0.243         & 0.228         & 0.018          & 47.61          
+\end{tabular}
+\end{table}
+
+

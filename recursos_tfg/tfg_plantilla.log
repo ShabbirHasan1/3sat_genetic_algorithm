@@ -1,0 +1,2214 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.6.14)  11 AUG 2020 19:34
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**tfg_plantilla
+(./tfg_plantilla.tex
+LaTeX2e <2017-04-15>
+Babel <3.18> and hyphenation patterns for 3 language(s) loaded.
+(./tfgetsinf.cls
+Document Class: tfgetsinf 2015/05/04 v1 LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk12.clo
+File: bk12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2017/04/05 v2.0i Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
+))
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2018/02/14 3.18 The Babel package
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/switch.def
+File: switch.def 2018/02/14 3.18 Babel switching mechanism
+)
+
+! Package babel Error: Unknown option `spanish'. Either you misspelled it
+(babel)                or the language definition file spanish.ldf was not foun
+d.
+
+See the babel package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.445 \ProcessOptions*
+                      
+? 
+
+! Package babel Error: Unknown option `catalan'. Either you misspelled it
+(babel)                or the language definition file catalan.ldf was not foun
+d.
+
+See the babel package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.445 \ProcessOptions*
+                      
+? 
+(/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+Language: english 2017/06/06 v3.3r English support from the babel system
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2018/02/14 3.18 Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen103
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@dirlevel=\count89
+)
+\l@british = a dialect from \language\l@english 
+\l@UKenglish = a dialect from \language\l@english 
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+)
+(/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+Language: english 2017/06/06 v3.3r English support from the babel system
+))
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/mathpazo.sty
+Package: mathpazo 2005/04/12 PSNFSS-v9.2a Palatino w/ Pazo Math (D.Puga, WaS) 
+\symupright=\mathgroup4
+)
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count90
+\Gm@cntv=\count91
+\c@Gm@tempcnt=\count92
+\Gm@bindingoffset=\dimen104
+\Gm@wd@mp=\dimen105
+\Gm@odd@mp=\dimen106
+\Gm@even@mp=\dimen107
+\Gm@layoutwidth=\dimen108
+\Gm@layoutheight=\dimen109
+\Gm@layouthoffset=\dimen110
+\Gm@layoutvoffset=\dimen111
+\Gm@dimlist=\toks15
+)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tocbibind/tocbibind.sty
+Package: tocbibind 2010/10/13 v1.5k extra ToC listings
+Package tocbibind Info: The document has chapter divisions on input line 50.
+
+
+Package tocbibind Note: Using chapter style headings, unless overridden.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen112
+\captionmargin@=\dimen113
+\captionwidth=\dimen114
+\caption@tempdima=\dimen115
+\caption@indent=\dimen116
+\caption@parindent=\dimen117
+\caption@hangindent=\dimen118
+)
+\c@ContinuedFloat=\count93
+)
+
+! LaTeX Error: File `algorithmic.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+(/usr/share/texlive/texmf-dist/tex/latex/caption/newfloat.sty
+Package: newfloat 2015/09/17 v1.1-109 Defining new floating environments (AR)
+)
+Package newfloat Info: New float `algorithm' with options `fileext=loa, listnam
+e=\'Index d'algorismes,name=Algorisme' on input line 162.
+\c@algorithm=\count94
+\newfloat@ftype=\count95
+Package newfloat Info: float type `algorithm'=8 on input line 162.
+Package newfloat Info: \algorithmname is already defined on input line 162.
+Package newfloat Info: \listalgorithmname is already defined on input line 162.
+
+Package newfloat Info: New float `quadre' with options `fileext=loq, listname=\
+'Index de quadres,name=Quadre' on input line 167.
+\c@quadre=\count96
+Package newfloat Info: float type `quadre'=16 on input line 167.
+Package newfloat Info: \quadrename is already defined on input line 167.
+Package newfloat Info: \listquadrename is already defined on input line 167.
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count97
+\lst@gtempboxa=\box26
+\lst@token=\toks16
+\lst@length=\count98
+\lst@currlwidth=\dimen119
+\lst@column=\count99
+\lst@pos=\count100
+\lst@lostspace=\dimen120
+\lst@width=\dimen121
+\lst@newlines=\count101
+\lst@lineno=\count102
+\lst@maxwidth=\dimen122
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count103
+\lst@skipnumbers=\count104
+\lst@framebox=\box27
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
+\ttl@box=\box28
+\beforetitleunit=\skip43
+\aftertitleunit=\skip44
+\ttl@plus=\dimen123
+\ttl@minus=\dimen124
+\ttl@toksa=\toks17
+\titlewidth=\dimen125
+\titlewidthlast=\dimen126
+\titlewidthfirst=\dimen127
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has chapter divisions on input line 51.
+\cftparskip=\skip45
+\cftbeforetoctitleskip=\skip46
+\cftaftertoctitleskip=\skip47
+\cftbeforepartskip=\skip48
+\cftpartnumwidth=\skip49
+\cftpartindent=\skip50
+\cftbeforechapskip=\skip51
+\cftchapindent=\skip52
+\cftchapnumwidth=\skip53
+\cftbeforesecskip=\skip54
+\cftsecindent=\skip55
+\cftsecnumwidth=\skip56
+\cftbeforesubsecskip=\skip57
+\cftsubsecindent=\skip58
+\cftsubsecnumwidth=\skip59
+\cftbeforesubsubsecskip=\skip60
+\cftsubsubsecindent=\skip61
+\cftsubsubsecnumwidth=\skip62
+\cftbeforeparaskip=\skip63
+\cftparaindent=\skip64
+\cftparanumwidth=\skip65
+\cftbeforesubparaskip=\skip66
+\cftsubparaindent=\skip67
+\cftsubparanumwidth=\skip68
+\cftbeforeloftitleskip=\skip69
+\cftafterloftitleskip=\skip70
+\cftbeforefigskip=\skip71
+\cftfigindent=\skip72
+\cftfignumwidth=\skip73
+\c@lofdepth=\count105
+\c@lotdepth=\count106
+\cftbeforelottitleskip=\skip74
+\cftafterlottitleskip=\skip75
+\cftbeforetabskip=\skip76
+\cfttabindent=\skip77
+\cfttabnumwidth=\skip78
+)
+(/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
+s
+\f@nch@headwidth=\skip79
+\f@nch@O@elh=\skip80
+\f@nch@O@erh=\skip81
+\f@nch@O@olh=\skip82
+\f@nch@O@orh=\skip83
+\f@nch@O@elf=\skip84
+\f@nch@O@erf=\skip85
+\f@nch@O@olf=\skip86
+\f@nch@O@orf=\skip87
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+)
+\Gin@req@height=\dimen128
+\Gin@req@width=\dimen129
+)
+(/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2015/07/21 v2.0g eso-pic (RN)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/atbegshi.sty
+Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2018/02/06 v6.86b Hypertext links for LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
+
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package hobsub Info: Skipping package `ifvtex' (already loaded).
+Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
+Package hobsub Info: Skipping package `ifpdf' (already loaded).
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+Package: pdftexcmds 2018/01/21 v0.26 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
+)
+Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
+Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2016/05/16 v1.5 Let assignment for LaTeX macros (HO)
+Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
+Package: xcolor-patch 2016/05/16 xcolor patch
+Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package hobsub Info: Skipping package `atbegshi' (already loaded).
+Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
+Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+)
+\@linkdim=\dimen130
+\Hy@linkcounter=\count107
+\Hy@pagecounter=\count108
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count109
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 4383.
+Package hyperref Info: Hyper figures OFF on input line 4509.
+Package hyperref Info: Link nesting OFF on input line 4514.
+Package hyperref Info: Hyper index ON on input line 4517.
+Package hyperref Info: Plain pages OFF on input line 4524.
+Package hyperref Info: Backreferencing OFF on input line 4529.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4762.
+\c@Hy@tempcnt=\count110
+LaTeX Info: Redefining \url on input line 5115.
+\XeTeXLinkMargin=\dimen131
+\Fld@menulength=\count111
+\Field@Width=\dimen132
+\Fld@charsize=\dimen133
+Package hyperref Info: Hyper figures OFF on input line 6369.
+Package hyperref Info: Link nesting OFF on input line 6374.
+Package hyperref Info: Hyper index ON on input line 6377.
+Package hyperref Info: backreferencing OFF on input line 6384.
+Package hyperref Info: Link coloring ON on input line 6387.
+Package hyperref Info: Link coloring with OCG OFF on input line 6394.
+Package hyperref Info: PDF/A mode OFF on input line 6399.
+LaTeX Info: Redefining \ref on input line 6439.
+LaTeX Info: Redefining \pageref on input line 6443.
+\Hy@abspage=\count112
+\c@Item=\count113
+\c@Hfootnote=\count114
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
+\Fld@listcount=\count115
+\c@bookmark@seq@number=\count116
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip88
+)
+\c@appendix=\count117
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks18
+\symAMSa=\mathgroup5
+\symAMSb=\mathgroup6
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2015/03/17 v1.2c Input encoding file
+\inpenc@prehook=\toks19
+\inpenc@posthook=\toks20
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
+Now handling font encoding OML ...
+... no UTF-8 mapping file for font encoding OML
+Now handling font encoding T1 ...
+... processing UTF-8 mapping file for font encoding T1
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu
+File: t1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
+   defining Unicode char U+00A0 (decimal 160)
+   defining Unicode char U+00A1 (decimal 161)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00AB (decimal 171)
+   defining Unicode char U+00AD (decimal 173)
+   defining Unicode char U+00BB (decimal 187)
+   defining Unicode char U+00BF (decimal 191)
+   defining Unicode char U+00C0 (decimal 192)
+   defining Unicode char U+00C1 (decimal 193)
+   defining Unicode char U+00C2 (decimal 194)
+   defining Unicode char U+00C3 (decimal 195)
+   defining Unicode char U+00C4 (decimal 196)
+   defining Unicode char U+00C5 (decimal 197)
+   defining Unicode char U+00C6 (decimal 198)
+   defining Unicode char U+00C7 (decimal 199)
+   defining Unicode char U+00C8 (decimal 200)
+   defining Unicode char U+00C9 (decimal 201)
+   defining Unicode char U+00CA (decimal 202)
+   defining Unicode char U+00CB (decimal 203)
+   defining Unicode char U+00CC (decimal 204)
+   defining Unicode char U+00CD (decimal 205)
+   defining Unicode char U+00CE (decimal 206)
+   defining Unicode char U+00CF (decimal 207)
+   defining Unicode char U+00D0 (decimal 208)
+   defining Unicode char U+00D1 (decimal 209)
+   defining Unicode char U+00D2 (decimal 210)
+   defining Unicode char U+00D3 (decimal 211)
+   defining Unicode char U+00D4 (decimal 212)
+   defining Unicode char U+00D5 (decimal 213)
+   defining Unicode char U+00D6 (decimal 214)
+   defining Unicode char U+00D8 (decimal 216)
+   defining Unicode char U+00D9 (decimal 217)
+   defining Unicode char U+00DA (decimal 218)
+   defining Unicode char U+00DB (decimal 219)
+   defining Unicode char U+00DC (decimal 220)
+   defining Unicode char U+00DD (decimal 221)
+   defining Unicode char U+00DE (decimal 222)
+   defining Unicode char U+00DF (decimal 223)
+   defining Unicode char U+00E0 (decimal 224)
+   defining Unicode char U+00E1 (decimal 225)
+   defining Unicode char U+00E2 (decimal 226)
+   defining Unicode char U+00E3 (decimal 227)
+   defining Unicode char U+00E4 (decimal 228)
+   defining Unicode char U+00E5 (decimal 229)
+   defining Unicode char U+00E6 (decimal 230)
+   defining Unicode char U+00E7 (decimal 231)
+   defining Unicode char U+00E8 (decimal 232)
+   defining Unicode char U+00E9 (decimal 233)
+   defining Unicode char U+00EA (decimal 234)
+   defining Unicode char U+00EB (decimal 235)
+   defining Unicode char U+00EC (decimal 236)
+   defining Unicode char U+00ED (decimal 237)
+   defining Unicode char U+00EE (decimal 238)
+   defining Unicode char U+00EF (decimal 239)
+   defining Unicode char U+00F0 (decimal 240)
+   defining Unicode char U+00F1 (decimal 241)
+   defining Unicode char U+00F2 (decimal 242)
+   defining Unicode char U+00F3 (decimal 243)
+   defining Unicode char U+00F4 (decimal 244)
+   defining Unicode char U+00F5 (decimal 245)
+   defining Unicode char U+00F6 (decimal 246)
+   defining Unicode char U+00F8 (decimal 248)
+   defining Unicode char U+00F9 (decimal 249)
+   defining Unicode char U+00FA (decimal 250)
+   defining Unicode char U+00FB (decimal 251)
+   defining Unicode char U+00FC (decimal 252)
+   defining Unicode char U+00FD (decimal 253)
+   defining Unicode char U+00FE (decimal 254)
+   defining Unicode char U+00FF (decimal 255)
+   defining Unicode char U+0100 (decimal 256)
+   defining Unicode char U+0101 (decimal 257)
+   defining Unicode char U+0102 (decimal 258)
+   defining Unicode char U+0103 (decimal 259)
+   defining Unicode char U+0104 (decimal 260)
+   defining Unicode char U+0105 (decimal 261)
+   defining Unicode char U+0106 (decimal 262)
+   defining Unicode char U+0107 (decimal 263)
+   defining Unicode char U+0108 (decimal 264)
+   defining Unicode char U+0109 (decimal 265)
+   defining Unicode char U+010A (decimal 266)
+   defining Unicode char U+010B (decimal 267)
+   defining Unicode char U+010C (decimal 268)
+   defining Unicode char U+010D (decimal 269)
+   defining Unicode char U+010E (decimal 270)
+   defining Unicode char U+010F (decimal 271)
+   defining Unicode char U+0110 (decimal 272)
+   defining Unicode char U+0111 (decimal 273)
+   defining Unicode char U+0112 (decimal 274)
+   defining Unicode char U+0113 (decimal 275)
+   defining Unicode char U+0114 (decimal 276)
+   defining Unicode char U+0115 (decimal 277)
+   defining Unicode char U+0116 (decimal 278)
+   defining Unicode char U+0117 (decimal 279)
+   defining Unicode char U+0118 (decimal 280)
+   defining Unicode char U+0119 (decimal 281)
+   defining Unicode char U+011A (decimal 282)
+   defining Unicode char U+011B (decimal 283)
+   defining Unicode char U+011C (decimal 284)
+   defining Unicode char U+011D (decimal 285)
+   defining Unicode char U+011E (decimal 286)
+   defining Unicode char U+011F (decimal 287)
+   defining Unicode char U+0120 (decimal 288)
+   defining Unicode char U+0121 (decimal 289)
+   defining Unicode char U+0122 (decimal 290)
+   defining Unicode char U+0123 (decimal 291)
+   defining Unicode char U+0124 (decimal 292)
+   defining Unicode char U+0125 (decimal 293)
+   defining Unicode char U+0128 (decimal 296)
+   defining Unicode char U+0129 (decimal 297)
+   defining Unicode char U+012A (decimal 298)
+   defining Unicode char U+012B (decimal 299)
+   defining Unicode char U+012C (decimal 300)
+   defining Unicode char U+012D (decimal 301)
+   defining Unicode char U+012E (decimal 302)
+   defining Unicode char U+012F (decimal 303)
+   defining Unicode char U+0130 (decimal 304)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0132 (decimal 306)
+   defining Unicode char U+0133 (decimal 307)
+   defining Unicode char U+0134 (decimal 308)
+   defining Unicode char U+0135 (decimal 309)
+   defining Unicode char U+0136 (decimal 310)
+   defining Unicode char U+0137 (decimal 311)
+   defining Unicode char U+0139 (decimal 313)
+   defining Unicode char U+013A (decimal 314)
+   defining Unicode char U+013B (decimal 315)
+   defining Unicode char U+013C (decimal 316)
+   defining Unicode char U+013D (decimal 317)
+   defining Unicode char U+013E (decimal 318)
+   defining Unicode char U+0141 (decimal 321)
+   defining Unicode char U+0142 (decimal 322)
+   defining Unicode char U+0143 (decimal 323)
+   defining Unicode char U+0144 (decimal 324)
+   defining Unicode char U+0145 (decimal 325)
+   defining Unicode char U+0146 (decimal 326)
+   defining Unicode char U+0147 (decimal 327)
+   defining Unicode char U+0148 (decimal 328)
+   defining Unicode char U+014A (decimal 330)
+   defining Unicode char U+014B (decimal 331)
+   defining Unicode char U+014C (decimal 332)
+   defining Unicode char U+014D (decimal 333)
+   defining Unicode char U+014E (decimal 334)
+   defining Unicode char U+014F (decimal 335)
+   defining Unicode char U+0150 (decimal 336)
+   defining Unicode char U+0151 (decimal 337)
+   defining Unicode char U+0152 (decimal 338)
+   defining Unicode char U+0153 (decimal 339)
+   defining Unicode char U+0154 (decimal 340)
+   defining Unicode char U+0155 (decimal 341)
+   defining Unicode char U+0156 (decimal 342)
+   defining Unicode char U+0157 (decimal 343)
+   defining Unicode char U+0158 (decimal 344)
+   defining Unicode char U+0159 (decimal 345)
+   defining Unicode char U+015A (decimal 346)
+   defining Unicode char U+015B (decimal 347)
+   defining Unicode char U+015C (decimal 348)
+   defining Unicode char U+015D (decimal 349)
+   defining Unicode char U+015E (decimal 350)
+   defining Unicode char U+015F (decimal 351)
+   defining Unicode char U+0160 (decimal 352)
+   defining Unicode char U+0161 (decimal 353)
+   defining Unicode char U+0162 (decimal 354)
+   defining Unicode char U+0163 (decimal 355)
+   defining Unicode char U+0164 (decimal 356)
+   defining Unicode char U+0165 (decimal 357)
+   defining Unicode char U+0168 (decimal 360)
+   defining Unicode char U+0169 (decimal 361)
+   defining Unicode char U+016A (decimal 362)
+   defining Unicode char U+016B (decimal 363)
+   defining Unicode char U+016C (decimal 364)
+   defining Unicode char U+016D (decimal 365)
+   defining Unicode char U+016E (decimal 366)
+   defining Unicode char U+016F (decimal 367)
+   defining Unicode char U+0170 (decimal 368)
+   defining Unicode char U+0171 (decimal 369)
+   defining Unicode char U+0172 (decimal 370)
+   defining Unicode char U+0173 (decimal 371)
+   defining Unicode char U+0174 (decimal 372)
+   defining Unicode char U+0175 (decimal 373)
+   defining Unicode char U+0176 (decimal 374)
+   defining Unicode char U+0177 (decimal 375)
+   defining Unicode char U+0178 (decimal 376)
+   defining Unicode char U+0179 (decimal 377)
+   defining Unicode char U+017A (decimal 378)
+   defining Unicode char U+017B (decimal 379)
+   defining Unicode char U+017C (decimal 380)
+   defining Unicode char U+017D (decimal 381)
+   defining Unicode char U+017E (decimal 382)
+   defining Unicode char U+01CD (decimal 461)
+   defining Unicode char U+01CE (decimal 462)
+   defining Unicode char U+01CF (decimal 463)
+   defining Unicode char U+01D0 (decimal 464)
+   defining Unicode char U+01D1 (decimal 465)
+   defining Unicode char U+01D2 (decimal 466)
+   defining Unicode char U+01D3 (decimal 467)
+   defining Unicode char U+01D4 (decimal 468)
+   defining Unicode char U+01E2 (decimal 482)
+   defining Unicode char U+01E3 (decimal 483)
+   defining Unicode char U+01E6 (decimal 486)
+   defining Unicode char U+01E7 (decimal 487)
+   defining Unicode char U+01E8 (decimal 488)
+   defining Unicode char U+01E9 (decimal 489)
+   defining Unicode char U+01EA (decimal 490)
+   defining Unicode char U+01EB (decimal 491)
+   defining Unicode char U+01F0 (decimal 496)
+   defining Unicode char U+01F4 (decimal 500)
+   defining Unicode char U+01F5 (decimal 501)
+   defining Unicode char U+0218 (decimal 536)
+   defining Unicode char U+0219 (decimal 537)
+   defining Unicode char U+021A (decimal 538)
+   defining Unicode char U+021B (decimal 539)
+   defining Unicode char U+0232 (decimal 562)
+   defining Unicode char U+0233 (decimal 563)
+   defining Unicode char U+1E02 (decimal 7682)
+   defining Unicode char U+1E03 (decimal 7683)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2010 (decimal 8208)
+   defining Unicode char U+2011 (decimal 8209)
+   defining Unicode char U+2012 (decimal 8210)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2015 (decimal 8213)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201A (decimal 8218)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+   defining Unicode char U+201E (decimal 8222)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+2039 (decimal 8249)
+   defining Unicode char U+203A (decimal 8250)
+   defining Unicode char U+2423 (decimal 9251)
+   defining Unicode char U+1E20 (decimal 7712)
+   defining Unicode char U+1E21 (decimal 7713)
+)
+Now handling font encoding OT1 ...
+... processing UTF-8 mapping file for font encoding OT1
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu
+File: ot1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
+   defining Unicode char U+00A0 (decimal 160)
+   defining Unicode char U+00A1 (decimal 161)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00AD (decimal 173)
+   defining Unicode char U+00B8 (decimal 184)
+   defining Unicode char U+00BF (decimal 191)
+   defining Unicode char U+00C5 (decimal 197)
+   defining Unicode char U+00C6 (decimal 198)
+   defining Unicode char U+00D8 (decimal 216)
+   defining Unicode char U+00DF (decimal 223)
+   defining Unicode char U+00E6 (decimal 230)
+   defining Unicode char U+00EC (decimal 236)
+   defining Unicode char U+00ED (decimal 237)
+   defining Unicode char U+00EE (decimal 238)
+   defining Unicode char U+00EF (decimal 239)
+   defining Unicode char U+00F8 (decimal 248)
+   defining Unicode char U+0131 (decimal 305)
+   defining Unicode char U+0141 (decimal 321)
+   defining Unicode char U+0142 (decimal 322)
+   defining Unicode char U+0152 (decimal 338)
+   defining Unicode char U+0153 (decimal 339)
+   defining Unicode char U+0174 (decimal 372)
+   defining Unicode char U+0175 (decimal 373)
+   defining Unicode char U+0176 (decimal 374)
+   defining Unicode char U+0177 (decimal 375)
+   defining Unicode char U+0218 (decimal 536)
+   defining Unicode char U+0219 (decimal 537)
+   defining Unicode char U+021A (decimal 538)
+   defining Unicode char U+021B (decimal 539)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+)
+Now handling font encoding OMS ...
+... processing UTF-8 mapping file for font encoding OMS
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu
+File: omsenc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+)
+Now handling font encoding OMX ...
+... no UTF-8 mapping file for font encoding OMX
+Now handling font encoding U ...
+... no UTF-8 mapping file for font encoding U
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+02C6 (decimal 710)
+   defining Unicode char U+02DC (decimal 732)
+   defining Unicode char U+200C (decimal 8204)
+   defining Unicode char U+2026 (decimal 8230)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2423 (decimal 9251)
+))
+
+! LaTeX Error: Option clash for package geometry.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.34 
+     
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count118
+\float@exts=\toks21
+\float@box=\box29
+\@float@everytoks=\toks22
+\@floatcapt=\box30
+)
+\@float@every@table=\toks23
+
+(/usr/share/texlive/texmf-dist/tex/latex/changepage/changepage.sty
+Package: changepage 2009/10/20 v1.0c check page and change page layout
+\c@cp@cntr=\count119
+\cp@tempcnt=\count120
+)
+(/usr/share/texlive/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
+\col@sep=\dimen134
+\extrarowheight=\dimen135
+\NC@list=\toks24
+\extratabsurround=\skip89
+\backup@length=\skip90
+)
+\everycr=\toks25
+\minrowclearance=\skip91
+)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2017/12/19 v3.10 programmable bibliographies (PK/JW/AB)
+
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2018/02/11 v2.5e e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count121
+)
+(/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count122
+
+(/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+))
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.sty
+(/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.tex
+\@xs@message=\write3
+\integerpart=\count123
+\decimalpart=\count124
+)
+Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
+)
+\c@tabx@nest=\count125
+\c@listtotal=\count126
+\c@listcount=\count127
+\c@liststart=\count128
+\c@liststop=\count129
+\c@citecount=\count130
+\c@citetotal=\count131
+\c@multicitecount=\count132
+\c@multicitetotal=\count133
+\c@instcount=\count134
+\c@maxnames=\count135
+\c@minnames=\count136
+\c@maxitems=\count137
+\c@minitems=\count138
+\c@citecounter=\count139
+\c@savedcitecounter=\count140
+\c@uniquelist=\count141
+\c@uniquename=\count142
+\c@refsection=\count143
+\c@refsegment=\count144
+\c@maxextratitle=\count145
+\c@maxextratitleyear=\count146
+\c@maxextradate=\count147
+\c@maxextraalpha=\count148
+\c@abbrvpenalty=\count149
+\c@highnamepenalty=\count150
+\c@lownamepenalty=\count151
+\c@maxparens=\count152
+\c@parenlevel=\count153
+\blx@tempcnta=\count154
+\blx@tempcntb=\count155
+\blx@tempcntc=\count156
+\blx@maxsection=\count157
+\blx@maxsegment@0=\count158
+\blx@notetype=\count159
+\blx@parenlevel@text=\count160
+\blx@parenlevel@foot=\count161
+\blx@sectionciteorder@0=\count162
+\labelnumberwidth=\skip92
+\labelalphawidth=\skip93
+\biblabelsep=\skip94
+\bibitemsep=\skip95
+\bibnamesep=\skip96
+\bibinitsep=\skip97
+\bibparsep=\skip98
+\bibhang=\skip99
+\blx@bcfin=\read1
+\blx@bcfout=\write4
+\c@mincomprange=\count163
+\c@maxcomprange=\count164
+\c@mincompwidth=\count165
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-dm.def)
+Package biblatex Info: Trying to load biblatex style data model...
+Package biblatex Info: ... file 'authoryear.dbx' not found.
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count166
+\c@savedafterword=\count167
+\c@annotator=\count168
+\c@savedannotator=\count169
+\c@author=\count170
+\c@savedauthor=\count171
+\c@bookauthor=\count172
+\c@savedbookauthor=\count173
+\c@commentator=\count174
+\c@savedcommentator=\count175
+\c@editor=\count176
+\c@savededitor=\count177
+\c@editora=\count178
+\c@savededitora=\count179
+\c@editorb=\count180
+\c@savededitorb=\count181
+\c@editorc=\count182
+\c@savededitorc=\count183
+\c@foreword=\count184
+\c@savedforeword=\count185
+\c@holder=\count186
+\c@savedholder=\count187
+\c@introduction=\count188
+\c@savedintroduction=\count189
+\c@namea=\count190
+\c@savednamea=\count191
+\c@nameb=\count192
+\c@savednameb=\count193
+\c@namec=\count194
+\c@savednamec=\count195
+\c@translator=\count196
+\c@savedtranslator=\count197
+\c@shortauthor=\count198
+\c@savedshortauthor=\count199
+\c@shorteditor=\count266
+\c@savedshorteditor=\count267
+\c@labelname=\count268
+\c@savedlabelname=\count269
+\c@institution=\count270
+\c@savedinstitution=\count271
+\c@lista=\count272
+\c@savedlista=\count273
+\c@listb=\count274
+\c@savedlistb=\count275
+\c@listc=\count276
+\c@savedlistc=\count277
+\c@listd=\count278
+\c@savedlistd=\count279
+\c@liste=\count280
+\c@savedliste=\count281
+\c@listf=\count282
+\c@savedlistf=\count283
+\c@location=\count284
+\c@savedlocation=\count285
+\c@organization=\count286
+\c@savedorganization=\count287
+\c@origlocation=\count288
+\c@savedoriglocation=\count289
+\c@origpublisher=\count290
+\c@savedorigpublisher=\count291
+\c@publisher=\count292
+\c@savedpublisher=\count293
+\c@language=\count294
+\c@savedlanguage=\count295
+\c@origlanguage=\count296
+\c@savedoriglanguage=\count297
+\c@pageref=\count298
+\c@savedpageref=\count299
+\shorthandwidth=\skip100
+\shortjournalwidth=\skip101
+\shortserieswidth=\skip102
+\shorttitlewidth=\skip103
+\shortauthorwidth=\skip104
+\shorteditorwidth=\skip105
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2017/12/19 v3.10 biblatex compatibility (PK/JW/AB)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2017/12/19 v3.10 biblatex compatibility (PK/JW/AB)
+\c@textcitecount=\count300
+\c@textcitetotal=\count301
+\c@textcitemaxnames=\count302
+\c@biburlnumpenalty=\count303
+\c@biburlucpenalty=\count304
+\c@biburllcpenalty=\count305
+\c@smartand=\count306
+)
+Package biblatex Info: Trying to load bibliography style 'authoryear'...
+Package biblatex Info: ... file 'authoryear.bbx' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/authoryear.bbx
+File: authoryear.bbx 2017/12/19 v3.10 biblatex bibliography style (PK/JW/AB)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2017/12/19 v3.10 biblatex bibliography style (PK/JW/AB)
+\c@bbx:relatedcount=\count307
+\c@bbx:relatedtotal=\count308
+))
+Package biblatex Info: Trying to load citation style 'authoryear'...
+Package biblatex Info: ... file 'authoryear.cbx' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/cbx/authoryear.cbx
+File: authoryear.cbx 2017/12/19 v3.10 biblatex citation style (PK/JW/AB)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+))
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2018/01/08 v1.21 mathematical typesetting tools
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count309
+\calc@Bcount=\count310
+\calc@Adimen=\dimen136
+\calc@Bdimen=\dimen137
+\calc@Askip=\skip106
+\calc@Bskip=\skip107
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count311
+\calc@Cskip=\skip108
+)
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2017/09/02 v2.17a AMS math features
+\@mathmargin=\skip109
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks26
+\ex@=\dimen138
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen139
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count312
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count313
+\leftroot@=\count314
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count315
+\DOTSCASE@=\count316
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box31
+\strutbox@=\box32
+\big@size=\dimen140
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count317
+\c@MaxMatrixCols=\count318
+\dotsspace@=\muskip11
+\c@parentequation=\count319
+\dspbrk@lvl=\count320
+\tag@help=\toks27
+\row@=\count321
+\column@=\count322
+\maxfields@=\count323
+\andhelp@=\toks28
+\eqnshift@=\dimen141
+\alignsep@=\dimen142
+\tagshift@=\dimen143
+\tagwidth@=\dimen144
+\totwidth@=\dimen145
+\lineht@=\dimen146
+\@envbody=\toks29
+\multlinegap=\skip110
+\multlinetaggap=\skip111
+\mathdisplay@stack=\toks30
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+)
+LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
+\g_MT_multlinerow_int=\count324
+\l_MT_multwidth_dim=\dimen147
+\origjot=\skip112
+\l_MT_shortvdotswithinadjustabove_dim=\dimen148
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen149
+\l_MT_above_intertext_sep=\dimen150
+\l_MT_below_intertext_sep=\dimen151
+\l_MT_above_shortintertext_sep=\dimen152
+\l_MT_below_shortintertext_sep=\dimen153
+)
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2017/12/19 v3.10 biblatex localization (PK/JW/AB)
+)
+
+Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
+(biblatex)                Loading 'csquotes' recommended.
+
+\@quotelevel=\count325
+\@quotereset=\count326
+(./tfg_plantilla.aux)
+\openout1 = `tfg_plantilla.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Try loading font information for T1+ppl on input line 85.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ppl.fd
+File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(85.35826pt, 426.79135pt, 85.35826pt)
+* v-part:(T,H,B)=(66.86414pt, 711.31857pt, 66.86414pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=426.79135pt
+* \textheight=711.31857pt
+* \oddsidemargin=13.08827pt
+* \evensidemargin=13.08827pt
+* \topmargin=-37.27965pt
+* \headheight=16.0pt
+* \headsep=19.8738pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=98.0pt
+* \marginparsep=7.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count327
+\scratchdimen=\dimen154
+\scratchbox=\box33
+\nofMPsegments=\count328
+\nofMParguments=\count329
+\everyMPshowfont=\toks31
+\MPscratchCnt=\count330
+\MPscratchDim=\dimen155
+\MPnumerator=\count331
+\makeMPintoPDFobject=\count332
+\everyMPtoPDFconversion=\toks32
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: End \AtBeginDocument code.
+\c@lstlisting=\count333
+\AtBeginShipoutBox=\box34
+Package hyperref Info: Link coloring ON on input line 85.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
+)
+\c@section@level=\count334
+)
+LaTeX Info: Redefining \ref on input line 85.
+LaTeX Info: Redefining \pageref on input line 85.
+LaTeX Info: Redefining \nameref on input line 85.
+
+(./tfg_plantilla.out) (./tfg_plantilla.out)
+\@outlinefile=\write5
+\openout5 = `tfg_plantilla.out'.
+
+LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <20.74> not available
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 85.
+LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 85.
+LaTeX Font Info:    Font shape `T1/ppl/bx/sc' in size <14.4> not available
+(Font)              Font shape `T1/ppl/b/sc' tried instead on input line 85.
+LaTeX Font Info:    Try loading font information for OT1+ppl on input line 85.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ppl.fd
+File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
+)
+LaTeX Font Info:    Try loading font information for OML+zplm on input line 85.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlzplm.fd
+File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
+)
+LaTeX Font Info:    Try loading font information for OMS+zplm on input line 85.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omszplm.fd
+File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
+)
+LaTeX Font Info:    Try loading font information for OMX+zplm on input line 85.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxzplm.fd
+File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
+)
+LaTeX Font Info:    Try loading font information for OT1+zplm on input line 85.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1zplm.fd
+File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
+)
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 15.0049pt on input line 85.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 10.42007pt on input line 85.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 8.33606pt on input line 85.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 15.0049pt on input line 85.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 10.42007pt on input line 85.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 8.33606pt on input line 85.
+
+! Undefined control sequence.
+<template> ...\begingroup \CT@setup \CT@row@color 
+                                                  \CT@cell@color \CT@do@colo...
+l.85 \begin{document}
+                     
+? 
+! Undefined control sequence.
+<template> ...@setup \CT@row@color \CT@cell@color 
+                                                  \CT@do@color \endgroup \@t...
+l.85 \begin{document}
+                     
+? 
+! Undefined control sequence.
+<template> ...@setup \CT@row@color \CT@cell@color 
+                                                  \CT@do@color \endgroup \@t...
+l.85 \begin{document}
+                     
+? 
+! Undefined control sequence.
+<template> ...\begingroup \CT@setup \CT@row@color 
+                                                  \CT@cell@color \CT@do@colo...
+l.85 \begin{document}
+                     
+? 
+! Undefined control sequence.
+<template> ...@setup \CT@row@color \CT@cell@color 
+                                                  \CT@do@color \endgroup \@t...
+l.85 \begin{document}
+                     
+? 
+<logo-upv.pdf, id=144, 331.2375pt x 105.39375pt>
+File: logo-upv.pdf Graphic file (type pdf)
+<use logo-upv.pdf>
+Package pdftex.def Info: logo-upv.pdf  used on input line 85.
+(pdftex.def)             Requested size: 178.85042pt x 56.9055pt.
+<logo-etsinf.pdf, id=145, 311.1625pt x 120.45pt>
+File: logo-etsinf.pdf Graphic file (type pdf)
+<use logo-etsinf.pdf>
+Package pdftex.def Info: logo-etsinf.pdf  used on input line 85.
+(pdftex.def)             Requested size: 147.00606pt x 56.9055pt.
+<baseportada.png, id=146, 1027.84pt x 578.16pt>
+File: baseportada.png Graphic file (type png)
+<use baseportada.png>
+Package pdftex.def Info: baseportada.png  used on input line 85.
+(pdftex.def)             Requested size: 597.51208pt x 366.75699pt.
+[1
+
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./logo-upv.pdf> <./logo-et
+sinf.pdf> <./baseportada.png>] [2
+
+]
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout4 = `tfg_plantilla.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'tfg_plantilla.bbl' found.
+ (./tfg_plantilla.bbl)
+Package biblatex Info: Reference section=0 on input line 85.
+Package biblatex Info: Reference segment=0 on input line 85.
+Package biblatex Info: Trying to load language 'catalan'...
+Package biblatex Info: ... file 'catalan.lbx' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/catalan.lbx
+File: catalan.lbx 2017/12/19 v3.10 biblatex localization (PK/JW/AB)
+)
+
+! Package babel Error: You haven't defined the language catalan yet.
+
+See the babel package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.92 ?
+      ???
+? 
+LaTeX Font Info:    Try loading font information for T1+cmss on input line 92.
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmss.fd
+File: t1cmss.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 93.
+ [3] [4
+
+]
+(./tfg_plantilla.toc
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 12.50409pt on input line 5.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 5.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 5.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 12.50409pt on input line 5.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 5.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 5.
+)
+\tf@toc=\write6
+\openout6 = `tfg_plantilla.toc'.
+
+ [5] [6
+
+] (./tfg_plantilla.lof)
+\tf@lof=\write7
+\openout7 = `tfg_plantilla.lof'.
+
+ (./tfg_plantilla.lot)
+\tf@lot=\write8
+\openout8 = `tfg_plantilla.lot'.
+
+Package biblatex Info: Trying to load language 'spanish'...
+Package biblatex Info: ... file 'spanish.lbx' found.
+
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/spanish.lbx
+File: spanish.lbx 2017/12/19 v3.10 biblatex localization (PK/JW/AB)
+)
+
+! Package babel Error: You haven't defined the language spanish yet.
+
+See the babel package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.94 \begin{abstract}[spanish]
+                              
+? 
+[7] [8
+
+] (./tfg_plantilla.toc)
+\tf@toc=\write9
+\openout9 = `tfg_plantilla.toc'.
+
+ [9] [10
+
+] (./tfg_plantilla.lof)
+\tf@lof=\write10
+\openout10 = `tfg_plantilla.lof'.
+
+
+(./tfg_plantilla.lot)
+\tf@lot=\write11
+\openout11 = `tfg_plantilla.lot'.
+
+ [11] [12
+
+] (./tfg_plantilla.toc)
+\tf@toc=\write12
+\openout12 = `tfg_plantilla.toc'.
+
+ [13] [14
+
+]
+(./tfg_plantilla.lof)
+\tf@lof=\write13
+\openout13 = `tfg_plantilla.lof'.
+
+ (./tfg_plantilla.lot)
+\tf@lot=\write14
+\openout14 = `tfg_plantilla.lot'.
+
+ [15] [16
+
+]
+Chapter 1.
+(./chapters/introduction.tex
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 7.91925pt on input line 4.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 6.25204pt on input line 4.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 7.91925pt on input line 4.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 6.25204pt on input line 4.
+
+
+LaTeX Warning: Reference `subsection:sat_solvers' on page 1 undefined on input 
+line 11.
+
+[1
+
+]
+
+LaTeX Warning: Reference `section:preliminaries' on page 2 undefined on input l
+ine 18.
+
+
+LaTeX Warning: Reference `subsection:3sat' on page 2 undefined on input line 18
+.
+
+
+LaTeX Warning: Reference `subsection:pvsnp' on page 2 undefined on input line 1
+8.
+
+
+LaTeX Warning: Reference `subsection:cpandh' on page 2 undefined on input line 
+18.
+
+
+LaTeX Warning: Reference `subsection:ga_prelim' on page 2 undefined on input li
+ne 18.
+
+
+LaTeX Warning: Reference `section:preliminaries' on page 2 undefined on input l
+ine 19.
+
+
+LaTeX Warning: Reference `subsection:sat_solvers' on page 2 undefined on input 
+line 19.
+
+
+LaTeX Warning: Reference `section:ga_design' on page 2 undefined on input line 
+20.
+
+
+LaTeX Warning: Reference `section:implementation' on page 2 undefined on input 
+line 21.
+
+
+LaTeX Warning: Reference `subsection:ga_class' on page 2 undefined on input lin
+e 21.
+
+
+LaTeX Warning: Reference `subsection:data_desc' on page 2 undefined on input li
+ne 21.
+
+) [2]
+Chapter 2.
+(./chapters/preliminaries.tex [3
+
+]
+<images/computation_trees.png, id=320, 583.42969pt x 344.78813pt>
+File: images/computation_trees.png Graphic file (type png)
+<use images/computation_trees.png>
+Package pdftex.def Info: images/computation_trees.png  used on input line 50.
+(pdftex.def)             Requested size: 298.75264pt x 176.55511pt.
+LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 51.
+
+Underfull \hbox (badness 1210) in paragraph at lines 51--51
+ []\T1/ppl/b/n/10.95 Figure 2.1: |\T1/ppl/m/n/10.95 Left: De-ter-min-is-tic Tur
+-ing ma-chine com-pu-ta-tion tree. Right: Non- 
+ []
+
+
+Overfull \hbox (3.28307pt too wide) in paragraph at lines 46--54
+\T1/ppl/m/n/12 chine by ex-plor-ing the whole com-pu-ta-tion tree gen-er-ated b
+y the non-deterministic
+ []
+
+[4]
+LaTeX Font Info:    Try loading font information for U+fplmbb on input line 67.
+
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ufplmbb.fd
+File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
+) [5 <./images/computation_trees.png>]
+Overfull \hbox (32.53113pt too wide) in paragraph at lines 83--85
+\T1/ppl/m/n/12 also safely as-sume $\OML/zplm/m/it/12 DTIME\OT1/zplm/m/n/12 [\O
+ML/zplm/m/it/12 t\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 n\OT1/zplm/m/n/12 )] \OMS/
+zplm/m/n/12 ^^R \OML/zplm/m/it/12 DSPACE\OT1/zplm/m/n/12 [\OML/zplm/m/it/12 t\O
+T1/zplm/m/n/12 (\OML/zplm/m/it/12 n\OT1/zplm/m/n/12 )]$ \T1/ppl/m/n/12 and $\OM
+L/zplm/m/it/12 NTIME\OT1/zplm/m/n/12 [\OML/zplm/m/it/12 t\OT1/zplm/m/n/12 (\OML
+/zplm/m/it/12 n\OT1/zplm/m/n/12 )] \OMS/zplm/m/n/12 ^^R \OML/zplm/m/it/12 NSPAC
+E\OT1/zplm/m/n/12 [\OML/zplm/m/it/12 t\OT1/zplm/m/n/12 (\OML/zplm/m/it/12 n\OT1
+/zplm/m/n/12 )]$
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+ppl on input line 90.
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsppl.fd
+File: omsppl.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ppl/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 90.
+<images/complexity_classes.png, id=333, 722.7pt x 323.2075pt>
+File: images/complexity_classes.png Graphic file (type png)
+<use images/complexity_classes.png>
+Package pdftex.def Info: images/complexity_classes.png  used on input line 100.
+
+(pdftex.def)             Requested size: 298.75264pt x 133.61078pt.
+ [6]
+<images/complete_hard.png, id=342, 1927.2pt x 1204.5pt>
+File: images/complete_hard.png Graphic file (type png)
+<use images/complete_hard.png>
+Package pdftex.def Info: images/complete_hard.png  used on input line 118.
+(pdftex.def)             Requested size: 298.75264pt x 186.71394pt.
+
+Overfull \hbox (6.42816pt too wide) in paragraph at lines 123--124
+\T1/ppl/m/n/12 Complete ([]Cook [][]1971[][]), there-fore find-ing a poly-no-mi
+al time al-go-rithm which solves
+ []
+
+[7 <./images/complexity_classes.png>]
+<images/genetic_algorithm_2.jpg, id=353, 757.83125pt x 420.57124pt>
+File: images/genetic_algorithm_2.jpg Graphic file (type jpg)
+<use images/genetic_algorithm_2.jpg>
+Package pdftex.def Info: images/genetic_algorithm_2.jpg  used on input line 136
+.
+(pdftex.def)             Requested size: 384.1096pt x 213.16652pt.
+
+Overfull \hbox (1.55507pt too wide) in paragraph at lines 147--148
+\T1/ppl/m/it/12 Logemann-Loveland \T1/ppl/m/n/12 (DPLL) al-go-rithm and the \T1
+/ppl/m/it/12 conflict-driven clause learn-ing \T1/ppl/m/n/12 (CDCL)
+ []
+
+
+Underfull \vbox (badness 1337) has occurred while \output is active []
+
+ [8 <./images/complete_hard.png>]
+
+LaTeX Warning: Citation 'Davis1962' on page 9 undefined on input line 150.
+
+[9 <./images/genetic_algorithm_2.jpg>]
+
+LaTeX Warning: Citation 'Een2000' on page 10 undefined on input line 164.
+
+
+LaTeX Warning: Citation 'Gent2006' on page 10 undefined on input line 168.
+
+
+LaTeX Warning: Citation 'Bacchus1995' on page 10 undefined on input line 169.
+
+
+Overfull \hbox (1.66249pt too wide) in paragraph at lines 169--170
+[]\T1/ppl/m/it/12 Dynamic vari-able or-der-ing \T1/ppl/m/n/12 al-ters the or-de
+r in which the vari-ables are in-stanced
+ []
+
+
+LaTeX Warning: Citation 'Hamadi2009' on page 10 undefined on input line 176.
+
+
+LaTeX Warning: Citation 'Moskewicz2001' on page 10 undefined on input line 181.
+
+
+[10]
+
+LaTeX Warning: Citation 'Gebser2007' on page 11 undefined on input line 185.
+
+
+LaTeX Warning: Citation 'Biere2010' on page 11 undefined on input line 192.
+
+
+LaTeX Warning: Citation 'Biere2012' on page 11 undefined on input line 194.
+
+
+LaTeX Warning: Citation 'Biere2017' on page 11 undefined on input line 198.
+
+
+LaTeX Warning: Citation 'Jarvisalo2012' on page 11 undefined on input line 199.
+
+
+[11]) [12]
+Chapter 3.
+(./chapters/genetic_algorithm_design.tex
+Overfull \hbox (1.16006pt too wide) in paragraph at lines 6--9
+\T1/ppl/m/n/12 The first step when de-sign-ing a ge-netic al-go-rithm is choos-
+ing an ad-e-quate method
+ []
+
+[13
+
+]
+Overfull \hbox (1.9741pt too wide) in paragraph at lines 32--32
+[][][]\T1/ppl/m/n/10 https://numpy.org/doc/stable/reference/random/generated/nu
+mpy.random.randint.html| 
+ []
+
+
+Underfull \vbox (badness 1122) has occurred while \output is active []
+
+ [14]
+
+Package amsmath Warning: Foreign command \over;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 46.
+
+[15]
+<images/stochastic_universal_sampling.png, id=418, 564.1075pt x 132.495pt>
+File: images/stochastic_universal_sampling.png Graphic file (type png)
+<use images/stochastic_universal_sampling.png>
+Package pdftex.def Info: images/stochastic_universal_sampling.png  used on inpu
+t line 100.
+(pdftex.def)             Requested size: 384.1096pt x 90.21872pt.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 11.40997pt on input line 101.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 11.40997pt on input line 101.
+
+Overfull \hbox (9.42743pt too wide) in paragraph at lines 109--112
+\T1/ppl/m/n/12 Annealed se-lec-tion works by com-put-ing both the rank fit-ness
+ value and the roulette
+ []
+
+
+Underfull \vbox (badness 1038) has occurred while \output is active []
+
+ [16 <./images/stochastic_universal_sampling.png>]
+<images/single_point_crossover.png, id=429, 804.00375pt x 282.05376pt>
+File: images/single_point_crossover.png Graphic file (type png)
+<use images/single_point_crossover.png>
+Package pdftex.def Info: images/single_point_crossover.png  used on input line 
+136.
+(pdftex.def)             Requested size: 298.75264pt x 104.80583pt.
+ [17]
+<images/two_point_crossover.png, id=438, 804.00375pt x 282.05376pt>
+File: images/two_point_crossover.png Graphic file (type png)
+<use images/two_point_crossover.png>
+Package pdftex.def Info: images/two_point_crossover.png  used on input line 147
+.
+(pdftex.def)             Requested size: 298.75264pt x 104.80583pt.
+<images/sliding_window_crossover.png, id=439, 814.04124pt x 292.09125pt>
+File: images/sliding_window_crossover.png Graphic file (type png)
+<use images/sliding_window_crossover.png>
+Package pdftex.def Info: images/sliding_window_crossover.png  used on input lin
+e 158.
+(pdftex.def)             Requested size: 298.75264pt x 107.19403pt.
+ [18 <./images/single_point_crossover.png> <./images/two_point_crossover.png> <
+./images/sliding_window_crossover.png>]
+<images/random_map_crossover.png, id=451, 814.04124pt x 432.61626pt>
+File: images/random_map_crossover.png Graphic file (type png)
+<use images/random_map_crossover.png>
+Package pdftex.def Info: images/random_map_crossover.png  used on input line 16
+9.
+(pdftex.def)             Requested size: 298.75264pt x 158.76508pt.
+<images/uniform_crossover.png, id=452, 814.04124pt x 292.09125pt>
+File: images/uniform_crossover.png Graphic file (type png)
+<use images/uniform_crossover.png>
+Package pdftex.def Info: images/uniform_crossover.png  used on input line 180.
+(pdftex.def)             Requested size: 298.75264pt x 107.19403pt.
+ [19 <./images/random_map_crossover.png> <./images/uniform_crossover.png>]
+[20] [21]
+Overfull \hbox (8.19226pt too wide) in paragraph at lines 246--248
+\T1/ppl/m/n/12 Weak par-ent re-place-ment is de-rived from par-ent re-place-men
+t with the main change
+ []
+
+[22]
+Overfull \hbox (30.75323pt too wide) in paragraph at lines 267--268
+[]\T1/ppl/m/n/12 contains only pos-i-tive vari-ables there-fore by set-ting the
+m all to true $\OMS/zplm/m/n/12 f\OML/zplm/m/it/12 x[]\OT1/ppl/m/n/12 , \OML/zp
+lm/m/it/12 x[]\OT1/ppl/m/n/12 , \OML/zplm/m/it/12 x[]\OT1/ppl/m/n/12 , \OML/zpl
+m/m/it/12 x[]\OMS/zplm/m/n/12 g \OT1/zplm/m/n/12 =
+ []
+
+[23]) [24]
+Chapter 4.
+(./chapters/implementation.tex
+Overfull \hbox (2.39516pt too wide) in paragraph at lines 21--23
+\T1/ppl/m/n/12 to be set through the func-tion \T1/ppl/m/it/12 set_params\T1/pp
+l/m/n/12 , this func-tion sets the se-lec-tion, crossover,
+ []
+
+[25
+
+]
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.41 \begin{tabular}{|l|l|}
+                           
+? 
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.41 \begin{tabular}{|l|l|}
+                           
+? 
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.41 \begin{tabular}{|l|l|}
+                           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.42 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.45 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.47 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.49 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.51 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.53 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.55 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.57 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.59 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.61 \hline
+           
+? 
+
+Overfull \hbox (1.08661pt too wide) in paragraph at lines 41--63
+ [] 
+ []
+
+
+Overfull \hbox (72.0pt too wide) in paragraph at lines 63--63
+[] [] 
+ []
+
+[26]
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.75 \begin{tabular}{|l|l|}
+                           
+? 
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.75 \begin{tabular}{|l|l|}
+                           
+? 
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.75 \begin{tabular}{|l|l|}
+                           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.76 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.79 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.81 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.83 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.85 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.87 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.89 \hline
+           
+? 
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.98 \begin{tabular}{|l|l|}
+                           
+? 
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.98 \begin{tabular}{|l|l|}
+                           
+? 
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.98 \begin{tabular}{|l|l|}
+                           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.99 \hline
+           
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.102 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.104 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.106 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.108 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.110 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.112 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.114 \hline
+            
+? 
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.125 \begin{tabular}{|l|l|l|}
+                              
+? 
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.125 \begin{tabular}{|l|l|l|}
+                              
+? 
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.125 \begin{tabular}{|l|l|l|}
+                              
+? 
+! Undefined control sequence.
+<argument> {\CT@arc@ 
+                     \vline }
+l.125 \begin{tabular}{|l|l|l|}
+                              
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.126 \hline
+            
+? 
+LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10> not available
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 128.
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.129 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.131 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.133 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.135 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.137 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.139 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.141 \hline
+            
+? 
+! Undefined control sequence.
+\hline ... \hrule \let \@width \@height {\CT@arc@ 
+                                                  \vline }\futurelet \reserv...
+l.143 \hline
+            
+? 
+[27]
+<images/bbdd_diagram.png, id=521, 593.21625pt x 382.42876pt>
+File: images/bbdd_diagram.png Graphic file (type png)
+<use images/bbdd_diagram.png>
+Package pdftex.def Info: images/bbdd_diagram.png  used on input line 166.
+(pdftex.def)             Requested size: 426.79135pt x 275.15009pt.
+
+Overfull \hbox (8.89883pt too wide) in paragraph at lines 174--175
+\T1/ppl/m/n/12 to a set, if no du-pli-cates are al-lowed this value is equal to
+ the \T1/ppl/m/it/12 pop-u-la-tion_length\T1/ppl/m/n/12 ,
+ []
+
+[28]) [29 <./images/bbdd_diagram.png>] [30]
+Chapter 5.
+(./chapters/analysis.tex) [31
+
+] [32
+
+]
+Chapter 6.
+(./chapters/conclusions.tex) [33] [34
+
+]
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 172.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+) [35] [36
+
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 197.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 197.
+
+(./tfg_plantilla.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 197.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 197.
+
+
+Package rerunfilecheck Warning: File `tfg_plantilla.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `tfg_plantilla.out':
+(rerunfilecheck)             Before: F9A36BE90FB34C813A54E96CC0BF01F6;2199
+(rerunfilecheck)             After:  B36F4291BBB87F4CD001FC151763A087;2307.
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                tfg_plantilla
+(biblatex)                and rerun LaTeX afterwards.
+
+Package logreq Info: Writing requests to 'tfg_plantilla.run.xml'.
+\openout1 = `tfg_plantilla.run.xml'.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 197.
+ ) 
+Here is how much of TeX's memory you used:
+ 19118 strings out of 494923
+ 306051 string characters out of 6180742
+ 754565 words of memory out of 5000000
+ 21876 multiletter control sequences out of 15000+600000
+ 66477 words of font info for 154 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 45i,15n,60p,2413b,3445s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{cite.0@Bhattacharjee2017} has been referenced but
+ does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@Jyotishree2012a} has been referenced but doe
+s not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@Jyotishree} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@Jebari2013} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@Cochran2011} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@Cook1971} has been referenced but does not e
+xist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.0.1} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@Savitch1970} has been referenced but does no
+t exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@Karp2010} has been referenced but does not e
+xist, replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.caption.46} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.caption.29} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.caption.27} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.caption.25} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.caption.23} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{figure.caption.20} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{chapter*.47} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.4.0.3} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.4.0.2} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.4.0.1} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.3.0.8} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.3.0.7} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.3.0.6} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.3.0.5} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.3.0.4} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.3.0.3} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.3.0.2} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.3.0.1} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.2.0.5} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.2.0.4} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.2.0.3} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.2.0.2} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.2.0.1} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.1.0.3} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.1.0.2} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.1.0.1} has been referenced but does not 
+exist, replaced by a fixed one
+
+ </home/juan/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk>
+ </home/juan/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss1200.600pk>
+ </home/juan/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsx1728.600pk>
+ </home/juan/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsx2074.600pk>
+ </home/juan/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsx2488.600pk>
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/mathpazo/fplmbb.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/mathpazo/fplmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo
+/fplmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on tfg_plantilla.pdf (52 pages, 475829 bytes).
+PDF statistics:
+ 774 PDF objects out of 1000 (max. 8388607)
+ 565 compressed objects within 6 object streams
+ 183 named destinations out of 1000 (max. 500000)
+ 351 words of extra memory for PDF output out of 10000 (max. 10000000)
+

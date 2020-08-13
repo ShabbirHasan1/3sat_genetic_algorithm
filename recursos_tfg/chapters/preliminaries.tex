@@ -1,82 +1,204 @@
+\section{Preliminaries}
+\label{section:preliminaries}
+
 \subsection{3-SAT Problem}
+\label{subsection:3sat}
 
 The boolean satisfiability problem is the problem of determining, for a given boolean expression, if there exists an assignment of values, such that the formula evaluates to True, or proving no such assignment exists and therefore the formula will always evaluate to False. For example, having variables $\{x_1, x_2, x_3, x_4\}$ and the boolean expression:
-\bigbreak
-$
- x_1 \land (x_1 \lor \overline{x_2}) \land (x_2 \lor x_3 \lor \overline{x_4}) \land (x_1 \lor \overline{x_2} \lor \overline{x_4}) \land (x_1 \lor x_2 \lor \overline{x_3} \lor x_4)
-$
-\bigbreak
+\begin{equation*}
+ (x_1) \land (x_1 \lor \overline{x_2}) \land (x_2 \lor x_3 \lor \overline{x_4}) \land (x_1 \lor \overline{x_2} \lor \overline{x_4}) \land (x_1 \lor x_2 \lor \overline{x_3} \lor x_4)
+\end{equation*}
 It is trivial to find an assignment of variables such that the given expression evaluates to True (eg. $\{True, True, False, False\}$), consequently this expression is said to be \textit{satisfiable}, but for this other boolean expression:
-\bigbreak
-$
- \overline{x_1} \land (x_1 \lor \overline{x_2}) \land (x_2 \lor x_3 \lor \overline{x_4}) \land (x_1 \lor \overline{x_2} \lor \overline{x_4}) \land (x_1 \lor x_2 \lor \overline{x_3} \lor x_4)
-$
-\bigbreak There exists no such assignment, the equation will never be solved by tweaking the variable values, therefore it is an \textit{unsatisfiable} expression.
+\begin{equation*}
+ (\overline{x_1}) \land (x_1 \lor \overline{x_2}) \land (x_2 \lor x_3 \lor \overline{x_4}) \land (x_1 \lor \overline{x_2} \lor \overline{x_4}) \land (x_1 \lor x_2 \lor \overline{x_3} \lor x_4)
+\end{equation*} 
+There exists no such assignment, the equation will never be solved by tweaking the variable values, therefore it is an \textit{unsatisfiable} expression.
 \\Any algorithm designed to solve SAT instances must distinguish between satisfiable and unsatisfiable problems however, barring some trivial or contradictory expressions, this can only be done by attempting to solve the actual problems, since no one can assert that no solution exists if they haven't searched the whole solution space.
 \\Due to the inherently random nature of Genetic Algorithms one can not be sure the whole solution space has been searched and, in consequence, won't be able to assert with confidence that no solution exists, only that no solution has been found in the given amount of time, this is the main reason why this work will focus only on SAT instances which are known to be solvable.
 \\All the boolean SAT expressions used throughout this work are in conjunctive normal form or CNF, this means that all formulas are a conjunction ($\wedge$) of clauses (or a single clause), these clauses contain the variables and the disjunction ($\vee$) operator, they can also contain the negation ($\neg$) operator; Both of the boolean formulas shown above are in conjunctive normal form.
-\\3-SAT is a restricted version of SAT where each clause has exactly three variables in it, the problem of determining the satisfiability of a 3-SAT formula in conjunctive normal form is also NP-Complete \parencite{Karp2010} (TODO:ADD more text??).
+\\3-SAT is a restricted version of SAT where each clause has exactly three variables in it, the problem of determining the satisfiability of a 3-SAT formula in conjunctive normal form is also NP-Complete \parencite{Karp2010} 
 
 \subsection{P vs NP}
+\label{subsection:pvsnp}
 
 Computational complexity theory is a branch of mathematics and theoretical computer science, which tries to classify different mathematical problems according to the computational resources needed to solve them, usually the measured resources are time and storage space, though other complexity measures can also be used.
 \\The analysis of complexity is done using a mathematical model of computation, this model allows us to analyze the performance of algorithms inside a theoretical computation machine, which means we can compare different algorithms without worrying about the details of their specific implementations.
 \\The most common model of computation used is called a Turing machine, invented in 1936 by mathematician Alan Turing, a Turing machine is a theoretical machine which consists of four parts:
-\renewcommand\labelitemi{$\textendash$}
 \begin{itemize}
-	\item An infinite \textit{tape} divided into cells
-	\item A \textit{head} that can write and read symbols on the tape and can also move left or right along the tape
-	\item A \textit{state register} that stores the state of the Turing machine
-	\item A finite table of \textit{instructions}, which tell the head what to do based on the state and the symbols on the tape
+	\item[--] An infinite \textit{tape} divided into cells
+	\item[--] A \textit{head} that can write and read symbols on the tape and can also move left or right along the tape
+	\item[--] A \textit{state register} that stores the state of the Turing machine
+	\item[--] A finite table of \textit{instructions}, which tell the head what to do based on the state and the symbols on the tape
 \end{itemize}
 The machine then operates on the tape, its behavior is defined in the instructions table where instructions are indexed by state and symbol, there are three types of possible instructions:
-\renewcommand\labelitemi{$\textendash$}
 \begin{itemize}
-	\item Erase or write a symbol on the tape
-	\item Move the head left or right one cell
-	\item Change state. 
+	\item[--] Erase or write a symbol on the tape
+	\item[--] Move the head left or right one cell
+	\item[--] Change state. 
 \end{itemize}
 The machine will begin by reading the first symbol on the tape and then executing instructions until it halts. 
 \\A Turing machine is a useful model of computation when trying to study an algorithm's performance on real machines, since anything that can be calculated using a traditional computer can also be computed using a Turing machine.
 \\Different types of Turing machines can be used to define different complexity classes, the most commonly used are:
-\renewcommand\labelitemi{$\textendash$}
 \begin{itemize}
-	\item \textit{Deterministic Turing machines}, for each combination of state and symbol in the instructions table there exists only one instruction. 
-	\item \textit{Non-deterministic Turing machines}, for each combination of state and symbol there can exist more than one instruction in the instructions table, therefore it is non-deterministic since it is not possible to know exactly the next state of the machine based on the current state and the tape symbol.
+	\item[--] \textit{Deterministic Turing machines}, for each combination of state and symbol in the instructions table there exists only one instruction. 
+	\item[--] \textit{Non-deterministic Turing machines}, for each combination of state and symbol there can exist more than one instruction in the instructions table, therefore it is non-deterministic since it is not possible to know exactly the next state of the machine based on the current state and the tape symbol.
 \end{itemize}
 Though a non-deterministic Turing machine can be fully replicated using a deterministic Turing machine, it is nonetheless a useful abstraction because it allows us to generate computation trees with many branches, and as long as any one of these branches reaches an accepting state, the machine will halt and accept, it will only reject once all the branches have reached their limit. 
 \\This is in contrast with deterministic Turing machines where the computation tree is a single branch with nodes following each other sequentially; A non-deterministic Turing machine can be recreated using a deterministic Turing machine by exploring the whole computation tree generated by the non-deterministic machine using tree traversal algorithms, but the resulting machine is much more convoluted and difficult to reason about.
-(TODO: Change image for one made by me)
-\bigbreak
-\begin{figure}[h!]
-	\includegraphics[width=\linewidth]{images/computation_trees.png}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{images/computation_trees.png}
 	\caption{ Left: Deterministic Turing machine computation tree. Right: Non-deterministic Turing machine computation tree}
 	\label{fig:Computation Trees}
 \end{figure}
-\bigbreak
 
-\\Different complexity classes are defined by establishing upper bounds to the resources available for the aforementioned Turing machines; For example the complexity class P is composed of all the problems which can be solved by a deterministic Turing machine in polynomial time, P is a class with a time constraint, the amount of space used is irrelevant for this categorization.
+Different complexity classes are defined by establishing upper bounds to the resources available for the aforementioned Turing machines; For example the complexity class P is composed of all the problems which can be solved by a deterministic Turing machine in polynomial time, P is a class with a time constraint, the amount of space used is irrelevant for this categorization.
 There exist four fundamental classes based on the resources constrained:
 
 \begin{itemize}
-	\item \textbf{$DTIME[t(n)]$} is composed of all the problems which can be solved by a deterministic Turing machine in $t(n)$ amount of time
-	\item \textbf{$NTIME[t(n)]$} is composed of all the problems which can be solved by a non-deterministic Turing machine in $t(n)$ amount of time
-	\item \textbf{$DSPACE[s(n)]$} is composed of all the problems which can be solved by a deterministic Turing machine in $s(n)$ amount of space
-	\item \textbf{$NSPACE[s(n)]$} is composed of all the problems which can be solved by a non-deterministic Turing machine in $s(n)$ amount of space
+	\item[--] \textbf{$DTIME[t(n)]$} is composed of all the problems which can be solved by a deterministic Turing machine in $t(n)$ amount of time
+	\item[--] \textbf{$NTIME[t(n)]$} is composed of all the problems which can be solved by a non-deterministic Turing machine in $t(n)$ amount of time
+	\item[--] \textbf{$DSPACE[s(n)]$} is composed of all the problems which can be solved by a deterministic Turing machine in $s(n)$ amount of space
+	\item[--] \textbf{$NSPACE[s(n)]$} is composed of all the problems which can be solved by a non-deterministic Turing machine in $s(n)$ amount of space
 \end{itemize}
 
-Using these fundamental classes the complexity class P can be defined as the union of all problems in $DTIME[t(n)]$ where t(n) is a polynomial expression, formally: 
-\begin{equation}
-P=DTIME[n^{O(1)}]=\bigcup_{k\geq1}DTIME[n^k]}
-\end{equation}
-\bigbreak
-(TODO: Show some canonical complexity classes, then mention that some borders and relations are known but others are not, which leads us to P vs NP)
+Using these fundamental classes the complexity class P can be defined as the union of all problems in $DTIME[t(n)]$ where t(n) is polynomial time, formally: 
+\begin{equation*}
+P=DTIME[n^{O(1)}]=\bigcup_{k\in\mathbb{N}}DTIME[n^k]
+\end{equation*}
+The canonical complexity classes are defined as follows:
+\begin{itemize}
+	\item[--] $L = DSPACE[log n]$ (logarithmic space)
+	\item[--] $NL = NSPACE[log n]$ (logarithmic space)
+	\item[--] $P = DTIME[n^{O(1)}] = \bigcup_{k\in\mathbb{N}}DTIME[n^k]$ (polynomial time)
+	\item[--] $NP = NTIME[n^{O(1)}] = \bigcup_{k\in\mathbb{N}}NTIME[n^k]$ (polynomial time)
+	\item[--] $PSPACE = DSPACE[n^{O(1)}] = \bigcup_{k\in\mathbb{N}}DSPACE[n^k]$ (polynomial space)
+	\item[--] $E = DTIME[2^{O(n)}] = \bigcup_{k\in\mathbb{N}}DTIME[k^n]$ (exponential time, linear exponent)
+	\item[--] $NE = NTIME[2^{O(n)}] = \bigcup_{k\in\mathbb{N}}NTIME[k^n]$ (exponential time, linear exponent)
+	\item[--] $EXPTIME = DTIME[2^{n^{O(1)}}] = \bigcup_{k\in\mathbb{N}}DTIME[2^{n^k}]$ (exponential time)
+	\item[--] $NEXPTIME = NTIME[2^{n^{O(1)}}] = \bigcup_{k\in\mathbb{N}}NTIME[2^{n^k}]$ (exponential time)
+	\item[--] $EXPSPACE = DSPACE[2^{n^{O(1)}}] = \bigcup_{k\in\mathbb{N}}DSPACE[2^{n^k}]$ (exponential space)
+\end{itemize}
 
-\\The boolean satisfiability problem was the first problem proven to be NP-Complete \parencite{Cook1971}
+Some of the boundaries between complexity classes are naturally established by the differences between the models of computation used, a deterministic Turing machine can be considered as a version of a non-deterministic Turing machine which explores branches sequentially, this relationship is represented as $DTIME[t(n)] \subseteq NTIME[t(n)]$ and $DSPACE[s(n)] \subseteq NSPACE[s(n)]$, one can also safely assume $DTIME[t(n)] \subseteq DSPACE[t(n)]$ and $NTIME[t(n)] \subseteq NSPACE[t(n)]$ since a Turing machine can only write at most one new symbol on the tape at every time step.
+\\Other boundaries have been proven, for example Savitch's theorem proves \parencite{Savitch1970}:
+\begin{equation*}
+NSPACE[s(n)] \subseteq DSPACE[(s(n))^2]
+\end{equation*}
+The relationship $NPSPACE = PSPACE$ is deduced as a corollary of the theorem; Having this relationship, other theorems related to boundaries in the complexity hierarchy can also be proven (TODO: add reference to lec16.pdf??):
+\begin{itemize}
+	\item $NP \subseteq PSPACE$
+	\item $PSPACE \subseteq EXPTIME$
+\end{itemize}
+After applying these theorems the following hierarchy of complexity classes is obtained:
+\begin{equation}
+P \subseteq NP \subseteq PSPACE = NPSPACE \subseteq EXPTIME\label{eq:1}
+\end{equation}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{images/complexity_classes.png}
+	\caption{ Relations between some of the canonical complexity classes}
+	\label{fig:Complexity_classes}
+\end{figure}
+
+The boundaries between classes shown in the hierarchy above \eqref{eq:1}. are not hard boundaries, which means all three classes could in theory be the same class, though there exists proof that at least one of the boundaries must not be equal (TODO: add reference to time hierarchy theorem??); This leads us to one of the main unsolved problems in computational theory, is \textbf{P} equal to \textbf{NP}?, in other terms, can all problems which can be verified in polynomial time by a deterministic Turing machine also be solved by that same deterministic machine in polynomial time? Any proof demonstrating the relationship or its negation will have a great impact on the field of computational theory and many others such as mathematics, philosophy, game theory or algorithm analysis to name a few.
+
+
+\subsection{Completeness and Hardness}
+\label{subsection:cpandh}
+
+Inside the different complexity classes there exists a certain type of problems which are said to be \textit{Hard}, a problem $P$ is considered hard if all other problems in the complexity class can be reduced to $P$ using a polynomial time reduction; If problem $A$ can be transformed into an instance of problem $B$ in polynomial time, then problem $A$ is polynomial time reducible to $B$.
+\\A hard problem is at least as difficult to solve as the hardest problems in the complexity class, this means if there exists a solver for the hard problem, it can be used to demonstrate that all other problems in the complexity class can also be solved in the same amount of time, since they can be reduced to the hard problem in polynomial time.
+A problem does not need to be in a complexity class, for it to be considered hard in relation to that same complexity class, (TODO: add example of hard problem which is not complete).
+\\If a problem is hard in relation to the same complexity class it is found in, that problem is considered \textit{Complete}, the complete problems represent the hardest problems in that complexity class.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{images/complete_hard.png}
+	\caption{ NP-Hard and NP-Complete boundaries}
+	\label{fig:NP_boundaries}
+\end{figure}
+
+The boolean satisfiability problem was the first problem proven to be NP-Complete \parencite{Cook1971}, therefore finding a polynomial time algorithm which solves the SAT problem is akin to proving $P=NP$, the reverse is also true, if one can prove that no polynomial time algorithm for the SAT problem can exist, then $P!=NP$ is also proven. 
 
 
 \subsection{Genetic Algorithms}
+\label{subsection:ga_prelim}
+
+A genetic algorithm is a meta-heuristic designed to mimic the behavior of natural selection, it does so by evolving a population of candidate solutions through the use of biologically inspired operators.
+\\Initially a population of random candidate solutions is generated, then the population is ranked using a fitness function which measures how well each individual in the population solves the problem; Once every individual has a fitness value associated, the individuals which will be used to generate the next population are selected based on said value and grouped into pairs, these pairs are called \textit{parents} and the process of choosing them is called \textit{selection}.
+\\With the parents now selected begins the \textit{crossover} process, for every parent pair the parent genes are split and recombined in order to form two new individuals, these new individuals are the \textit{children} which will form the new generation.
+\\Before the children are added to the new population they must undergo the \textit{mutation} process, where there is a chance that some genes inside the individual's genetic code might change; After every individual has been mutated the old population is replaced, either partially or totally, by a new population made of the mutated children through a process called \textit{replacement}; The new population is then ranked and the processes of selection, mutation and replacement are run again, this continues until a solution has been found or the maximum number of iterations for the algorithm is reached. 
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.9\columnwidth]{images/genetic_algorithm_2.jpg}
+	\caption{Genetic Algorithm steps}
+	\label{fig:Genetic_algorithm}
+\end{figure}
+
+A genetic algorithm is a population based random search algorithm \parencite{Cochran2011} since the initial population is randomly generated, but it differs from other random search algorithms due to the fact that a genetic algorithm performs a guided random search through the use of the biological operators mentioned above; These biological operators mimic the processes of evolution and natural selection, albeit in a pretty simplified manner. 
 
 
-\subsection{State of the Art}
+\subsection{SAT Solvers}
+\label{subsection:sat_solvers}
 
+Most of the modern SAT-solvers are based on two algorithms, the \textit{Davis-Putnam-Logemann-Loveland} (DPLL) algorithm and the \textit{conflict-driven clause learning} (CDCL) algorithm.
+
+\subsubsection{DPLL}
+The DPLL algorithm works by selecting a variable and splitting the problem into two simplified ones where said variable is assigned $True$ and $False$ respectively, then it chooses another variable and keeps splitting the problem recursively until a solution is found or all options have been checked \parencite{Davis1962}.
+\\The algorithm also uses some optimizations at each step in order to reduce the effective search space, these optimizations are the same as the ones explained in the \textit{trivial case}, \textit{remove unit variables} and \textit{remove pure variables} sections which appear later in this work.
+
+\subsubsection{CDCL}
+
+The CDCL algorithm works by first selecting a variable and assigning the value $True$ or $False$ to it, this assignment is "remembered" in the \textit{decision state}, then it applies \textit{boolean constraint propagation} (BCP) to the resulting clauses, which analyzes the unsatisfied clauses in search for clauses where two of the three variables are evaluated to $False$, it assigns a value to the other variable such that it evaluates to $True$, the resulting clauses are then analyzed again, this procedure continues until no more assignments can be made.
+\\After applying BCP it constructs an implication graph in order to find any conflicts in the variable assignments, if any conflict is found a new clause which negates the assignments that led to said conflict is derived and added to the clauses, then the algorithm backtracks to the \textit{decision state} where the conflicting variable value is assigned.
+\\If no conflicts are found in the implication graph the algorithm selects another variable and runs again, this process continues until all the variables have been assigned a value.
+
+\bigbreak
+The SAT-solvers shown below will be compared with the best performing genetic algorithms found throughout this work.
+
+\subsubsection{MiniSat}
+
+MiniSat is an extensible SAT-solver first developed in 2003 by Niklas Eén and Niklas Sörensson at Chalmers University of Technology, Sweden \parencite{Een2000}, the version used throughout this work is MiniSat v2.2.0, the second public release of MiniSat 2 which won the SAT-Race\footnote{The SAT Race or SAT Competition is a yearly competition for SAT-solvers organized by the \textit{International Conference on Theory and Applications of Satisfiability Testing}} in 2006.
+\\MiniSat is based on the CDCL algorithm though it improves the basic version by applying the techniques of watched literals and dynamic variable ordering.
+	
+\begin{itemize}
+	\item[--] \textit{Watched literals} improves the efficiency of the constraint propagator, reducing the amount of work that must be done during backtracking, this results in less time needed to check the satisfiability of the formulas \parencite{Gent2006}.
+	\item[--] \textit{Dynamic variable ordering} alters the order in which the variables are instanced by tree-search algorithms, a good ordering is known to improve the efficiency of the search algorithms \parencite{Bacchus1995}.
+\end{itemize}
+
+\subsubsection{ManySat}
+
+ManySat is a portfolio-based SAT-solver, first developed in 2008 by Y. Hamadi, S. Jabbour, and L. Sais it won best parallel SAT-solver in the SAT-Race 2008 and silver and bronze medals in the SAT-Race 2010.
+\\Portfolio-based SAT-solvers run various algorithms in parallel, and stop as soon as any one of them reaches an answer, this allows them to exploit the multiprocessing capabilities of modern processors by running various algorithms concurrently, which helps offset the weaknesses of each specific algorithm thereby making the portfolio-based algorithm more robust.
+\\ManySat uses variations of the DPLL and CDCL algorithms in its portfolio, each of the variations uses a specific set of parameters such that the generated strategies are orthogonal yet complementary \parencite{Hamadi2009}.
+
+\subsubsection{zChaff}
+
+zChaff is an implementation of the \textit{Chaff} algorithm, originally developed by Dr. Lintao Zhang it is currently being maintained by Yogesh Mahajan.
+\\\textit{Chaff} is a variation of the DPLL algorithm designed by researchers at Princeton University \parencite{Moskewicz2001}, it improves the algorithm by using the \textit{watched literals} technique and a decision heuristic called \textit{Variable State Independent Decaying Sum} which changes the variable selection process, in addition to some other enhancements such as conflict clause deletion and early restarts.
+
+\subsubsection{Clasp}
+
+Clasp is a conflict-driven answer set solver developed in 2007 by Martin Gebser, Benjamin Kaufmann, André Neumann, and Torsten Schaub at the Institut für Informatik in Universität Potsdam, it is part of Potassco, the Potsdam Answer Set Solving Collection \parencite{Gebser2007}.
+\\Clasp and its variants won gold and silver medals during the SAT Races of 2009, 2011 and 2013, in all cases the medals were won in the crafted instances category.
+\\Clasp's main algorithm works through conflict-driven nogood learning, it generates a set of \textit{nogoods}, which are variables whose value has been set using the \textit{Clark completion} procedure, it also creates an initial positive atom-body-dependency graph which is used to detect conflicts, then it applies the \textit{unit clause rule} to said nogoods set, along with some decision heuristics, the process of generating nogoods and applying the unit clause rule is repeated until a conflict is found, in which case it backtracks to the nogood assignment which caused the conflict through the atom-body-dependency graph, or until no more assignments can be made.
+
+\subsubsection{Lingeling, Treengeling and Plingeling}
+
+Lingeling is a SAT-solver developed in 2010 by Armin Biere at the Institute for Formal Models and Verification in Johannes Kepler University, Linz, Austria; Along with its variants Treengeling, Plingeling and others, it won gold, silver and bronze medals during the SAT Races of 2010, 2011, 2013, 2014, 2016, 2017, 2018 and 2020, most of them in the parallel algorithms track with the variants Plingeling and Treengeling.
+\\Lingeling uses a standard CDCL algorithm with various pre-processing techniques interleaved, these include SCC decomposition for extracting equivalences, failed literal probing, which assigns a value to a variable then propagates it, if it fails the opposite value is assigned, and lazy hyper binary resolution, which combines multiple resolution steps for the boolean formula into one \parencite{Biere2010}.
+\\Plingeling is a multi-threaded version of Lingeling, where each thread runs a separate SAT solver instance, it is thus a portfolio-based parallel SAT solver.
+\\Treengeling is also a parallel solver which uses the same structure as Plingeling for parallel processing, the main differences between the two algorithms are the way the different SAT solvers are instanced in each thread and the information that is shared between said threads \parencite{Biere2012}.
+
+\subsubsection{CaDiCal}
+
+Cadical is also developed by Armin Biere at the Institute for Formal Models and Verification in Johannes Kepler University, Linz, Austria, it was first presented during the SAT Race 2017 \parencite{Biere2017}, year in which it won gold medal in the category of Satisfiable+Unsatisfiable problems; Cadical also won another gold medal during the SAT Race 2018 in the Unsatisfiable problems category.
+\\Cadical's main search loop is based on the CDCL algorithm but it expands on it by applying formula simplification methods at each time step, this procedure is called \textit{inprocessing} \parencite{Jarvisalo2012}, the three inprocessing methods used by Cadical are:
+\begin{itemize}
+	\item[--]\textit{probing}: failed literal probing learns the binary clauses through hyper binary resolution, these clauses are later used to remove equivalent variables and duplicated binary clauses.
+	\item[--]\textit{subsumption}: subsumption checks are used to remove the subsumed learned clauses, subsumed clauses are clauses which contain the same information, or a subset of it, than another clause, therefore they can be safely discarded without affecting the original formula.
+	\item[--]\textit{variable elimination}: (bounded) variable elimination is used along with subsumption checks to eliminate variables from the clauses, or substitute them by an equivalent definition in order to simplify the formula.
+\end{itemize}

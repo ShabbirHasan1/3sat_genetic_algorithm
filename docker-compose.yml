@@ -9,7 +9,6 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
       PGDATA: /data/postgres
     volumes:
-       - ./scripts/CreateDBs.sql:/docker-entrypoint-initdb.d/init-1.sql
        - postgres_ga_data:/data/postgres
     ports:
       - 5432:5432
@@ -41,5 +40,5 @@ services:
     command: bash -c "pip install -r genetic_algorithm/requirements.txt && tail -f /dev/null"
 
 volumes:
-    postgres_ga_data: 
-    pgadmin_ga_data:
+    postgres_ga_data: {}
+    pgadmin_ga_data: {}

@@ -1,0 +1,296 @@
+\section{Genetic Algorithm Design}
+\label{section:ga_design}
+
+\subsection{Codification of individuals}
+
+The first step when designing a genetic algorithm is choosing an adequate method of representation for the solution domain, this means choosing a way of representing the candidate solutions to the problem which allows for the application of the biological operators needed. 
+\\Usually this is achieved by encoding the solution as a fixed size list of values, though other encodings such as variable sized lists or tree-like representations may also be used, fixed size list representations are easier to work with since the genetic material is easier to split and align which allows for a simpler crossover operator.
+\\The representation chosen for the SAT solutions is a binary encoding, each individual's genotype\footnote{The genotype is the complete set of genes of an individual} is a single fixed size list where the values are binary digits, these digits are named \textit{genes} and they represent the \textit{True} (1) or \textit{False} (0) values of the variables in the SAT instance, their position in the genotype list indicates which variable the value is assigned to. For the following boolean expression:
+\begin{equation*}
+ (x_2 \lor x_3 \lor \overline{x_4}) \land (x_1 \lor \overline{x_2} \lor \overline{x_4}) \land (x_1 \lor x_2 \lor \overline{x_3})
+\end{equation*}
+A solution can be represented as a list of size 4 where each of the elements is either \textit{True}, encoded as a 1 or \textit{False}, encoded as a 0; Using this representation the solution $S$ becomes $S'$:
+\begin{equation*}
+\begin{split}
+S & = \{x_1=True, x_2=False, x_3=False, x_4=True \}
+\\S' & = \{1,0,0,1\}
+\end{split}
+\end{equation*}
+
+\subsection{Fitness Function}
+
+Once the genotype of the individuals has been established, the next step when designing a genetic algorithm is choosing the fitness function which will be used to rank the individuals based on how well they solve the problem; The individual's fitness value is called \textit{phenotype} since it is considered to be the "physical" expression of the individual's genotype.
+\\The fitness function chosen is based on the maximum satisfiability problem which tries to find the maximum number of clauses which can be solved in a boolean expression; The fitness value for each individual is equal to the number of clauses it solves for the given boolean expression. Formally:
+
+\begin{equation*}
+f_{MAXSAT}(x)= c_1(x)+...+c_m(x),
+\end{equation*}
+where $c_i(x)$ represents the truth value of the $i$th clause.
+
+\subsection{Initial Population}
+
+The initial population is formed by randomly generating individuals until the established population size is reached, for each individual a list of $N$ random integers is selected from the discrete uniform distribution in the interval $[0,1]$ using numpy's randint function\footnote{https://numpy.org/doc/stable/reference/random/generated/numpy.random.randint.html} where $N$ is equal to the number of variables in the boolean expression to be solved, if any of the equation's variables has already been set through the problem-specific optimizations, the gene representing that variable is also set to the same value; Once each individual's genome has been established they are added to the population list.
+\\Throughout this work two different ways of storing the population are used, one way stores it in a \textit{set} and the other in an \textit{array}, with the main difference between them being that arrays allow duplicate entries while sets do not, this leads to a greater computational cost when working with sets since individuals have to be regenerated until they are different from the existing ones, in order to reduce this cost lower population sizes are used for sets.  
+
+\subsection{Selection}
+Selection is the process by which the individuals are chosen from the population in order to become the parents of the new generation, special care must be taken when selecting the parent pairs so as to maintain sufficient genetic diversity in the resulting children population and prevent premature convergence.
+\\If too much emphasis is put on the fitness value, individuals with a high value can quickly dominate the population by filling it with copies of themselves, thereby reducing the effective search space of the algorithm by forcing it to focus only on the most effective solutions found up to that moment.
+\\While this effect can be desirable once the algorithm is reaching the end of its running time, it is best to avoid it in the initial stages and instead try to maintain a high genetic diversity.
+\\There exist many different selection algorithms each with their own characteristics and computational cost, some of them are explained below and will be used throughout this work as tunable parameters of the designed genetic algorithm.
+
+	\subsubsection{Random Selection}
+	The individuals are randomly selected from the population independent of their fitness value, once an individual has been selected as a parent it is removed from the population so it cannot be chosen again. 
+	\\The probability of each individual being selected is defined as:
+
+	\begin{equation*}
+	P(i) ={ 1 \over{N}}
+	\end{equation*}
+
+	Where $P(i)$ is the probability of selecting the individual $i$ and $N$ is the total number of individuals in the population
+
+	\subsubsection{Roulette Selection}
+
+	Roulette selection assigns a normalized value to each individual equal to the individual's fitness value divided by the sum of all fitness values in the population, each individual is assigned a range between 0 and 1 the size of which depends on its normalized value, a random real number between 0 and 1 is chosen and the individual upon whose range it falls is selected as a parent, then the process begins anew.
+	\\This selection process is akin to assigning a slice of a wheel to each individual, with fitter individuals getting bigger slices, then spinning the wheel like a roulette and wherever the ball lands it chooses that individual.
+	\\The selection probability of each individual is proportionate to its fitness, formally:
+
+	\begin{equation*}
+	P(i) = {f(i)\over{\sum_{j=1}^{N}f(j)}},
+	\end{equation*}
+
+	where $f(i)$ is the fitness value for the individual $i$.
+
+	\subsubsection{Rank Selection}
+
+	Rank selection sorts the individuals in the population by fitness value and ranks them from best $N$ to worst 1, then it assigns a fitness value to each individual equal to its rank divided by the total rank, finally another selection method must be used with the new fitness values, usually roulette selection.
+	\\The probability of selecting each individual can be defined as:
+
+	\begin{equation*}
+	P(i)={rank(i)\over{N*(N-1))}},
+	\end{equation*}
+
+	where $rank(i)$ is the rank assigned to the individual $i$.
+
+	\subsubsection{Tournament Selection}
+
+	In tournament selection, $K$ individuals are randomly selected from the population, those individuals are compared amongst each other and the one with the highest fitness value is selected to become a parent; The process is repeated until enough parents are selected to form the next generation.
+	The probability of each individual being selected as a parent is:
+
+	\begin{equation*}
+	P(i) = \left\{\begin{matrix}
+	{{f(i)}\over{\sum_{j=1}^{k}f(j)}} \; if \; i \in [1,n-k-1] \\
+	0 \; if \; i  \in [n-k,n]
+	\end{matrix}\right.
+	\end{equation*}
+
+	where $k$ is the tournament size and $n$ is the number of times the tournament is repeated \parencite{Jebari2013}.
+
+	\subsubsection{Truncation Selection}
+
+	Truncation selection sorts the individuals by their fitness value from best to worst, then selects the top $X\%$ to become the parents for the new generation, the children are all formed from combinations of those chosen individuals, self-mating is not allowed.
+
+	\subsubsection{Stochastic Universal Sampling}
+
+	In stochastic universal sampling first the total fitness value is calculated, this value is equal to the sum of all fitness values in the population, then said fitness value is divided by the total number of parents needed to create the next generation ($np$) resulting in the $distance$ between points.
+	\\A random integer is chosen between 0 and $distance$, then $np-1$ more points are chosen by adding the $distance$ to the previous point starting from the random point.
+	\\Once all the points have been selected, the individuals are mapped to a line such that the size of the line segment for each individual is proportional to its fitness value, wherever the chosen points fall along that line, those individuals are selected to become the parents of the next generation.
+
+	\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.9\columnwidth]{images/stochastic_universal_sampling.png}
+	\caption{Stochastic Universal Sampling, individuals ${1,2,3,4,6,8}$ are selected}
+	\label{fig:Stochastic universal sampling}
+	\end{figure}
+
+	Stochastic universal sampling is very similar to roulette selection though it fixes one of its pitfalls by not allowing individuals with a very high fitness to dominate the process, this gives weaker members of the population a chance to be chosen.
+
+	\subsubsection{Annealed Selection}
+
+	Annealed selection \parencite{Jyotishree} is a blend of roulette wheel selection and rank selection, which tries to fix the shortcomings of both these methods by shifting from exploration (with rank selection) in the early stages of the algorithm gradually towards exploitation (with roulette wheel selection) as the algorithm reaches the maximum number of iterations allowed.
+	\\Annealed selection works by computing both the rank fitness value and the roulette fitness value for each individual, each value is multiplied by a factor which determines the importance of said value, these factors depend on the current generation value and are responsible for the gradual shift from exploration to exploration.
+	\\Formally:
+
+	\begin{equation*}
+	f_a(i) = f_{rank}(i)*ra + f_{wheel}(i)*rb,
+	\end{equation*}
+
+	where $f_a(i)$ is the final fitness value for individual $i$, $f_{rank}(i)$ is its rank fitness value and $f_{wheel}(i)$ is its roulette wheel fitness value.
+	\\$ra$ is a factor which starts at 1 and decreases by $1\over{N_{gen}}$ each generation, while $rb$ starts at 0 and increases by $1\over{N_{gen}}$ each generation ($N_{gen}$ is the maximum number of iterations allowed).
+	The probability for selecting an individual $i$ as a parent is:
+	\begin{equation*}
+	P_x(i) = {f_a(i)\over{\sum_{i=1}^{N}f_a(i)}}
+	\end{equation*}
+
+\subsection{Crossover}
+Crossover in genetic algorithms is the process by which the genotype of the selected parents is recombined in order to generate new individuals, this process is analogous to the recombination of genetic material with occurs naturally during sexual reproduction in biology.
+\\The purpose of the crossover operator is to attempt to generate novel offspring, theoretically with a higher fitness value than their parents though this isn't always achieved in practice, in order to explore the solution space through recombination of the existing solutions/individuals. 
+\\All the crossover operators used throughout this work operate on a bit-string representation of the genetic material of each individual, though other different genetic operators or variations of the ones shown in this paper can also be used to operate on different genetic representations. 
+
+
+	\subsubsection{Single-point Crossover}
+
+	In single point crossover a natural number between 0 and $L$ is randomly chosen, $L$ is equal to the length of the genotype for the individuals, each parents gene string is split at the point chosen and the resulting halves are combined amongst each other with the resulting children each having some of their gene string coming from one parent and the rest from the other.
+
+	\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{images/single_point_crossover.png}
+	\caption{Single point crossover example with cutting point equal to 3}
+	\label{fig:Single point crossover}
+	\end{figure}
+
+	\subsubsection{Two-point Crossover}
+
+	Two point crossover is very similar in behavior to single point crossover but instead of choosing a single split point two of them are chosen, the children each are a copy of one parents with the substring of their gene string which appears between the two chosen points interchanged with the other children/parent.
+
+	\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{images/two_point_crossover.png}
+	\caption{Two point crossover example with cutting points equal to 2 and 4}
+	\label{fig:Two point crossover}
+	\end{figure}
+
+	\subsubsection{Sliding Window Crossover}
+
+	Sliding window crossover starts with a fixed window size $W$ established by the user, with the sliding window starting at point 0 up to point $W-1$ the parents exchange the genetic material inside the window, the corresponding children are saved in a temporary list, the sliding window then moves one cell over and the parents interchange the genetic material in the new window forming two more children, once the sliding window reaches the end ($L-W-1$) and all the different children have been added to the temporary list, the 2 fittest children with differing genotypes are selected, the rest are discarded. 	
+
+	\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{images/sliding_window_crossover.png}
+	\caption{Sliding window crossover example with window length equal to 3}
+	\label{fig:Sliding window crossover}
+	\end{figure}
+
+	\subsubsection{Random Map Crossover}
+
+	Random map crossover first generates an array of size $L$ formed natural numbers between 0 and 1, if the random map has a 0 in position $i$, then the parents interchange the gene at said position, if the random map instead has a 1 at position $i$ the parents maintain the same gene. 
+
+	\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{images/random_map_crossover.png}
+	\caption{Random map crossover example with map ${0,1,1,1,0,1}$}
+	\label{fig:Random map crossover}
+	\end{figure}
+
+	\subsubsection{Uniform Crossover}
+
+	In uniform crossover genes are interchanged between parents uniformly. For each child half of their genetic material will come from one parent and half from the other in an alternating fashion; For example for child 1 the first gene will be from parent 1 the second from parent 2 the third from parent 1 again and so on, while the second child starts with the first gene from parent 2, the second from parent 1, etc...
+
+	\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{images/uniform_crossover.png}
+	\caption{Uniform crossover example}
+	\label{fig:Uniform crossover}
+	\end{figure}
+
+\subsection{Mutation}
+Mutation is the process by which the genotype of individuals generated through crossover is changed in order to introduce more genetic diversity in the population.
+\\Maintaining genetic diversity is essential for the exploration of the solution space, if enough genetic diversity is lost the algorithm will focus too much on the dominating solutions and the exploration will get stuck in the local optimal solutions, in other words, the algorithm will focus too much on the exploitation of the available solutions while neglecting the exploration of the solution space.
+\\The probability of the mutation process occurring in an individuals genotype is given by the parameter $p_m$, this value must not be set too high or the search of the solution space will degenerate to a random search, it also must not be set too low or the mutation process will barely have any effects on the population.
+\\Since the representation used throughout this work is a bit-string representation, the mutation process can be done by flipping one or more genes inside the individuals genotype; Some of the different techniques used to achieve this are explained below.
+
+	\subsubsection{Single Bit Flip}
+
+	In single bit flip a random number between 0 and $L-1$ is chosen, $L$ is equal to the length of the gene string of the individuals, once the random number is chosen the bit indexed at that location in the gene string is flipped, if its value is 1 it is changed to 0 and vice-versa.
+
+	\subsubsection{Multiple Bit Flip}
+
+	Multiple bit flip is very similar to single bit flip with the main difference being the number of bits flipped in the gene string; In multiple bit flip a random number of bits between 0 and $L-1$ is chosen to be flipped instead of only one.
+
+	\subsubsection{Single Bit Greedy}
+
+	Single bit greedy flips one bit, if the fitness of the new individual is higher than that of the original the new individual is returned, if its not higher then the bit is flipped back to its original state and the next bit in the sequence is flipped, this process continues until one of the individuals generated has higher fitness than the original or the last bit is reached with none being better, in which case the original individual is returned.
+
+	\subsubsection{Single Bit Max Greedy}
+
+	Single bit max greedy is a variant of single bit greedy, it works very similarly to single bit greedy but instead of returning the first individual better than the original, it stores all of the "improved" individuals in a list and once the algorithm reaches the end of the gene string, it returns the one with the highest fitness.
+
+	\subsubsection{Multiple Bit Greedy}
+
+	Multiple bit greedy also works very similarly to single bit greedy when it comes to flipping bits, but when an individual with better fitness than the original is generated it is not returned, instead the process continues flipping bits on the new improved individual starting by the bit right to the one just flipped. The process continues until the end of the gene string is reached, then the improved individual is returned, if no improved individual exists the original individual is returned.
+
+	\subsubsection{FlipGA}
+
+	FlipGA works exactly like multiple bit greedy, but when the end of the gene string is reached instead of returning it, the algorithm is run again using the new gene string as its input. The algorithm is run as many times as necessary until no further improvements can be obtained, once the algorithm is run and none of the new individuals generated are an improvement over the "original" individual, FlipGA stops and returns said individual.
+
+
+\subsection{Population Replacement}
+Once the array of individuals generated through crossover has undergone the mutation process they have to be added into the population, this presents a challenge, since the total size of the population must remain the same some individuals from the old population have to be selected for removal which can lead to the loss of some good solutions.
+\\This loss of good solutions can be alleviated to some extent through the use of \textit{Elitism} where a number of the best solutions in the population are added to the next generation in order to ensure they don't get replaced, the number of solutions saved is given as a percentage of the population using the parameter $E_p$.
+The two basic types of replacement strategies are \textit{Generational} and \textit{Steady-State} replacement:
+
+\begin{itemize}
+	\item[--] \textit{Generational Replacement}: The whole population is replaced by the new individuals at each time step, unless elitism is active, then the top $X\%$ best solutions from the old population also carry over to the new one.
+	\item[--] \textit{Steady-State Replacement}: Only a small fraction of the population (2 individuals) is replaced at each time step, elitism has no effect on steady-state replacement.
+\end{itemize}
+ 
+Generational replacement is faster at exploring the solution space than steady-state replacement but it can quickly lead to the loss of good solutions if elitism is not used and steps to ensure the new population generated is an improvement over the old one are not taken.
+\\In steady-state replacement new individuals are immediately added to the population, which enables them to be selected as parents for the next children, while this greatly reduces the cost of each iteration it also means it is slower at exploring the solution space since only 0 to 2 new individuals can be generated at each time step, this can also lead to premature convergence if the algorithm focuses too much in the fittest individuals.  
+\\The population replacement techniques analyzed throughout this work are explained below, all the methods explained below can work as both generational replacement functions and as steady-state replacement functions, unless explicitly stated otherwise.
+
+	\subsubsection{Random Replacement}
+
+	In random replacement for each new individual added to the population, a random individual from the old population is removed. This method does not obtain great results in practice since it takes no care to not remove good individuals, instead choosing them randomly independent of their fitness.
+
+	\subsubsection{Mu-Lambda Replacement}
+
+	Mu-Lambda replacement \parencite{Jyotishree2012a} is derived from generational replacement but instead of replacing the old population with the new individuals, they are both mixed into a temporary population and ranked according to their fitness, then the best $S$ individuals are selected as the new population, $S$ is equal to the population length established in the GA's parameters.
+	\\A variant of mu-lambda replacement has also been implemented, in this variant the number of children generated through the selection, crossover and mutation operators is $S*2$ and instead of mixing the old population with the children to rank them, it ranks only the children and selects the best $S-E_p*S$ individuals to form the new population, along with the individuals selected through elitism. 
+
+	\subsubsection{Parent Replacement}
+
+	In parent replacement the parents get replaced by their offspring, therefore each individual is only allowed to breed once, while this helps in introducing genetic diversity to the population in can also lead to the loss of good solutions if a parent with a high fitness is replaced by its child with a lower fitness value.
+	\\This method is exclusively a steady-state replacement function and cannot be used for generational replacement.
+
+	\subsubsection{Weak Parent Replacement}
+
+	Weak parent replacement is derived from parent replacement with the main change being that instead of replacing the parents with their offspring, the four of them are added to a temporary list and ranked according to their fitness value, then the best two individuals are selected to be added back to the general population.
+	\\This method is exclusively a steady-state replacement function and cannot be used for generational replacement.
+
+	\subsubsection{Delete Replacement}
+
+	In delete replacement $I$ individuals are chosen from the old population using the same selection function used during the selection process, then those individuals are deleted and $I$ individuals from the children array are chosen in the same way, but instead of deleting them they are added to the population and the replacement process ends.
+	\\This algorithm reduces the convergence speed of the genetic algorithm which helps in avoiding premature convergence where the algorithm gets stuck in local optima. 
+
+
+\subsection{Problem Specific Optimizations}
+Before running the genetic algorithm on the 3-SAT problem instance, some local search optimizations can be applied to the problem instance in order to try and reduce the size of the solution space which must be searched \parencite{Bhattacharjee2017}.
+
+	\subsubsection{Trivial Case}
+
+	If the problem instance contains only negated variables or only positive variables then we can safely assign the value 0 or 1 to all of them and the boolean equation will evaluate to $True$.
+	\\For example, in the boolean expression:
+
+	\begin{equation*}
+		(x_1) \land (x_1 \lor x_2) \land (x_2 \lor x_3 \lor x_4) \land (x_1 \lor x_2 \lor x_4) \land (x_1 \lor x_2 \lor x_3 \lor x_4)
+	\end{equation*}
+
+	contains only positive variables therefore by setting them all to true $\{x_1,x_2,x_3,x_4\}=\{1,1,1,1\}$ the expression is satisfied.
+
+	\subsubsection{Remove Unit Variables}
+
+	If the boolean expression contains \textit{unit clauses}, these are clauses with a single variable in them, the value of the variable can be set to 0 or 1 accordingly, since the expression must be satisfied in order to satisfy the whole boolean expression, with the variable set, all clauses in which said variable is $True$ can be removed from the expression and the negated form of the variable can also be removed from the rest of the clauses.
+	\\For example, in the boolean expression:
+
+	\begin{equation*}
+	 	(x_1) \land (x_1 \lor \overline{x_2}) \land (x_2 \lor x_3 \lor \overline{x_4}) \land (x_1 \lor \overline{x_2} \lor \overline{x_4}) \land (\overline{x_1} \lor x_2 \lor \overline{x_3} \lor x_4)
+	\end{equation*}
+
+	the first clause is a unit clause, we can safely assign a value to the variable it contains ($x_1=1$), then we can remove the clauses where it appears in its positive form and remove its negated form from the clauses where it appears, this results in the following boolean expression:
+
+	\begin{equation*}
+	 	(x_2 \lor x_3 \lor \overline{x_4}) \land (x_2 \lor \overline{x_3} \lor x_4)
+	\end{equation*}	
+
+	\subsubsection{Remove Pure Variables}
+
+	If a variable appears only in negated form or only in positive form in the whole boolean expression, then said variable can be safely set to 0 (if negated) or 1 and all clauses which contain the variable can be removed from the expression.
+	\\For example, in the boolean expression:
+	\begin{equation*}
+		(x_1 \lor x_2 \lor \overline{x_3}) \land (x_1 \lor \overline{x_2} \lor x_4) \land (x_2 \lor x_3 \lor \overline{x_4}) \land (x_1 \lor \overline{x_2} \lor \overline{x_4}) \land (x_2 \lor \overline{x_3} \lor x_4)
+	\end{equation*}
+
+	$x_1$ only appears in positive form in the expression, therefore we can set $x_1=1$ and remove all clauses where it appears, the resulting simplified boolean expression is:
+
+	\begin{equation*}
+		(x_2 \lor x_3 \lor \overline{x_4}) \land (x_2 \lor \overline{x_3} \lor x_4)
+	\end{equation*}	

@@ -3,3 +3,5 @@ matplotlib
 psycopg2-binary
 seaborn
 sklearn
+ipython-sql
+sqlalchemy
